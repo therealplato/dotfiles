@@ -1,10 +1,9 @@
 " plato's .vimrc
+
 set nocompatible
 syntax on
 set number
-set mouse=nicr " No more drag selection, but fixed a scroll issue
-"set mouse=a 
-"Mouse everywhere. I didn't like this
+set mouse=ncr " click to position cursor in normal, drag to select in input
 
 " Indents/Spacing
 set textwidth=80
@@ -31,13 +30,12 @@ set foldignore=/
 
 
 " Download the Solarized colorscheme! 
-" If you work in terminal (not X) be sure to set terminal colors.
+" If you use terminal (not X) be sure to set terminal colors!
 " https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users
 set background=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 colorscheme solarized
-
 augroup myfiletypes
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
@@ -46,3 +44,4 @@ augroup END
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F8> :bp<CR>
 nnoremap <F9> :bn<CR>
+
