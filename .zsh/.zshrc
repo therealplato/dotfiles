@@ -48,3 +48,20 @@ if [ -s ~/.nvm/nvm.sh ]; then
     NVM_DIR=~/.nvm
     source ~/.nvm/nvm.sh
 fi
+
+if [[ $1 == eval ]]
+then
+    "$@"
+set --
+fi
+
+# Explicit is better than implicit.
+export ZDOTDIR="$HOME/.zsh"
+
+# Helper function used within.
+function load {
+  source $ZDOTDIR/$1.zsh
+}
+
+# Chain load the various components of our configuration.
+load venv
