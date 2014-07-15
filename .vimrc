@@ -1,5 +1,9 @@
 " plato's .vimrc
 
+execute pathogen#infect()
+let g:tern_map_keys=1
+let g:tern_show_argument_hints='on_hold'
+
 set nocompatible
 syntax on
 set number
@@ -39,6 +43,7 @@ colorscheme solarized
 augroup myfiletypes
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
+autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
 
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
