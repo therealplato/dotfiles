@@ -6,21 +6,22 @@ var toR = slate.op("push", {"direction": "right","style": HALF });
 var fL = slate.op("focus", {"direction": "left" });
 var fR = slate.op("focus", {"direction": "right" });
 
+//slate.source("~/.slatetile.js")
 
 slate.bindAll({
-  ".:alt": fullscreen,
-  ",:alt", toggleMinimized,
-  "/:alt", slate.op("show", {"app": "Terminal"}),
+  ";:alt": fullscreen,
+  ".:alt": toggleMinimized,
+  "/:alt": slate.op("show", {"app": "Terminal"}),
   "h:alt": toL, // win to left half
   "l:alt": toR, // win to right half
   "j:alt": fL,  // focus leftwards
   "k:alt": fR,  // focus rightwards
-  // "q:alt,shift": slate.op("relaunch"), // doesn't appear to resource .slate.js?
-  // "/:alt:shift", slate.op("shell", "open -a Terminal.app"), // wrong invokation for new window
+  //"q:alt,shift": slate.op("relaunch"), // doesn't appear to resource .slate.js?
+  //"/:alt:shift": spawnTerm,
 });
 
 function toggleMinimized(win){
-var last = "";
+  var last = "";
   var current = win.app().name();
   if( last != "") { // we remembered something to switch 
     win.doOperation(slate.op("show", {"app": last}));
@@ -31,4 +32,7 @@ var last = "";
   }
 };
 
-slate.source("~/.slatetile.js")
+function spawnTerm(win) {
+  slate.shell("open -a Terminal.app . &> ~/.slate.err.log") // wrong, help?
+};
+
