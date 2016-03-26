@@ -1,4 +1,8 @@
-# plato's .zshrc
+autoload -Uz promptinit && promptinit
+autoload -U colors && colors
+PROMPT="%2~ %{%(!.$fg[red].$fg[green])%(!.⌦  .Ω )$reset_color%}"
+#prompt redhat # preview: prompt -p
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -6,39 +10,36 @@ SAVEHIST=1000
 setopt incappendhistory 
 setopt sharehistory
 setopt extendedhistory
+setopt auto_cd
+
+autoload -Uz compinit && compinit
+setopt completealiases
+setopt completeinword
+setopt menu_complete
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' menu select
+zstyle ':completion:*' rehash true
+
 
 # Vim mode:
 bindkey -v
-# Emas mode:
-# bindkey -v
 # Make alt-dot append the last argument of previous command:
 bindkey '\e.' insert-last-word
 # Rebind home, end
 bindkey '[4~' end-of-line
 bindkey '[1~' beginning-of-line
 bindkey '[3~' delete-char
-autoload -Uz compinit
-compinit
-setopt completealiases
-setopt completeinword
-setopt menu_complete
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-zstyle ':completion:*' menu select
-
-setopt auto_cd
-
-autoload -Uz promptinit
-promptinit
-prompt redhat
-
-REPORTTIME=10
 
 export EDITOR=vim
+export TERM=xterm-256color
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin
 
+#helpers
 alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
 alias xc='xclip -selection primary -o | xclip -selection clipboard -i'
-alias ls='ls --color=auto' #long, recent at bottom, human readable
-alias ls2='ls -ltrh --color=auto' #long, recent at bottom, human readable
+alias ls='ls -aG'
+alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
 alias cp='cp -vi' #verbose interactive
 alias mv='mv -vi' #verbose interactive
 alias pwd='pwd -L && pwd -P'
@@ -55,13 +56,14 @@ then
 set --
 fi
 
-# Explicit is better than implicit.
-export ZDOTDIR="$HOME/.zsh"
+# Docker
+alias dc="docker-compose"
+alias dm="docker-machine"
 
-# Helper function used within.
-function load {
-  source $ZDOTDIR/$1.zsh
-}
+# make the default docker machine connect on terminal open
+DM="default"
+if [[ "$(docker-machine status $DM)" == "Running" ]]
+then
+  eval "$(docker-machine env $DM)"
+fi
 
-# Chain load the various components of our configuration.
-load venv
