@@ -30,3 +30,5 @@ var last = "";
     win.doOperation(slate.op("hide", {"app": "current" }));
   }
 };
+
+slate.source("~/.slatetile.js")
