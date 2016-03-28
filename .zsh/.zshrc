@@ -1,6 +1,6 @@
 autoload -Uz promptinit && promptinit
 autoload -U colors && colors
-PROMPT="%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%(!.⌦  .Ω )$reset_color%}"
+PROMPT="%{ %(!.$fg[red].$fg[green])%(!.⌦ .Ω) $fg[white]%}%2~ $reset_color"
 #prompt redhat # preview: prompt -p
 
 # Lines configured by zsh-newuser-install
@@ -61,7 +61,7 @@ alias dc="docker-compose"
 alias dm="docker-machine"
 
 # make the default docker machine connect on terminal open
-DM="default"
+export DM="default"
 if [[ "$(docker-machine status $DM)" == "Running" ]]
 then
   eval "$(docker-machine env $DM)"
