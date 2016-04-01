@@ -1,6 +1,6 @@
 autoload -Uz promptinit && promptinit
 autoload -U colors && colors
-PROMPT="%{ %(!.$fg[red].$fg[green])%(!.⌦ .Ω) $fg[white]%}%2~ $reset_color"
+PROMPT=" %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$fg[white]%}%2~ %{$reset_color%}"
 #prompt redhat # preview: prompt -p
 
 # Lines configured by zsh-newuser-install
