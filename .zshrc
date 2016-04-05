@@ -62,6 +62,10 @@ alias dm="docker-machine"
 
 # make the default docker machine connect on terminal open
 export DM="default"
+if [[ "$(docker-machine status $DM)" == "Stopped" ]]
+then
+  docker-machine start $DM
+fi
 if [[ "$(docker-machine status $DM)" == "Running" ]]
 then
   eval "$(docker-machine env $DM)"
