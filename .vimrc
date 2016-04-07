@@ -1,13 +1,27 @@
 " plato's .vimrc
+" Required by Vundle:
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and initialize
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
+Plugin 'Valloric/YouCompleteMe'
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 execute pathogen#infect()
 let g:tern_map_keys=1
 let g:tern_show_argument_hints='on_hold'
+let g:airline#extensions#tabline#enabled = 1
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
+let g:go_fmt_command = "goimports"
 
-set nocompatible
+
 syntax on
 set number
 set mouse=ncr " click to position cursor in normal, drag to select in input
+set laststatus=2
 
 " Indents/Spacing
 set textwidth=80
@@ -16,12 +30,12 @@ set softtabstop=2
 set expandtab " tab inserts two spaces
 set shiftwidth=2
 set autoindent
-filetype plugin indent on
 
 " Folds: 
-set foldmethod=syntax 
-set foldlevel=0
-set foldlevelstart=1
+"set foldmethod=syntax 
+set foldmethod=indent
+"set foldlevel=0
+set foldlevelstart=4
 set foldignore=/
 
 " zM = close all
@@ -47,6 +61,7 @@ autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
 
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <F8> :bp<CR>
 nnoremap <F9> :bn<CR>
 
