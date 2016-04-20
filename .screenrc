@@ -3,19 +3,21 @@
 # If you have a screen inside a screen (maybe running screen on both server and
 # local,) you might want to set different escape keys for them
 
+# Enable mouse scrolling and scroll bar history scrolling
 termcapinfo xterm* ti@:te@
+term screen-256color
+
 
 escape ^Aa
 autodetach on
 
-term screen-256color
 startup_message off
-bindkey "^[Od" prev  # change window with ctrl-left
-bindkey "^[Oc" next  # change window with ctrl-right
+#bindkey "^[Od" prev  # change window with ctrl-left
+#bindkey "^[Oc" next  # change window with ctrl-right
 
 hardstatus off
 hardstatus alwayslastline
-hardstatus string '%{= kM}[%H]%{g}[%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %m-%d %{W} %c %{g}]'
+hardstatus string '%{= w} %H %{r}[%= %{= w}%?%-Lw%?%{r}(%{W}%n %f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{r}][%{C} %m/%d  %c %{r}] '
 
 # Start numbering from 1
 bind c screen 1
@@ -24,10 +26,10 @@ bind 0 select 10
 
 # Default windows and commands
 # Anyone know how to automatically cd somewhere when invoking zsh?
-screen -t qz 1 zsh
-screen -t psp 2 zsh
-screen -t app 3 zsh 
-screen -t buk 4 zsh 
-screen -t svs 5 zsh
-screen -t kry 6 ssh foo@bar
-screen -t ec2 7 ssh foo@baz
+screen -t vim 1 zsh
+screen -t test 2 zsh
+screen -t more 3 zsh
+#screen -t buk 4 zsh 
+#screen -t svs 5 zsh
+#screen -t kry 6 ssh foo@bar
+#screen -t ec2 7 ssh foo@baz
