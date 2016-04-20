@@ -33,16 +33,17 @@ bindkey '[3~' delete-char
 export EDITOR=vim
 export TERM=xterm-256color
 export GOPATH=$HOME/.go
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH
 
 #helpers
 alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
-alias xc='xclip -selection primary -o | xclip -selection clipboard -i'
+#alias xc='xclip -selection primary -o | xclip -selection clipboard -i'
 alias ls='ls -aG'
 alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
 alias cp='cp -vi' #verbose interactive
 alias mv='mv -vi' #verbose interactive
-alias pwd='pwd -L && pwd -P'
+alias pwd='pwd -L && pwd -P' # show both absolute+symlinked
+alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 
 # NVM
 if [ -s ~/.nvm/nvm.sh ]; then
@@ -60,14 +61,15 @@ fi
 alias dc="docker-compose"
 alias dm="docker-machine"
 
-# make the default docker machine connect on terminal open
 export DM="default"
+# Start the default docker machine
 if [[ "$(docker-machine status $DM)" == "Stopped" ]]
 then
   docker-machine start $DM
 fi
+
+# Make the default docker machine active
 if [[ "$(docker-machine status $DM)" == "Running" ]]
 then
   eval "$(docker-machine env $DM)"
 fi
-
