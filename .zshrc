@@ -1,7 +1,8 @@
+source ~/zsh/gitps.sh
+PROMPT=' $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
+#prompt redhat # preview: prompt -p
 autoload -Uz promptinit && promptinit
 autoload -U colors && colors
-PROMPT=" %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$fg[white]%}%2~ %{$reset_color%}"
-#prompt redhat # preview: prompt -p
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
