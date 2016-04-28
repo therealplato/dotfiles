@@ -8,9 +8,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " map alt-shift-h on osx:
-nnoremap Ó :bp<cr>
+nnoremap Ó :bp!<cr>
 " map alt-shift-l on osx:
-nnoremap Ò :bn<cr>
+nnoremap Ò :bn!<cr>
 nnoremap <C-w><C-c> <C-w>c
 
 " Required by Vundle:
