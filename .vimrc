@@ -1,4 +1,18 @@
 " plato's .vimrc
+
+" Keybinds
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" map alt-shift-h on osx:
+nnoremap Ó :bp<cr>
+" map alt-shift-l on osx:
+nnoremap Ò :bn<cr>
+nnoremap <C-w><C-c> <C-w>c
+
 " Required by Vundle:
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -6,6 +20,9 @@ set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and i
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'rking/ag.vim'
+Plugin 'vim-scripts/tComment'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -31,10 +48,14 @@ set expandtab " tab inserts two spaces
 set shiftwidth=2
 set autoindent
 
+" Windows:
+set splitbelow
+set splitright
+
 " Folds: 
+"set foldlevel=0
 "set foldmethod=syntax 
 set foldmethod=indent
-"set foldlevel=0
 set foldlevelstart=4
 set foldignore=/
 
@@ -43,8 +64,7 @@ set foldignore=/
 " za = toggle @ cursor
 " zO = open @ cursor and children
 " zC = close @ cursor and children
-" Download this plugin for better js fold detection:
-" http://www.vim.org/scripts/script.php?script_id=1491
+" Download this plugin for better js fold detection: http://www.vim.org/scripts/script.php?script_id=1491
 
 
 " Download the Solarized colorscheme! 
@@ -56,12 +76,8 @@ let g:solarized_termcolors=256
 colorscheme solarized
 augroup myfiletypes
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
-autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
+autocmd FileType go set tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
+"autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
-
-nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
-nnoremap <F3> :NERDTreeToggle<CR>
-nnoremap <F8> :bp<CR>
-nnoremap <F9> :bn<CR>
 
