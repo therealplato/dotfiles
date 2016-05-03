@@ -1,3 +1,30 @@
+#alias xc='xclip -selection primary -o | xclip -selection clipboard -i'     # for linux. for osx use ...| pbcopy
+alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
+alias ls='ls -aG'
+alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
+alias cp='cp -vi' #verbose interactive
+alias mv='mv -vi' #verbose interactive
+alias pwd='pwd -L && pwd -P' # show both absolute+symlinked
+alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+
+#git
+alias gs="git status"
+alias gl="git log --oneline -n20"
+alias gd="git diff"
+alias gca="git add -A; git commit"
+alias gco="git checkout"
+alias gfa="git fetch --all"
+
+#docker
+alias dc="docker-compose"
+alias dm="docker-machine"
+
+# env
+export EDITOR=vim
+export TERM=xterm-256color
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH
+
 source ~/zsh/gitps.sh
 PROMPT=' $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
 #prompt redhat # preview: prompt -p
@@ -31,21 +58,6 @@ bindkey '[4~' end-of-line
 bindkey '[1~' beginning-of-line
 bindkey '[3~' delete-char
 
-export EDITOR=vim
-export TERM=xterm-256color
-export GOPATH=$HOME/.go
-export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH
-
-#helpers
-alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
-#alias xc='xclip -selection primary -o | xclip -selection clipboard -i'
-alias ls='ls -aG'
-alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
-alias cp='cp -vi' #verbose interactive
-alias mv='mv -vi' #verbose interactive
-alias pwd='pwd -L && pwd -P' # show both absolute+symlinked
-alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
-
 # NVM
 if [ -s ~/.nvm/nvm.sh ]; then
     NVM_DIR=~/.nvm
@@ -59,9 +71,6 @@ set --
 fi
 
 # Docker
-alias dc="docker-compose"
-alias dm="docker-machine"
-
 export DM="default"
 # Start the default docker machine
 if [[ "$(docker-machine status $DM)" == "Stopped" ]]
