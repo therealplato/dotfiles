@@ -13,6 +13,24 @@ nnoremap Ó :bp!<cr>
 nnoremap Ò :bn!<cr>
 nnoremap <C-w><C-c> <C-w>c
 
+let mapleader=","
+" map vim-go
+nnoremap <Leader>, :GoAlternate<CR>
+nnoremap <Leader>t :GoTest<CR>
+nnoremap <Leader>b :GoBuild<CR>
+nnoremap <Leader>r :GoRename<CR>
+nnoremap <Leader>R :GoRun<CR>
+nnoremap <Leader>z :GoCallers<CR>
+nnoremap <Leader>x :GoCallees<CR>
+nnoremap <Leader>c :GoReferrers<CR>
+nnoremap <Leader>v :GoImplements<CR>
+nnoremap <Leader>d :GoDef<CR>
+nnoremap <Leader>i :GoImports<CR>
+nnoremap <Leader>I :GoInstall<CR>
+nnoremap <Leader>p :GoPlay<CR>
+
+
+
 " Required by Vundle:
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -22,6 +40,8 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rking/ag.vim'
 Plugin 'vim-scripts/tComment'
+Plugin 'fatih/vim-go'
+Plugin 'scrooloose/nerdtree'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
