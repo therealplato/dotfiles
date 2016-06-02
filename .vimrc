@@ -29,8 +29,6 @@ nnoremap <Leader>i :GoImports<CR>
 nnoremap <Leader>I :GoInstall<CR>
 nnoremap <Leader>p :GoPlay<CR>
 
-
-
 " Required by Vundle:
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -42,7 +40,8 @@ Plugin 'rking/ag.vim'
 Plugin 'vim-scripts/tComment'
 Plugin 'fatih/vim-go'
 Plugin 'scrooloose/nerdtree'
-
+Plugin 'vim-airline/vim-airline'
+" see installation instructions at https://github.com/Valloric/YouCompleteMe
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -53,6 +52,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
 let g:go_fmt_command = "goimports"
+let NERDTreeQuitOnOpen = 1
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_complete_in_comments = 1
+
 
 
 syntax on
