@@ -19,6 +19,9 @@ alias gfa="git fetch --all"
 alias dc="docker-compose"
 alias dm="docker-machine"
 
+#go
+alias nov="grep -v vendor"
+
 # env
 export EDITOR=vim
 export TERM=xterm-256color
@@ -51,6 +54,7 @@ zstyle ':completion:*' rehash true
 
 # Vim mode:
 bindkey -v
+bindkey "^R" history-incremental-pattern-search-backward
 # Make alt-dot append the last argument of previous command:
 bindkey '\e.' insert-last-word
 # Rebind home, end
