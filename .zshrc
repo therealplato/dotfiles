@@ -11,6 +11,7 @@ alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 alias gs="git status"
 alias gl="git log --oneline -n20"
 alias gd="git diff"
+alias gb="git branch"
 alias gca="git add -A; git commit"
 alias gco="git checkout"
 alias gfa="git fetch --all"
@@ -18,9 +19,12 @@ alias gfa="git fetch --all"
 #docker
 alias dc="docker-compose"
 alias dm="docker-machine"
+alias dmon="dm start default && eval $(dm env default)"
 
 #go
-alias nov="grep -v vendor"
+alias dct="docker-compose run test go test ./..."
+alias nov="grep --line-buffered -v vendor"
+alias noi="grep --line-buffered -v level=info"
 
 # env
 export EDITOR=vim
@@ -44,7 +48,7 @@ setopt extendedhistory
 setopt auto_cd
 
 autoload -Uz compinit && compinit
-setopt completealiases
+unsetopt completealiases # now aliases are expanded before zsh looks for tab completion
 setopt completeinword
 setopt menu_complete
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
@@ -55,6 +59,7 @@ zstyle ':completion:*' rehash true
 # Vim mode:
 bindkey -v
 bindkey "^R" history-incremental-pattern-search-backward
+
 # Make alt-dot append the last argument of previous command:
 bindkey '\e.' insert-last-word
 # Rebind home, end
@@ -74,7 +79,7 @@ then
 set --
 fi
 
-# Docker
+# Docker Beta For Mac sucked. Using docker machine again:
 export DM="default"
 # Start the default docker machine
 if [[ "$(docker-machine status $DM)" == "Stopped" ]]

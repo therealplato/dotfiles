@@ -56,9 +56,13 @@ let NERDTreeQuitOnOpen = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_complete_in_comments = 1
 
+" Switch syntax highlighting on, when the terminal has colors
+if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+	syntax on
+endif
+" Switch on highlighting the last used search pattern.
+set hlsearch
 
-
-syntax on
 set number
 set mouse=ncr " click to position cursor in normal, drag to select in input
 set laststatus=2
