@@ -15,6 +15,7 @@ alias gb="git branch"
 alias gca="git add -A; git commit"
 alias gco="git checkout"
 alias gfa="git fetch --all"
+alias gpu="git pull upstream"
 
 #docker
 alias dc="docker-compose"
@@ -22,7 +23,7 @@ alias dm="docker-machine"
 alias dmon="dm start default && eval $(dm env default)"
 
 #go
-alias dct="docker-compose run test go test ./..."
+alias dct="docker-compose run test go test"
 alias nov="grep --line-buffered -v vendor"
 alias noi="grep --line-buffered -v level=info"
 
