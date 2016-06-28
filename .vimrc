@@ -1,19 +1,27 @@
 " plato's .vimrc
 
-" Keybinds
+let mapleader=","
+
+" map f2 toggle line numbers, f3 toggle nerdtree
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
+
+" map alt-shift-h, alt-shift-l on osx:
+nnoremap Ó :bp!<cr>
+nnoremap Ò :bn!<cr>
+
+" map window aliases
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" map alt-shift-h on osx:
-nnoremap Ó :bp!<cr>
-" map alt-shift-l on osx:
-nnoremap Ò :bn!<cr>
-nnoremap <C-w><C-c> <C-w>c
+nnoremap <Leader>` <C-w>c
+nnoremap <Leader>. :NERDTreeToggle<CR>
 
-let mapleader=","
+autocmd vimenter * NERDTree
+autocmd vimenter * wincmd p
+
+
 " map vim-go
 nnoremap <Leader>, :GoAlternate<CR>
 nnoremap <Leader>t :GoTest<CR>
@@ -35,19 +43,20 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and initialize
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'rking/ag.vim'
 Plugin 'vim-scripts/tComment'
 Plugin 'fatih/vim-go'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
-" see installation instructions at https://github.com/Valloric/YouCompleteMe
+" see installation instructions at https://github.com/Valloric/YouCompleteMe :
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'altercation/vim-colors-solarized'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-execute pathogen#infect()
-let g:tern_map_keys=1
-let g:tern_show_argument_hints='on_hold'
+"let g:tern_map_keys=1
+"let g:tern_show_argument_hints='on_hold'
 let g:airline#extensions#tabline#enabled = 1
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
@@ -64,7 +73,8 @@ endif
 set hlsearch
 
 set number
-set mouse=ncr " click to position cursor in normal, drag to select in input
+" set mouse=ncr " click to position cursor in normal, drag to select in input
+set mouse=a
 set laststatus=2
 
 " Indents/Spacing
@@ -101,10 +111,10 @@ set background=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 colorscheme solarized
+
 augroup myfiletypes
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 autocmd FileType go set tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
 "autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
-
