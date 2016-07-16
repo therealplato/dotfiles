@@ -1,12 +1,11 @@
 " plato's .vimrc
-
 let mapleader=","
 
 " map f2 toggle line numbers, f3 toggle nerdtree
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
 
-" map alt-shift-h, alt-shift-l on osx:
+" map alt-shift-h, alt-shift-l on osx to buffer switch:
 nnoremap Ó :bp!<cr>
 nnoremap Ò :bn!<cr>
 
@@ -18,25 +17,33 @@ nnoremap <C-l> <C-w>l
 nnoremap <Leader>` <C-w>c
 nnoremap <Leader>. :NERDTreeToggle<CR>
 
+" Start with nerdtree open but main window focused:
 autocmd vimenter * NERDTree
 autocmd vimenter * wincmd p
-
 
 " map vim-go
 nnoremap <Leader>, :GoAlternate<CR>
 nnoremap <Leader>t :GoTest<CR>
+nnoremap <Leader>T :GoTestFunc<CR>
 nnoremap <Leader>b :GoBuild<CR>
 nnoremap <Leader>r :GoRename<CR>
 nnoremap <Leader>R :GoRun<CR>
 nnoremap <Leader>z :GoCallers<CR>
 nnoremap <Leader>x :GoCallees<CR>
+nnoremap <Leader>? :GoCoverageToggle<CR>
 nnoremap <Leader>c :GoReferrers<CR>
 nnoremap <Leader>v :GoImplements<CR>
 nnoremap <Leader>d :GoDef<CR>
+nnoremap <Leader>D :GoDefPop<CR>
 nnoremap <Leader>i :GoImports<CR>
 nnoremap <Leader>I :GoInstall<CR>
 nnoremap <Leader>p :GoPlay<CR>
+nnoremap <Leader>/ :GoInfo<CR>
+" jump to next/prev vim-go error:
+map <C-n> :cn<CR>
+map <C-m> :cp<CR>
 
+set autowrite                 " save on buffer switch
 " Required by Vundle:
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -48,20 +55,29 @@ Plugin 'vim-scripts/tComment'
 Plugin 'fatih/vim-go'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
-" see installation instructions at https://github.com/Valloric/YouCompleteMe :
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'   " see installation instructions at https://github.com/Valloric/YouCompleteMe
 Plugin 'altercation/vim-colors-solarized'
-
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'ctrlpvim/ctrlp.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-"let g:tern_map_keys=1
-"let g:tern_show_argument_hints='on_hold'
 let g:airline#extensions#tabline#enabled = 1
+
+let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
-let g:go_fmt_command = "goimports"
+let g:go_auto_sameids = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_extra_types = 1
+" let g:go_fmt_experimental = 1 "should fix losing cursor position in GoAlternate
+
 let NERDTreeQuitOnOpen = 1
+
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_complete_in_comments = 1
 
@@ -74,7 +90,7 @@ set hlsearch
 
 set number
 " set mouse=ncr " click to position cursor in normal, drag to select in input
-set mouse=a
+set mouse=a     " click to position cursor always
 set laststatus=2
 
 " Indents/Spacing
