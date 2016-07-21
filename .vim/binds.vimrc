@@ -10,10 +10,13 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <Leader>` <C-w>c
+nnoremap <Leader>- <C-w>c
+" new blank split:
+nnoremap <Leader>= :vnew<CR>
 nnoremap <Leader>. :NERDTreeToggle<CR>
 " alt-shift-h, alt-shift-l on osx -> buffer switch:
-nnoremap Ó :bp!<cr>
-nnoremap Ò :bn!<cr>
+nnoremap Ó :bp!<CR>
+nnoremap Ò :bn!<CR>
 
 " vim-go
 nnoremap <Leader>, :GoAlternate<CR>

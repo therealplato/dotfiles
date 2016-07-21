@@ -21,6 +21,11 @@ alias gpu="git pull upstream"
 alias dc="docker-compose"
 alias dm="docker-machine"
 alias dmon="dm start default && eval $(dm env default)"
+alias dwipe="docker stop $(docker ps -q) && \
+	           docker rmi -f $(docker images -aq)"
+
+#             docker rm -f $(docker ps -aq) && \
+#             docker volume rm $(docker volume ls -q)"
 
 #go
 alias dct="docker-compose run test go test"
@@ -34,6 +39,7 @@ export GOPATH=$HOME/.go
 export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH
 
 source ~/zsh/gitps.sh
+source ~/zsh/namely.zshrc
 PROMPT=' $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
 #prompt redhat # preview: prompt -p
 autoload -Uz promptinit && promptinit
