@@ -11,7 +11,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <Leader>` <C-w>c
 nnoremap <Leader>- <C-w>c
-" new blank split:
+nnoremap <Leader>[ <C-w>H
+nnoremap <Leader>] <C-w>K
 nnoremap <Leader>= :vnew<CR>
 nnoremap <Leader>. :NERDTreeToggle<CR>
 " alt-shift-h, alt-shift-l on osx -> buffer switch:

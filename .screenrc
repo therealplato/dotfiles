@@ -6,6 +6,7 @@
 # Enable mouse scrolling and scroll bar history scrolling
 termcapinfo xterm* ti@:te@
 term screen-256color
+shell /bin/zsh
 
 
 escape ^Aa
@@ -17,7 +18,7 @@ startup_message off
 
 hardstatus off
 hardstatus alwayslastline
-hardstatus string '%{= w} %H %{r}[%= %{= w}%?%-Lw%?%{r}(%{W}%n %f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{r}][%{C} %m/%d  %c %{r}] '
+hardstatus string '%{= w} %H %{r}%= %{= w}%?%-Lw%?%{r}(%{W}%n %f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{r}  %{c}%m/%d  %{C}%c  %{r}'
 
 # Start numbering from 1
 bind c screen 1

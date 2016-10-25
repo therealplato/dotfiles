@@ -1,3 +1,9 @@
+# envs
+export EDITOR=vim
+export TERM=xterm-256color
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH
+
 #alias xc='xclip -selection primary -o | xclip -selection clipboard -i'     # for linux. for osx use ...| pbcopy
 alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
 alias ls='ls -aG'
@@ -5,41 +11,47 @@ alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
 alias cp='cp -vi' #verbose interactive
 alias mv='mv -vi' #verbose interactive
 alias pwd='pwd -L && pwd -P' # show both absolute+symlinked
-alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+alias pwdcd='command pwd -P |xargs cd'
+# alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+alias gource-all="gource --git-branch master --auto-skip-seconds 5 --bloom-multiplier 0.1 --highlight-dirs --seconds-per-day 0.1 --dir-name-depth 2 --key --highlight-users --viewport 1280x720 --user-friction 0.01 --max-user-speed 100 --elasticity 100"
+alias gource-recent="gource --git-branch master --bloom-multiplier 0.1 --highlight-dirs --time-scale 1 --dir-name-depth 2 --key --start-date 2016-06-01 --highlight-users --viewport 1280x720"
+
+# Kubernetes
+alias kbb="kubectl --kubeconfig='~/k8s/kubeconfig' --namespace='broadway'"
 
 #git
 alias gs="git status"
 alias gl="git log --oneline -n20"
 alias gd="git diff"
+alias gds="git diff --staged"
+alias gd1="git diff HEAD^"
+alias gd0="git diff --summary --stat"
 alias gb="git branch"
 alias gca="git add -A; git commit"
 alias gco="git checkout"
 alias gfa="git fetch --all"
 alias gpu="git pull upstream"
+alias gr="git rebase"
+alias grc="git rebase --continue"
+alias grH="git reset HEAD^"
 
 #docker
 alias dc="docker-compose"
 alias dm="docker-machine"
 alias dmon="dm start default && eval $(dm env default)"
-alias dwipe="docker stop $(docker ps -q) && \
+alias dnuke="docker stop $(docker ps -q) && \
+             docker volume rm $(docker volume ls -q) && \
+             docker rm -f $(docker ps -aq) && \
 	           docker rmi -f $(docker images -aq)"
-
-#             docker rm -f $(docker ps -aq) && \
-#             docker volume rm $(docker volume ls -q)"
 
 #go
 alias dct="docker-compose run test go test"
 alias nov="grep --line-buffered -v vendor"
 alias noi="grep --line-buffered -v level=info"
-
-# env
-export EDITOR=vim
-export TERM=xterm-256color
-export GOPATH=$HOME/.go
-export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH
+alias gv="govendor"
+alias gvl="govendor list"
 
 source ~/zsh/gitps.sh
-source ~/zsh/namely.zshrc
 PROMPT=' $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
 #prompt redhat # preview: prompt -p
 autoload -Uz promptinit && promptinit
@@ -86,7 +98,7 @@ then
 set --
 fi
 
-# Docker Beta For Mac sucked. Using docker machine again:
+# Start and Connect to default docker-machine on new terminal
 export DM="default"
 # Start the default docker machine
 if [[ "$(docker-machine status $DM)" == "Stopped" ]]

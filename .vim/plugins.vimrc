@@ -7,8 +7,11 @@ Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'rking/ag.vim'
 Plugin 'vim-scripts/tComment'
 Plugin 'fatih/vim-go'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-repeat'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Valloric/YouCompleteMe'  " see installation instructions at https://github.com/Valloric/YouCompleteMe
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'AndrewRadev/splitjoin.vim'
@@ -19,11 +22,15 @@ filetype plugin indent on    " required
 
 " Configure plugins
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='understated'
 
 " Start with nerdtree open but main window focused:
 autocmd vimenter * NERDTree
 autocmd vimenter * wincmd p
 let NERDTreeQuitOnOpen = 1
+let g:NERDTreeDirArrowExpandable = '◎'
+let g:NERDTreeDirArrowCollapsible = '◉'
+
 
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_complete_in_comments = 1
