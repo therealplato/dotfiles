@@ -15,6 +15,7 @@ nnoremap <Leader>[ <C-w>H
 nnoremap <Leader>] <C-w>K
 nnoremap <Leader>= :vnew<CR>
 nnoremap <Leader>. :NERDTreeToggle<CR>
+nnoremap <Leader><Space> za
 " alt-shift-h, alt-shift-l on osx -> buffer switch:
 nnoremap Ó :bp!<CR>
 nnoremap Ò :bn!<CR>
