@@ -1,3 +1,5 @@
+" make backspace delete things again:
+set backspace=2
 " Visual
 set hlsearch   " Highlight the last used search pattern
 set number      " start with line number displayed
@@ -7,6 +9,7 @@ set laststatus=2
 set splitbelow  " open windows to right and down
 set splitright
 set autowrite   " save on buffer switch
+set updatetime=250
 
 " Indents/Spacing
 set textwidth=80

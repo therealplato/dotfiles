@@ -1,8 +1,14 @@
+" vim
+" osx: alt-shift-q; alt-q
+nnoremap Œ :qa!<CR>
+nnoremap ∑ :wqa<CR>
+
 let mapleader=","
 
 " f2 -> toggle line numbers, f3 -> toggle nerdtree
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
+set pastetoggle=<leader>8
 
 " window manipulation:
 nnoremap <C-h> <C-w>h
@@ -13,6 +19,7 @@ nnoremap <Leader>` <C-w>c
 nnoremap <Leader>- <C-w>c
 nnoremap <Leader>[ <C-w>H
 nnoremap <Leader>] <C-w>K
+nnoremap <Leader><Backspace> :bdel<CR>
 nnoremap <Leader>= :vnew<CR>
 nnoremap <Leader>. :NERDTreeToggle<CR>
 nnoremap <Leader><Space> za
@@ -37,7 +44,8 @@ nnoremap <Leader>D :GoDefPop<CR>
 nnoremap <Leader>i :GoImports<CR>
 nnoremap <Leader>I :GoInstall<CR>
 nnoremap <Leader>p :GoPlay<CR>
+nnoremap <Leader>' :GoDocBrowser<CR>
 nnoremap <Leader>/ :GoInfo<CR>
 " jump to next/prev vim-go error:
-map <C-n> :cn<CR>
-map <C-m> :cp<CR>
+nnoremap <C-n> :cn<CR>
+nnoremap <C-m> :cp<CR>

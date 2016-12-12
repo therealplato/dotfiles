@@ -1,23 +1,35 @@
+source /usr/local/etc/profile.d/z.sh
+source ~/zsh/gitps.sh
+PROMPT=' $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
+#prompt redhat # preview: prompt -p
+autoload -Uz promptinit && promptinit
+autoload -U colors && colors
+
 # envs
 export EDITOR=vim
 export TERM=xterm-256color
 export GOPATH=$HOME/.go
-export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH
+export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH:$HOME/bin
 
 #alias xc='xclip -selection primary -o | xclip -selection clipboard -i'     # for linux. for osx use ...| pbcopy
+source ~/zsh/secret.sh
 alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
 alias ls='ls -aG'
 alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
+alias cd='cd -P' # dereference symlinks
 alias cp='cp -vi' #verbose interactive
 alias mv='mv -vi' #verbose interactive
 alias pwd='pwd -L && pwd -P' # show both absolute+symlinked
 alias pwdcd='command pwd -P |xargs cd'
+# brew vim:
+alias vim="/usr/local/Cellar/vim/8.0.0094/bin/vim"
+# alias vim="/usr/local/Cellar/vim/8.0.0094/bin/vim && clear"
+# function vim() { command /usr/local/Cellar/vim/8.0.0094/bin/vim "$@" && clear }
+# alias vim='vim()'
+# macvim:
 # alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 alias gource-all="gource --git-branch master --auto-skip-seconds 5 --bloom-multiplier 0.1 --highlight-dirs --seconds-per-day 0.1 --dir-name-depth 2 --key --highlight-users --viewport 1280x720 --user-friction 0.01 --max-user-speed 100 --elasticity 100"
 alias gource-recent="gource --git-branch master --bloom-multiplier 0.1 --highlight-dirs --time-scale 1 --dir-name-depth 2 --key --start-date 2016-06-01 --highlight-users --viewport 1280x720"
-
-# Kubernetes
-alias kbb="kubectl --kubeconfig='~/k8s/kubeconfig' --namespace='broadway'"
 
 #git
 alias gs="git status"
@@ -51,11 +63,6 @@ alias noi="grep --line-buffered -v level=info"
 alias gv="govendor"
 alias gvl="govendor list"
 
-source ~/zsh/gitps.sh
-PROMPT=' $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
-#prompt redhat # preview: prompt -p
-autoload -Uz promptinit && promptinit
-autoload -U colors && colors
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
