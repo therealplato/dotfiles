@@ -1,5 +1,9 @@
 " make backspace delete things again:
 set backspace=2
+
+" mitigate RHSA-2016:2972-1:
+set nomodeline
+
 " Visual
 set hlsearch   " Highlight the last used search pattern
 set number      " start with line number displayed
