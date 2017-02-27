@@ -8,11 +8,16 @@ var opPushL = slate.op("push", {"direction": "left", "style": HALF });
 var opPushR = slate.op("push", {"direction": "right","style": HALF });
 var opFocusLeft = slate.op("focus", {"direction": "left" });
 var opFocusRight = slate.op("focus", {"direction": "right" });
+var opThrow1 = slate.op("throw", { "screen" : 0 });
+var opThrow2 = slate.op("throw", { "screen" : 1 });
+var opThrow3 = slate.op("throw", { "screen" : 2 });
 
 // Binds
 slate.bindAll({
   ";:alt": opFullHere,
-  ".:alt": toggleMinimized,
+  "1:alt": opThrow1, // win to monitor 1
+  "2:alt": opThrow2, // win to monitor 2
+  "3:alt": opThrow3, // win to monitor 3
   "/:alt": slate.op("show", {"app": "Terminal"}),
   "h:alt": opPushL, // win to left half
   "l:alt": opPushR, // win to right half
@@ -22,23 +27,9 @@ slate.bindAll({
 });
 
 
-// State variables
-var lastToggledOut = "";
-
-// Helper functions
-function toggleMinimized(win){
-  var current = win.app().name();
-  if( lastToggledOut != "") { // we remembered something to switch
-    win.doOperation(slate.op("show", {"app": lastToggledOut}));
-    win.doOperation(slate.op("focus", {"app": lastToggledOut}));
-    lastToggledOut = "";
-  } else {
-    lastToggledOut = current;
-    win.doOperation(slate.op("hide", {"app": "current" }));
-  }
-}
-
 function spawnTerm(win) {
-  slate.shell("/usr/bin/open -a /Applications/Utilities/Terminal.app /Users");
+  slate.shell("/usr/bin/open -a /Applications/Hyper.app/Contents/MacOS/Hyper /Users/isaac");
+  // slate.shell("/usr/bin/open -a /Applications/Utilities/Terminal.app /Users");
+  // slate.shell("/usr/bin/open -an /Applications/iTerm.app");
+  // slate.shell("/Applications/iTerm.app/Contents/MacOS/iTerm2")
 }
-
