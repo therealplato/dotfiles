@@ -9,6 +9,7 @@ let mapleader=","
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
 set pastetoggle=<leader>8
+nnoremap <C-/> <Plug>TComment
 
 " window manipulation:
 nnoremap <C-h> <C-w>h
@@ -21,7 +22,7 @@ nnoremap <Leader>[ <C-w>H
 nnoremap <Leader>] <C-w>K
 nnoremap <Leader><Backspace> :bdel<CR>
 nnoremap <Leader>= :vnew<CR>
-nnoremap <Leader>. :NERDTreeToggle<CR>
+nnoremap <Leader>m :NERDTreeToggle<CR>
 nnoremap <Leader><Space> za
 " alt-shift-h, alt-shift-l on osx -> buffer switch:
 nnoremap Ó :bp!<CR>
@@ -49,3 +50,5 @@ nnoremap <Leader>/ :GoInfo<CR>
 " jump to next/prev vim-go error:
 nnoremap <C-n> :cn<CR>
 nnoremap <C-m> :cp<CR>
+
+nnoremap <Leader>. :TagbarToggle<CR>
