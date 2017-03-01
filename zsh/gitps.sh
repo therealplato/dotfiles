@@ -5,10 +5,24 @@
 # A: finds the absolute path, even if this is symlinked
 # h: equivalent to dirname
 export __GIT_PROMPT_DIR=${0:A:h}
+# echo "*****$__GIT_PROMPT_DIR****"
 
 # Initialize colors.
 autoload -U colors
 colors
+
+# Values for the appearance of the prompt. Configure at will.
+ZSH_THEME_GIT_PROMPT_PREFIX=""
+ZSH_THEME_GIT_PROMPT_SUFFIX=" "
+ZSH_THEME_GREEN="%{$fg[green]%}"
+ZSH_THEME_RED="%{$fg[red]%}"
+ZSH_THEME_CYAN="%{$fg[cyan]%}"
+ZSH_THEME_YELLOW="%{$fg[yellow]%}"
+# ZSH_THEME_GREEN="%{$fg_bold[green]%}"
+# ZSH_THEME_RED="%{$fg_bold[red]%}"
+# ZSH_THEME_CYAN="%{$fg_bold[cyan]%}"
+# ZSH_THEME_YELLOW="%{$fg_bold[yellow]%}"
+ZSH_THEME_GIT_PROMPT_BRANCH="⎇ "
 
 # Allow for functions in the prompt.
 setopt PROMPT_SUBST
@@ -37,6 +51,7 @@ function precmd_update_git_vars() {
 
 function chpwd_update_git_vars() {
     update_current_git_vars
+    update_prompt_flag
 }
 
 function update_current_git_vars() {
@@ -55,6 +70,26 @@ function update_current_git_vars() {
   GIT_UNTRACKED=$__CURRENT_GIT_STATUS[7]
 }
 
+function update_prompt_flag() {
+  KUBE_FLAG=""
+  command pwd | grep "/kube-mc-red/eu"
+  if [ $? -eq 0 ]
+  then
+    KUBE_FLAG="🇪🇺"
+    return
+  fi
+  command pwd | grep "/kube-mc-red/us"
+  if [ $? -eq 0 ]
+  then
+    KUBE_FLAG="🇺🇸"
+    return
+  fi
+}
+
+function prompt_flag() {
+  echo "$KUBE_FLAG"
+}
+
 
 git_super_status() {
 	precmd_update_git_vars
@@ -62,15 +97,19 @@ git_super_status() {
     STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GREEN"
     # lowest to highest priority:
     if [ "$GIT_UNTRACKED" -ne "0" ]; then
+      # STATUS="$STATUS UNTRACKED"
       STATUS="$STATUS$ZSH_THEME_CYAN"
     fi
     if [ "$GIT_CHANGED" -ne "0" ]; then
+      # STATUS="$STATUS CHANGED"
       STATUS="$STATUS$ZSH_THEME_YELLOW"
     fi
     if [ "$GIT_STAGED" -ne "0" ]; then
+      # STATUS="$STATUS STAGED"
       STATUS="$STATUS$ZSH_THEME_YELLOW"
     fi
     if [ "$GIT_CONFLICTS" -ne "0" ]; then
+      # STATUS="$STATUS CONFLICTS"
       STATUS="$STATUS$ZSH_THEME_RED"
     fi
     STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH"
@@ -79,11 +118,3 @@ git_super_status() {
 	fi
 }
 
-# Default values for the appearance of the prompt. Configure at will.
-ZSH_THEME_GIT_PROMPT_PREFIX=""
-ZSH_THEME_GIT_PROMPT_SUFFIX=" "
-ZSH_THEME_GREEN="%{$fg_bold[green]%}"
-ZSH_THEME_RED="%{$fg_bold[red]%}"
-ZSH_THEME_CYAN="%{$fg_bold[cyan]%}"
-ZSH_THEME_YELLOW="%{$fg_bold[yellow]%}"
-ZSH_THEME_GIT_PROMPT_BRANCH="⎇ "

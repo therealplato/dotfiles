@@ -2,7 +2,8 @@ source /usr/local/etc/profile.d/z.sh
 source ~/zsh/gitps.sh
 source ~/zsh/plato.sh
 source ~/zsh/nvm.sh
-PROMPT=' $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
+PROMPT='$(prompt_flag)
+ $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
 #prompt redhat # preview: prompt -p
 autoload -Uz promptinit && promptinit
 autoload -U colors && colors
