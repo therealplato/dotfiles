@@ -3,6 +3,9 @@
 export EDITOR=vim
 export TERM=xterm-256color
 export GOPATH=$HOME/.go
+export G=$GOPATH/src
+export P=$GOPATH/src/github.com/therealplato
+export R=$GOPATH/src/github.com/movio/red
 export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH:$HOME/bin
 
 alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
