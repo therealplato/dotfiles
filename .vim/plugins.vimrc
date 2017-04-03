@@ -65,27 +65,8 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_extra_types = 1
 let g:go_gocode_unimported_packages = 1
-" let g:go_fmt_experimental = 1 "should fix losing cursor position in GoAlternate
+let g:go_list_type = "quickfix"
 
-" go command status (requires vim-go)
-" function! ShowGoInfo(...)
-"   if &filetype == 'go'
-"     let g:airline_section_c = '%<%f%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#goStatuslineColor#%{go#complete#GetInfo()}%*%#__restore__#'
-"   endif
-" endfunction
-"
-" call airline#add_statusline_func('ShowGoInfo')
-"
-" let g:airline_section_b = '%m %t'
-" let g:airline_section_c = '%<%#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#goStatuslineColor#%{go#statusline#Show()}%*%#__restore__#'
-"
-" function! ShowGoStatus(...)
-"   if &filetype == 'go'
-"     let g:airline_section_c = '%<%f%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#goStatuslineColor#%{go#statusline#Show()}%*%#__restore__#'
-"   endif
-" endfunction
-" call airline#add_statusline_func('ShowGoStatus')
-"
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -137,7 +118,6 @@ function! ToggleBG()
     set background=dark
   endif
 endfunction
-noremap <leader>bg :call ToggleBG()<CR>
 
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste
@@ -150,7 +130,7 @@ endif
 
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
 
- set hidden
+set hidden
 
 " restore cursor position
 function! ResCur()
@@ -183,3 +163,14 @@ if has('statusline')
   set statusline+=\ [%{getcwd()}]          " Current dir
   set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#cmd#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>

@@ -18,7 +18,8 @@ startup_message off
 
 hardstatus off
 hardstatus alwayslastline
-hardstatus string '%{= w} %H %{r}%= %{= w}%?%-Lw%?%{r}(%{W}%n %f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{r}  %{c}%m/%d  %{C}%c  %{r}'
+hardstatus string '%{= w} %H %{r}%= %{= w}%?%-Lw%?%{r}(%n %f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{r}  %{c}%m/%d  %{C}%c  %{r}'
+# hardstatus string '%{= w} %H %{r}%= %{= w}%?%-Lw%?%{r}(%{W}%n %f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{r}  %{c}%m/%d  %{C}%c  %{r}'
 
 # Start numbering from 1
 bind c screen 1
@@ -27,9 +28,9 @@ bind 0 select 10
 
 # Default windows and commands
 # Anyone know how to automatically cd somewhere when invoking zsh?
-screen -t vim 1 zsh
-screen -t test 2 zsh
-screen -t more 3 zsh
+screen -t red 1 zsh
+screen -t php 2 zsh
+screen -t java 3 zsh
 #screen -t buk 4 zsh 
 #screen -t svs 5 zsh
 #screen -t kry 6 ssh foo@bar

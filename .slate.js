@@ -28,8 +28,8 @@ slate.bindAll({
 
 
 function spawnTerm(win) {
-  slate.shell("/usr/bin/open -a /Applications/Hyper.app/Contents/MacOS/Hyper /Users/isaac");
+  // slate.shell("/usr/bin/open -a /Applications/Hyper.app/Contents/MacOS/Hyper /Users/isaac");
   // slate.shell("/usr/bin/open -a /Applications/Utilities/Terminal.app /Users");
   // slate.shell("/usr/bin/open -an /Applications/iTerm.app");
-  // slate.shell("/Applications/iTerm.app/Contents/MacOS/iTerm2")
+  slate.shell("/Applications/iTerm.app/Contents/MacOS/iTerm2")
 }

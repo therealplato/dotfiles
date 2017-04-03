@@ -16,6 +16,10 @@ alias cp='cp -vi' #verbose interactive
 alias mv='mv -vi' #verbose interactive
 alias pwd='pwd -L && pwd -P' # show both absolute+symlinked
 alias pwdcd='command pwd -P |xargs cd'
+function mkdirc() {
+  mkdir -p $@
+  cd $@
+}
 
 
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"

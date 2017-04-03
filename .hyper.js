@@ -95,12 +95,12 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-    'hyper-solarized-dark',
+    'hyper-solarized-light',
     'hyperlinks',
     'hypertheme',
     'hyper-blink',
   ],
-  // 'hyper-solarized-light',
+    // 'hyper-solarized-dark',
   // 'hyperterm-alternatescroll'
 
   // in development, you can create a directory under
