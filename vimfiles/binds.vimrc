@@ -30,9 +30,6 @@ nnoremap <Leader><Backspace> :bdel<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
 nnoremap <Leader><Space> za
 " alt-shift-h, alt-shift-l on osx -> buffer switch:
-nnoremap Ó :bp!<CR>
-nnoremap Ò :bn!<CR>
-
 
 " vim-go
 augroup vg

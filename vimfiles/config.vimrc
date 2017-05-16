@@ -19,9 +19,6 @@ set autowrite   " save on buffer switch
 set updatetime=250
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=3                 " Minimum lines to keep above and below cursor
-set list
-set listchars=tab:›\ ,trail:⦻,extends:#,nbsp:. " Highlight problematic whitespace
-
 
 " indents/spacing
 set textwidth=80
@@ -42,16 +39,14 @@ set foldignore=/      "dont fold comments
 " zC = close @ cursor and children
 
 " Colors
-" https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users
-set background=dark
-" set background=light
-if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-    let g:solarized_termcolors=256
-    let g:solarized_termtrans=1
-    let g:solarized_contrast="normal"
-    let g:solarized_visibility="normal"
-    color solarized             " Load a colorscheme
-endif
+"set background=dark
+set background=light
+"let g:solarized_termcolors=256
+"let g:solarized_termtrans=1
+"let g:solarized_contrast="normal"
+"let g:solarized_visibility="normal"
+"color solarized             " Load a colorscheme
+
 " Filetype specific configs
 augroup myfiletypes
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
@@ -68,3 +63,61 @@ endif
  set lazyredraw                  " Don't redraw while executing macros
  set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 
+
+if has('clipboard')
+  if has('unnamedplus')  " When possible use + register for copy-paste
+    set clipboard=unnamed,unnamedplus
+  else         " On mac and Windows, use * register for copy-paste
+    set clipboard=unnamed
+  endif
+endif
+
+
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+
+set hidden
+
+
+" restore cursor position
+function! ResCur()
+    if line("'\"") <= line("$")
+        silent! normal! g`"
+        return 1
+    endif
+endfunction
+
+augroup resCur
+    autocmd!
+    autocmd BufWinEnter * call ResCur()
+augroup END
+
+
+highlight clear SignColumn      " SignColumn should match background
+highlight clear LineNr          " Current line number row will have same background color in relative mode
+
+set cursorline
+
+if has('statusline')
+  set laststatus=2
+
+  " Broken down into easily includeable segments
+  set statusline=%<%f\                     " Filename
+  set statusline+=%w%h%m%r                 " Options
+  set statusline+=%{fugitive#statusline()} " Git Hotness
+  set statusline+=%{go#statusline#Show()}
+
+  set statusline+=\ [%{&ff}/%Y]            " Filetype
+  set statusline+=\ [%{getcwd()}]          " Current dir
+  set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+endif
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#cmd#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
