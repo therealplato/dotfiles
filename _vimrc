@@ -47,8 +47,14 @@ let g:go_list_type = "quickfix"
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+"if !exists('g:airline_symbols')
+"  let g:airline_symbols = {}
+"endif
 
 " config.vimrc:
+set guifont=Inconsolata_for_Powerline:h10 
+set encoding=utf-8 
+
 " make backspace delete things again:
 " set backspace=2
 set backspace=indent,eol,start
@@ -143,10 +149,10 @@ augroup resCur
 augroup END
 
 
-highlight clear SignColumn      " SignColumn should match background
-highlight clear LineNr          " Current line number row will have same background color in relative mode
+"set cursorline
+"highlight clear SignColumn      " SignColumn should match background
+"highlight clear LineNr          " Current line number row will have same background color in relative mode
 
-set cursorline
 
 if has('statusline')
   set laststatus=2

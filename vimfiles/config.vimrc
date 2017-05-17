@@ -1,3 +1,6 @@
+set guifont=Inconsolata_for_Powerline:h10 
+set encoding=utf-8 
+
 " make backspace delete things again:
 " set backspace=2
 set backspace=indent,eol,start
@@ -92,10 +95,10 @@ augroup resCur
 augroup END
 
 
-highlight clear SignColumn      " SignColumn should match background
-highlight clear LineNr          " Current line number row will have same background color in relative mode
+"set cursorline
+"highlight clear SignColumn      " SignColumn should match background
+"highlight clear LineNr          " Current line number row will have same background color in relative mode
 
-set cursorline
 
 if has('statusline')
   set laststatus=2
