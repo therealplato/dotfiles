@@ -42,8 +42,9 @@ set foldignore=/      "dont fold comments
 " zC = close @ cursor and children
 
 " Colors
+" color subversive
 " https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users
-set background=dark
+" set background=dark
 " set background=light
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
     let g:solarized_termcolors=256
