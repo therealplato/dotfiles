@@ -45,7 +45,7 @@ set foldignore=/      "dont fold comments
 " color subversive
 " https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users
 " set background=dark
-" set background=light
+set background=light
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
@@ -55,7 +55,7 @@ if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"
 endif
 " Filetype specific configs
 augroup myfiletypes
-autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
+autocmd FileType ruby,eruby,yaml,yml set ai sw=2 sts=2 et
 autocmd FileType go,php  set tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
 "autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim

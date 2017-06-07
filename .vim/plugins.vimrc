@@ -1,13 +1,14 @@
 " Bootstrap plugins:
+set nocompatible
+filetype off
 call plug#begin('~/.vim/plugged')
 Plug 'w0rp/ale'
-Plug 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
-Plug 'maralla/completor.vim'
+" Plug 'maralla/completor.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Valloric/MatchTagAlways'
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'gcmt/wildfire.vim'
 Plug 'jstemmer/gotags'
@@ -24,14 +25,24 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/tComment'
+Plug 'lifepillar/vim-mucomplete'
 if has('python')
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
 endif
 call plug#end()
+filetype plugin on
 
 " Configure plugins
+"
+let g:ale_enabled = 1
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 300
+let g:ale_sign_column_always = 1
+let g:ale_sign_error='*'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
 
@@ -43,8 +54,8 @@ let g:NERDTreeDirArrowExpandable = '◎'
 let g:NERDTreeDirArrowCollapsible = '◉'
 
 
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_complete_in_comments = 1
+" let g:ycm_min_num_of_chars_for_completion = 1
+" let g:ycm_complete_in_comments = 1
 
 let g:gitgutter_sign_column_always=1
 
@@ -101,10 +112,18 @@ let g:tagbar_autoclose = 1
 
 
 " Completion:
-let g:completor_gocode_binary = '/Users/isaac/.go/bin/gocode'
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+set completeopt+=menuone
+set completeopt+=noselect
+set shortmess+=c
+let g:mucomplete#enable_auto_at_startup = 1
+inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+
+" let g:completor_gocode_binary = '/Users/isaac/.go/bin/gocode'
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 " call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
 "     \ 'name': 'gocode',
