@@ -1,7 +1,4 @@
 " vim
-" osx: alt-shift-q; alt-q
-nnoremap Œ :qa!<CR>
-nnoremap ∑ :wqa<CR>
 
 let mapleader=","
 
@@ -12,7 +9,7 @@ nnoremap <F3> :NERDTreeToggle<CR>
 set pastetoggle=<leader>8
 nmap <leader>7 :call ToggleBG()<CR>
 
-nnoremap <C-/> <Plug>TComment
+nmap <leader>9 :TComment<CR>
 
 " window manipulation:
 nnoremap <C-h> <C-w>h

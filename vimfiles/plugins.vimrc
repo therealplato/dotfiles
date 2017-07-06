@@ -13,6 +13,8 @@ call plug#begin('/c/Users/there/vimfiles/plugged')
   Plug 'altercation/vim-colors-solarized'
   Plug 'airblade/vim-gitgutter'
   Plug 'terryma/vim-multiple-cursors'
+  Plug 'maralla/completor.vim'
+  Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '$VIM/plugged/gocode/vim/symlink.sh' }
 call plug#end()
 
 "  Untested:
@@ -25,6 +27,10 @@ call plug#end()
 "  Plug 'majutsushi/tagbar'
 "  Plug 'jstemmer/gotags'
 
+let g:completor_gocode_binary = '/c/Users/there/go/bin/gocode'
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
 let NERDTreeQuitOnOpen = 1
 
@@ -32,8 +38,8 @@ let g:gitgutter_sign_column_always=1
 
 " configure vim-go
 let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+"let g:go_metalinter_autosave = 1
+"let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_auto_sameids = 1
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1

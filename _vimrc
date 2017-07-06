@@ -15,6 +15,8 @@ call plug#begin('/c/Users/there/vimfiles/plugged')
   Plug 'altercation/vim-colors-solarized'
   Plug 'airblade/vim-gitgutter'
   Plug 'terryma/vim-multiple-cursors'
+  Plug 'maralla/completor.vim'
+  Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '$VIM/plugged/gocode/vim/symlink.sh' }
 call plug#end()
 
 "  Untested:
@@ -27,6 +29,10 @@ call plug#end()
 "  Plug 'majutsushi/tagbar'
 "  Plug 'jstemmer/gotags'
 
+let g:completor_gocode_binary = '/c/Users/there/go/bin/gocode'
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
 let NERDTreeQuitOnOpen = 1
 
@@ -34,8 +40,8 @@ let g:gitgutter_sign_column_always=1
 
 " configure vim-go
 let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+"let g:go_metalinter_autosave = 1
+"let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_auto_sameids = 1
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -54,6 +60,7 @@ let g:airline_powerline_fonts = 1
 " config.vimrc:
 set guifont=Inconsolata_for_Powerline:h10 
 set encoding=utf-8 
+set textwidth=120
 
 " make backspace delete things again:
 " set backspace=2
@@ -160,7 +167,7 @@ if has('statusline')
   " Broken down into easily includeable segments
   set statusline=%<%f\                     " Filename
   set statusline+=%w%h%m%r                 " Options
-  set statusline+=%{fugitive#statusline()} " Git Hotness
+"  set statusline+=%{fugitive#statusline()} " Git Hotness
   set statusline+=%{go#statusline#Show()}
 
   set statusline+=\ [%{&ff}/%Y]            " Filetype
@@ -180,9 +187,6 @@ endfunction
 au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 " binds.vimrc:
 " vim
-" osx: alt-shift-q; alt-q
-nnoremap Œ :qa!<CR>
-nnoremap ∑ :wqa<CR>
 
 let mapleader=","
 
@@ -193,7 +197,7 @@ nnoremap <F3> :NERDTreeToggle<CR>
 set pastetoggle=<leader>8
 nmap <leader>7 :call ToggleBG()<CR>
 
-nnoremap <C-/> <Plug>TComment
+nmap <leader>9 :TComment<CR>
 
 " window manipulation:
 nnoremap <C-h> <C-w>h

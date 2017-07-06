@@ -1,5 +1,6 @@
 set guifont=Inconsolata_for_Powerline:h10 
 set encoding=utf-8 
+set textwidth=120
 
 " make backspace delete things again:
 " set backspace=2
@@ -106,7 +107,7 @@ if has('statusline')
   " Broken down into easily includeable segments
   set statusline=%<%f\                     " Filename
   set statusline+=%w%h%m%r                 " Options
-  set statusline+=%{fugitive#statusline()} " Git Hotness
+"  set statusline+=%{fugitive#statusline()} " Git Hotness
   set statusline+=%{go#statusline#Show()}
 
   set statusline+=\ [%{&ff}/%Y]            " Filetype
