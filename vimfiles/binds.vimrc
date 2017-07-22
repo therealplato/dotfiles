@@ -9,7 +9,8 @@ nnoremap <F3> :NERDTreeToggle<CR>
 set pastetoggle=<leader>8
 nmap <leader>7 :call ToggleBG()<CR>
 
-nmap <leader>9 :TComment<CR>
+map <leader>9 :TComment<CR>
+imap jk <Esc>
 
 " window manipulation:
 nnoremap <C-h> <C-w>h

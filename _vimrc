@@ -16,7 +16,8 @@ call plug#begin('/c/Users/there/vimfiles/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'maralla/completor.vim'
-  Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '$VIM/plugged/gocode/vim/symlink.sh' }
+  Plug 'posva/vim-vue'
+  " Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '$VIM/plugged/gocode/vim/symlink.sh' }
 call plug#end()
 
 "  Untested:
@@ -197,7 +198,8 @@ nnoremap <F3> :NERDTreeToggle<CR>
 set pastetoggle=<leader>8
 nmap <leader>7 :call ToggleBG()<CR>
 
-nmap <leader>9 :TComment<CR>
+map <leader>9 :TComment<CR>
+imap jk <Esc>
 
 " window manipulation:
 nnoremap <C-h> <C-w>h

@@ -14,7 +14,8 @@ call plug#begin('/c/Users/there/vimfiles/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'maralla/completor.vim'
-  Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '$VIM/plugged/gocode/vim/symlink.sh' }
+  Plug 'posva/vim-vue'
+  " Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '$VIM/plugged/gocode/vim/symlink.sh' }
 call plug#end()
 
 "  Untested:
