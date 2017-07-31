@@ -6,7 +6,7 @@ export GOPATH=$HOME/.go
 export G=$GOPATH/src
 export P=$GOPATH/src/github.com/therealplato
 export R=$GOPATH/src/github.com/movio/red
-export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$PATH:$HOME/bin
+export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$HOME/bin:/usr/local/opt/imagemagick@6/bin
 
 alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
 alias ls='ls -aG'
@@ -16,12 +16,7 @@ alias cp='cp -vi' #verbose interactive
 alias mv='mv -vi' #verbose interactive
 alias pwd='pwd -L && pwd -P' # show both absolute+symlinked
 alias pwdcd='command pwd -P |xargs cd'
-function mkdirc() {
-  mkdir -p $@
-  cd $@
-}
-
-
+alias agv="ag --ignore=vendor"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 # brew vim:
 alias vim="/usr/local/Cellar/vim/8.0.0344/bin/vim"
@@ -36,6 +31,7 @@ alias gource-recent="gource --git-branch master --bloom-multiplier 0.1 --highlig
 #git
 alias gs="git status"
 alias gl="git log --oneline -n20"
+alias gll="git log --graph --decorate --oneline"
 alias gd="git diff"
 alias gds="git diff --staged"
 alias gd0="git diff --summary --stat"
@@ -49,18 +45,30 @@ alias gpu="git pull upstream"
 alias gr="git rebase"
 alias grc="git rebase --continue"
 alias grH="git reset HEAD^"
-
-#docker
-alias dc="docker-compose"
-alias dm="docker-machine"
-alias dnuke="docker stop $(docker ps -q) && \
-             docker volume rm $(docker volume ls -q) && \
-             docker rm -f $(docker ps -aq) && \
-             docker rmi -f $(docker images -aq)"
-
-#go
 alias dct="docker-compose run test go test"
 alias nov="grep --line-buffered -v vendor"
 alias noi="grep --line-buffered -v level=info"
 alias gv="govendor"
 alias gvl="govendor list"
+
+#docker
+alias dc="docker-compose"
+alias dm="docker-machine"
+
+function dnuke() {
+  docker ps -q        | xargs docker stop
+  docker volume ls -q | xargs docker volume rm
+  docker ps -aq       | xargs docker rm -f
+  docker images -aq   | xargs docker rmi -f
+}
+
+function owner ()
+{
+    echo $1;
+    git log --pretty=short -- $1 | grep Author: | cut -f 2 -d ' ' | sort | uniq -c | sort -rn;
+    echo
+}
+function mkdirc() {
+  mkdir -p $@
+  cd $@
+}

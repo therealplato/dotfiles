@@ -1,40 +1,48 @@
-" vim
-" osx: alt-shift-q; alt-q
-nnoremap Œ :qa!<CR>
-nnoremap ∑ :wqa<CR>
-
+" " vim
+" 
 let mapleader=","
 
-" f2 -> toggle line numbers, f3 -> toggle nerdtree
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+" Same when moving up and down
+noremap <C-d> <C-d>zz
+noremap <C-u> <C-u>zz
+" 
+" " f2 -> toggle line numbers, f3 -> toggle nerdtree
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
-
+" 
 set pastetoggle=<leader>8
-nmap <leader>7 :call ToggleBG()<CR>
-
+nmap <leader>bg :call ToggleBG()<CR>
+" 
 nnoremap <C-/> <Plug>TComment
-
-" window manipulation:
+" 
+" " window manipulation:
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-inoremap <C-j> :cnext<CR>
-inoremap <C-k> :cprevious<CR>
-nnoremap <C-\> :cclose<CR>
 nnoremap <Leader>= :vnew<CR>
 nnoremap <Leader>- <C-w>c
 nnoremap <Leader>[ <C-w>H
 nnoremap <Leader>] <C-w>K
+nnoremap <silent> <Leader>u <C-w>h <C-w>h :vertical resize -10<CR>
+nnoremap <silent> <Leader>i <C-w>=
+nnoremap <silent> <Leader>o <C-w>h <C-w>h :vertical resize +10<CR>
 nnoremap <Leader><Backspace> :bdel<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
+
 nnoremap <Leader><Space> za
-" alt-shift-h, alt-shift-l on osx -> buffer switch:
+" " alt-shift-h, alt-shift-l on osx -> buffer switch:
 nnoremap Ó :bp!<CR>
 nnoremap Ò :bn!<CR>
 
+inoremap jk <Esc>
+inoremap kj <Esc>
 
-" vim-go
+" " vim-go
 augroup vg
 au FileType go nmap <Leader>, :GoAlternate<CR>
 au FileType go nmap <Leader>t :GoTest<CR>
@@ -57,9 +65,5 @@ au FileType go nmap <Leader>' :GoDocBrowser<CR>
 au FileType go nmap <Leader>/ :GoInfo<CR>
 augroup END
 
-" jump to next/prev vim-go error:
-" nnoremap <C-j> :cn<CR>
-" nnoremap <C-k> :cp<CR>
-
 nnoremap <Leader>. :TagbarToggle<CR>
-
+" 

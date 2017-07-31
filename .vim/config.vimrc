@@ -5,6 +5,9 @@ set backspace=indent,eol,start
 " mitigate RHSA-2016:2972-1:
 set nomodeline
 
+" disable scratch window for autocomplete
+set completeopt-=preview
+
 cnoreabbrev ag Ag
 
 " Visual
@@ -47,7 +50,7 @@ set foldignore=/      "dont fold comments
 " set background=dark
 set background=light
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-    let g:solarized_termcolors=256
+    " let g:solarized_termcolors=256
     let g:solarized_termtrans=1
     let g:solarized_contrast="normal"
     let g:solarized_visibility="normal"
@@ -55,8 +58,8 @@ if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"
 endif
 " Filetype specific configs
 augroup myfiletypes
-autocmd FileType ruby,eruby,yaml,yml set ai sw=2 sts=2 et
-autocmd FileType go,php  set tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
+autocmd FileType ruby,eruby,yaml,yml,php,xml set ai sw=2 sts=2 et
+autocmd FileType go  set tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
 "autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
@@ -66,6 +69,24 @@ if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
 endif
 
 " IDK
- set lazyredraw                  " Don't redraw while executing macros
  set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 
+augroup quickfix
+    autocmd!
+    autocmd FileType qf setlocal wrap
+augroup END
+
+
+" set lazyredraw                  " Don't redraw while executing macros
+" Time out on key codes but not mappings.
+" Basically this makes terminal Vim work sanely.
+" if !has('gui_running')
+"   set notimeout
+"   set ttimeout
+"   set ttimeoutlen=10
+"   augroup FastEscape
+"     autocmd!
+"     au InsertEnter * set timeoutlen=0
+"     au InsertLeave * set timeoutlen=1000
+"   augroup END
+" endif
