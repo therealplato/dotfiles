@@ -77,16 +77,16 @@ augroup quickfix
 augroup END
 
 
-" set lazyredraw                  " Don't redraw while executing macros
+set lazyredraw                  " Don't redraw while executing macros
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
-" if !has('gui_running')
-"   set notimeout
-"   set ttimeout
-"   set ttimeoutlen=10
-"   augroup FastEscape
-"     autocmd!
-"     au InsertEnter * set timeoutlen=0
-"     au InsertLeave * set timeoutlen=1000
-"   augroup END
-" endif
+if !has('gui_running')
+  set notimeout
+  set ttimeout
+  set ttimeoutlen=10
+  augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+  augroup END
+endif

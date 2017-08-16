@@ -1,8 +1,8 @@
 call plug#begin('~/.vim/plugged')
-  Plug 'lifepillar/vim-mucomplete'
+  " Plug 'lifepillar/vim-mucomplete'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
   Plug 'vim-scripts/tComment'
-  Plug 'w0rp/ale'
+  " Plug 'w0rp/ale'
   Plug 'airblade/vim-gitgutter'
   Plug 'jstemmer/gotags'
   Plug 'majutsushi/tagbar'
@@ -13,10 +13,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-repeat'
-  Plug 'ap/vim-buftabline'
+  " Plug 'ap/vim-buftabline'
+	Plug 'bling/vim-bufferline'
   Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
 call plug#end()
 " Bootstrap plugins:
 " set nocompatible
@@ -40,9 +39,9 @@ set completeopt+=noinsert
 
 set shortmess+=c
 let g:mucomplete#enable_auto_at_startup = 1
-inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
-inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
-inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+" inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+" inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+" inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
 
 let g:ale_enabled = 1
 let g:ale_lint_on_text_changed = 'always'
