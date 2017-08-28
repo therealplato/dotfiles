@@ -1,0 +1,19 @@
+{
+  "name": "plato-dotfiles",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/therealplato/plato-dotfiles",
+  "author": "therealplato <therealplato@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "themer -c themer-colors-default -t themer-vim -t themer-hyper -t themer-wallpaper-block-wave -o themes",
+    "themes": "yarn run build",
+    "theme": "yarn run build"
+  },
+  "dependencies": {
+    "themer": "^2.2.0",
+    "themer-colors-default": "^1.0.1",
+    "themer-vim": "^2.2.3",
+    "themer-wallpaper-block-wave": "^1.0.2"
+  }
+}

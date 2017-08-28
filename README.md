@@ -18,5 +18,5 @@ cp -r .vimrc .vim $HOME
 git checkout windows
 export VIM=$HOME/vimfiles && mkdir -p $VIM/autoload
 curl -fLo $VIM/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-./build-windows.sh -f       # will concatenate then cp -i _vimrc $HOME
+./build.sh -f       # will concatenate then cp -i _vimrc $HOME
 ```
