@@ -1,5 +1,4 @@
 call plug#begin('~/.vim/plugged')
- Plug 'lifepillar/vim-mucomplete'
  Plug 'derekwyatt/vim-scala'
  Plug 'w0rp/ale'
  Plug 'airblade/vim-gitgutter'
@@ -7,7 +6,6 @@ call plug#begin('~/.vim/plugged')
  Plug 'majutsushi/tagbar'
 "  Plug 'markbiek/phpLint.vim'
  Plug 'rking/ag.vim'
- Plug 'scrooloose/nerdtree'
  Plug 'terryma/vim-multiple-cursors'
 "  Plug 'tpope/vim-abolish'
  Plug 'tpope/vim-fugitive'
@@ -23,20 +21,6 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 
-" COMPLETION
-set completeopt+=menuone
-set completeopt+=noinsert
-set completeopt-=preview
-set shortmess+=c
-" let g:mucomplete#chains = {
-"   \ 'default' : ['omni', 'ulti', 'file', 'path', 'incl' ],
-"   \ 'vim'     : ['path', 'cmd', 'keyn']
-"   \ }
-
-inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
-inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
-inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
-" let g:mucomplete#enable_auto_at_startup = 1
 
 " SNIPPETS
 " inoremap <c-x><c-k> <c-x><c-k>
@@ -56,9 +40,6 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
-let NERDTreeQuitOnOpen = 1
-" let g:NERDTreeDirArrowExpandable = '◎'
-" let g:NERDTreeDirArrowCollapsible = '◉'
 
 
 
@@ -69,17 +50,6 @@ let g:tagbar_width = 50
 
 let g:ctrlp_cmd = 'CtrlPBuffer'
 
-if has('clipboard')
-  if has('unnamedplus')  " When possible use + register for copy-paste
-    set clipboard=unnamed,unnamedplus
-  else         " On mac and Windows, use * register for copy-paste
-    set clipboard=unnamed
-  endif
-endif
-
-set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
-set signcolumn=yes
-set hidden
 
 
 " Restore cursor position when a file is re-opened
@@ -107,7 +77,6 @@ set nomodeline
 " cnoreabbrev ag Ag
 "
 " set hlsearch   " Highlight the last used search pattern
-set number      " start with line number displayed
 set mouse=a     " click to position cursor always
 set laststatus=2
 set splitbelow  " open windows to right and down
@@ -120,21 +89,7 @@ set scrolloff=3                 " Minimum lines to keep above and below cursor
 " set listchars=tab:›\ ,trail:⦻,extends:#,nbsp:. " Highlight problematic whitespace
 "
 "
-set textwidth=140
-set tabstop=2
-set softtabstop=2
-set expandtab   " tab inserts two spaces
-set shiftwidth=2
-set autoindent
 
-set foldmethod=indent "set foldmethod=syntax
-set foldlevelstart=10  "set foldlevel=0
-set foldignore=/      "dont fold comments
-augroup myfiletypes
-  autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
-  autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
-  autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
-augroup END
 " if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
 "   syntax on
 " endif
@@ -167,16 +122,12 @@ nnoremap N Nzzzv
 noremap <C-d> <C-d>zz
 noremap <C-u> <C-u>zz
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
-nnoremap <F3> :NERDTreeToggle<CR>
 set pastetoggle=<leader>8
 nmap <leader>bg :call ToggleBG()<CR>
 nnoremap <C-/> <Plug>TComment
-nnoremap <Leader>m :NERDTreeToggle<CR>
 nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
 cmap cwd lcd %:p:h
 nnoremap <Leader><Space> za
-nnoremap Ó :bp!<CR>
-nnoremap Ò :bn!<CR>
 
 nnoremap <Leader>. :TagbarToggle<CR>
 

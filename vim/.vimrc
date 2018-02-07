@@ -100,10 +100,59 @@ inoremap <C-U> <C-G>u<C-U>
 " plugins.vimrc:
 call plug#begin('~/.vim/plugged')
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+  Plug 'lifepillar/vim-mucomplete'
   Plug 'vim-scripts/tComment'
+  Plug 'scrooloose/nerdtree'
 call plug#end()
 
+let NERDTreeQuitOnOpen = 1
+" let g:NERDTreeDirArrowExpandable = '◎'
+" let g:NERDTreeDirArrowCollapsible = '◉'
+ 
+" mucomplete
+set completeopt+=menuone
+set completeopt+=noinsert
+set completeopt-=preview
+set shortmess+=c
+let g:mucomplete#chains = {
+  \ 'default' : ['omni', 'ulti', 'file', 'path', 'incl' ],
+  \ 'vim'     : ['path', 'cmd', 'keyn']
+  \ }
+
+" inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+" inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+" inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+" let g:mucomplete#enable_auto_at_startup = 1
+
 " config.vimrc:
+set hidden
+set number      " start with line number displayed
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+set signcolumn=yes
+
+if has('clipboard')
+  if has('unnamedplus')  " When possible use + register for copy-paste
+    set clipboard=unnamed,unnamedplus
+  else         " On mac and Windows, use * register for copy-paste
+    set clipboard=unnamed
+  endif
+endif
+
+set textwidth=140
+set tabstop=2
+set softtabstop=2
+set expandtab   " tab inserts two spaces
+set shiftwidth=2
+set autoindent
+
+set foldmethod=indent "set foldmethod=syntax
+set foldlevelstart=3  "set foldlevel=0
+set foldignore=/      "dont fold comments
+augroup myfiletypes
+  autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
+  autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
+  autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
+augroup END
 
 " ui.vimrc:
 
@@ -138,6 +187,8 @@ nnoremap <silent> <Leader>o <C-w>h <C-w>h :vertical resize +10<CR>
 inoremap jk <Esc>
 inoremap kj <Esc>
 
+nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <Leader>m :NERDTreeToggle<CR>
 
 " go.vimrc:
 augroup vg
@@ -189,3 +240,7 @@ let g:go_metalinter_autosave_enabled = ['golint']
 " let g:go_list_type = "quickfix"
 " let g:go_gorename_prefill = 0
 " let g:go_highlight_extra_types = 1
+
+" osx.vimrc:
+nnoremap Ó :bp!<CR>
+nnoremap Ò :bn!<CR>

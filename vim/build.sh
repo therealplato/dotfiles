@@ -34,6 +34,10 @@ echo "\n\" binds.vimrc:" >> $VRC
 cat $V/binds.vimrc >> $VRC
 echo "\n\" go.vimrc:" >> $VRC
 cat $V/go.vimrc >> $VRC
+if [ $OS == "osx" ]; then
+  echo "\n\" osx.vimrc:" >> $VRC
+  cat $V/osx.vimrc >> $VRC
+fi
 
 echo "generated $(wc -l $VRC | grep -Eo ^[0-9]+) lines of vimrc"
 

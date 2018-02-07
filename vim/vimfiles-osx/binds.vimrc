@@ -28,3 +28,5 @@ nnoremap <silent> <Leader>o <C-w>h <C-w>h :vertical resize +10<CR>
 inoremap jk <Esc>
 inoremap kj <Esc>
 
+nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <Leader>m :NERDTreeToggle<CR>
