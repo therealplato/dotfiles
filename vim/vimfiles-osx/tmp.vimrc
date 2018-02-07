@@ -24,7 +24,6 @@ call plug#begin('~/.vim/plugged')
 "  Plug 'honza/vim-snippets'
 call plug#end()
 
-let mapleader=","
 
 " COMPLETION
 set completeopt+=menuone
@@ -200,18 +199,6 @@ nnoremap <F3> :NERDTreeToggle<CR>
 set pastetoggle=<leader>8
 nmap <leader>bg :call ToggleBG()<CR>
 nnoremap <C-/> <Plug>TComment
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-nnoremap <Leader>= :vs<CR>
-nnoremap <Leader>- <C-w>c
-nnoremap <Leader>[ <C-w>H
-nnoremap <Leader>] <C-w>K
-nnoremap <silent> <Leader>u <C-w>h <C-w>h :vertical resize -10<CR>
-nnoremap <silent> <Leader>i <C-w>=
-nnoremap <silent> <Leader>o <C-w>h <C-w>h :vertical resize +10<CR>
-nnoremap <Leader><Backspace> :bdel<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
 nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
 cmap cwd lcd %:p:h
@@ -220,9 +207,6 @@ nnoremap Ó :bp!<CR>
 nnoremap Ò :bn!<CR>
 
 nnoremap <Leader>. :TagbarToggle<CR>
-
-inoremap jk <Esc>
-inoremap kj <Esc>
 
 augroup notgo
 au FileType scala,js nmap <Leader>d <C-]>
