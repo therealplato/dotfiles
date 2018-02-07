@@ -102,18 +102,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
   Plug 'vim-scripts/tComment'
   Plug 'scrooloose/nerdtree'
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'ervandew/supertab'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
 " let g:NERDTreeDirArrowExpandable = '◎'
 " let g:NERDTreeDirArrowCollapsible = '◉'
- 
-let g:deoplete#enable_at_startup = 1
-inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabClosePreviewOnPopupClose = 1
 
 " config.vimrc:
 set hidden
@@ -144,6 +141,21 @@ augroup myfiletypes
   autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
   autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
+
+
+
+" Restore cursor position when a file is re-opened
+function! ResCur()
+    if line("'\"") <= line("$")
+        silent! normal! g`"
+        return 1
+    endif
+endfunction
+augroup resCur
+    autocmd!
+    autocmd BufWinEnter * call ResCur()
+augroup END
+
 
 " ui.vimrc:
 

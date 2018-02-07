@@ -26,3 +26,18 @@ augroup myfiletypes
   autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
   autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
+
+
+
+" Restore cursor position when a file is re-opened
+function! ResCur()
+    if line("'\"") <= line("$")
+        silent! normal! g`"
+        return 1
+    endif
+endfunction
+augroup resCur
+    autocmd!
+    autocmd BufWinEnter * call ResCur()
+augroup END
+

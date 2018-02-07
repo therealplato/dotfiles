@@ -52,21 +52,6 @@ let g:ctrlp_cmd = 'CtrlPBuffer'
 
 
 
-" Restore cursor position when a file is re-opened
-function! ResCur()
-    if line("'\"") <= line("$")
-        silent! normal! g`"
-        return 1
-    endif
-endfunction
-
-augroup resCur
-    autocmd!
-    autocmd BufWinEnter * call ResCur()
-augroup END
-
-
-
 
 
 set backspace=indent,eol,start
