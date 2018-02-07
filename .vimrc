@@ -20,25 +20,41 @@ call plug#begin('~/.vim/plugged')
  Plug 'Shougo/vimshell.vim'
  Plug 'sebdah/vim-delve'
  Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
+"  Plug 'SirVer/ultisnips'
+"  Plug 'honza/vim-snippets'
 call plug#end()
+
+let mapleader=","
 
 " COMPLETION
 set completeopt+=menuone
 set completeopt+=noinsert
-" set completeopt-=preview
+set completeopt-=preview
 set shortmess+=c
-" inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
-" inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
-" inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
-"
+" let g:mucomplete#chains = {
+"   \ 'default' : ['omni', 'ulti', 'file', 'path', 'incl' ],
+"   \ 'vim'     : ['path', 'cmd', 'keyn']
+"   \ }
+
+inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
 " let g:mucomplete#enable_auto_at_startup = 1
 
+" SNIPPETS
+" inoremap <c-x><c-k> <c-x><c-k>
+" let g:UltiSnipsListSnippets="<Leader><tab>"
+" let g:UltiSnipsListSnippetsTrigger="<Leader><tab>"
+
+" SYNTAX
 let g:ale_enabled = 1
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 " let g:ale_lint_delay = 300
 let g:ale_sign_column_always = 1
 let g:ale_sign_error='*'
+
+" OTHER UX
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
@@ -48,18 +64,28 @@ let NERDTreeQuitOnOpen = 1
 " let g:NERDTreeDirArrowCollapsible = '◉'
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint']
-" let g:go_auto_sameids = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_extra_types = 1
-" let g:go_gocode_unimported_packages = 1
+let g:go_metalinter_autosave_enabled = ['golint']
+
+
+
+" GO
+" let g:go_auto_sameids = 1 " causes buffer corruption
+let g:go_highlight_trailing_whitespace_error = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_gocode_unimported_packages = 1
+let g:go_gocode_propose_builtins = 1
 let g:go_list_type = "quickfix"
+let g:go_gorename_prefill = 0
 
 let g:tagbar_width = 50
+" let g:go_highlight_extra_types = 1
 " let g:tagbar_autoclose = 1
+
+let g:ctrlp_cmd = 'CtrlPBuffer'
 
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste
@@ -73,6 +99,8 @@ set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatib
 set signcolumn=yes
 set hidden
 
+
+" Restore cursor position when a file is re-opened
 function! ResCur()
     if line("'\"") <= line("$")
         silent! normal! g`"
@@ -86,6 +114,7 @@ augroup resCur
 augroup END
 
 
+" One command to build tests or implementations
 function! s:build_go_files()
   let l:file = expand('%')
   if l:file =~# '^\f\+_test\.go$'
@@ -159,8 +188,9 @@ augroup END
 " endif
 set tags=./tags;,tags;
 
-let mapleader=","
 map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>
+nnoremap <Leader>j :cnext<CR>
+nnoremap <Leader>k :cprev<CR>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 noremap <C-d> <C-d>zz
@@ -225,6 +255,7 @@ augroup END
 set laststatus=2
 
 " also via blaenk/dots
+" Highlight active window bar
 function! s:RefreshStatus()
   for nr in range(1, winnr('$'))
     call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
@@ -241,6 +272,10 @@ hi statuslinenc ctermfg=7 guifg=LightGrey ctermbg=9 guibg=DarkGrey
 hi! link pmenusel underlined 
 hi! link pmenu preproc 
 hi! link vertsplit statusline
+hi! link diffchange statuslinenc
+hi! link diffdelete constant
+hi! link diffadd moremsg
+hi! link difftext statusline
 
 function! Status(winnr)
   let active = winnr() == a:winnr
