@@ -36,7 +36,7 @@ cat $V/visual.vimrc >> $VRC
 echo "generated $(wc -l $VRC | grep -Eo ^[0-9]+) lines of vimrc"
 
 if [ $FORCE -eq 1 ]; then
-  if [ $OS -eq "windows" ]; then
+  if [ $OS == "windows" ]; then
     cp -vi $VRC $HOME/_vimrc
   else
     cp -vi $VRC $HOME/.vimrc
