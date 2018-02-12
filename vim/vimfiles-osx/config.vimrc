@@ -18,6 +18,13 @@ set expandtab   " tab inserts two spaces
 set shiftwidth=2
 set autoindent
 
+set backspace=indent,eol,start
+set nomodeline
+set mouse=a     " click to position cursor always
+set splitbelow  " open windows to right and down
+set splitright
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+
 set foldmethod=indent "set foldmethod=syntax
 set foldlevelstart=3  "set foldlevel=0
 set foldignore=/      "dont fold comments
@@ -40,4 +47,3 @@ augroup resCur
     autocmd!
     autocmd BufWinEnter * call ResCur()
 augroup END
-

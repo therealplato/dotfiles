@@ -103,14 +103,44 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-scripts/tComment'
   Plug 'scrooloose/nerdtree'
   Plug 'ervandew/supertab'
+  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'rking/ag.vim'
+  Plug 'jstemmer/gotags'
+  Plug 'majutsushi/tagbar'
+  Plug 'w0rp/ale'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
-" let g:NERDTreeDirArrowExpandable = '◎'
-" let g:NERDTreeDirArrowCollapsible = '◉'
+let g:NERDTreeDirArrowExpandable = '◎'
+let g:NERDTreeDirArrowCollapsible = '◉'
 
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabClosePreviewOnPopupClose = 1
+autocmd FileType *
+  \ if &omnifunc != '' |
+  \   call SuperTabChain(&omnifunc, "<c-p>") |
+\ endif
+
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+endif
+
+let g:tagbar_width = 50
+
+let g:ale_enabled = 1
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error='!'
+" let g:ale_lint_delay = 300
 
 " config.vimrc:
 set hidden
@@ -132,6 +162,13 @@ set softtabstop=2
 set expandtab   " tab inserts two spaces
 set shiftwidth=2
 set autoindent
+
+set backspace=indent,eol,start
+set nomodeline
+set mouse=a     " click to position cursor always
+set splitbelow  " open windows to right and down
+set splitright
+set scrolloff=3                 " Minimum lines to keep above and below cursor
 
 set foldmethod=indent "set foldmethod=syntax
 set foldlevelstart=3  "set foldlevel=0
@@ -155,7 +192,6 @@ augroup resCur
     autocmd!
     autocmd BufWinEnter * call ResCur()
 augroup END
-
 
 " ui.vimrc:
 
@@ -192,6 +228,24 @@ inoremap kj <Esc>
 
 nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
+
+" jump to prev/next quickfix results
+nnoremap <Leader>j :cnext<CR>
+nnoremap <Leader>k :cprev<CR>
+
+" toggle ctags sidebar
+nnoremap <Leader>. :TagbarToggle<CR>
+" regenerate tags
+map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>
+" point to tags?
+" set tags=./tags;,tags;
+set tags=./.git/tags;,tags;
+
+" toggle paste mode
+set pastetoggle=<leader>8
+
+" toggle line numbers
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
 " go.vimrc:
 augroup vg

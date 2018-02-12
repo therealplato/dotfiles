@@ -1,14 +1,8 @@
 call plug#begin('~/.vim/plugged')
  Plug 'derekwyatt/vim-scala'
- Plug 'w0rp/ale'
- Plug 'airblade/vim-gitgutter'
- Plug 'jstemmer/gotags'
- Plug 'majutsushi/tagbar'
 "  Plug 'markbiek/phpLint.vim'
- Plug 'rking/ag.vim'
  Plug 'terryma/vim-multiple-cursors'
 "  Plug 'tpope/vim-abolish'
- Plug 'tpope/vim-fugitive'
 "  Plug 'tpope/vim-repeat'
 "  Plug 'bling/vim-bufferline'
  Plug 'ctrlpvim/ctrlp.vim'
@@ -16,8 +10,6 @@ call plug#begin('~/.vim/plugged')
  Plug 'Shougo/vimshell.vim'
  Plug 'sebdah/vim-delve'
  Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
-"  Plug 'SirVer/ultisnips'
-"  Plug 'honza/vim-snippets'
 call plug#end()
 
 
@@ -28,24 +20,13 @@ call plug#end()
 " let g:UltiSnipsListSnippetsTrigger="<Leader><tab>"
 
 " SYNTAX
-let g:ale_enabled = 1
-let g:ale_lint_on_text_changed = 'always'
-let g:ale_lint_on_insert_leave = 1
-" let g:ale_lint_delay = 300
-let g:ale_sign_column_always = 1
-let g:ale_sign_error='*'
 
 " OTHER UX
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
-endif
 
 
 
 " GO
 
-let g:tagbar_width = 50
 " let g:tagbar_autoclose = 1
 
 let g:ctrlp_cmd = 'CtrlPBuffer'
@@ -54,22 +35,15 @@ let g:ctrlp_cmd = 'CtrlPBuffer'
 
 
 
-set backspace=indent,eol,start
-"
-set nomodeline
 "
 "
 " cnoreabbrev ag Ag
 "
 " set hlsearch   " Highlight the last used search pattern
-set mouse=a     " click to position cursor always
 set laststatus=2
-set splitbelow  " open windows to right and down
-set splitright
 " set autowrite   " save on buffer switch
 " set updatetime=250
 " set scrolljump=5                " Lines to scroll when cursor leaves screen
-set scrolloff=3                 " Minimum lines to keep above and below cursor
 " set list
 " set listchars=tab:›\ ,trail:⦻,extends:#,nbsp:. " Highlight problematic whitespace
 "
@@ -80,10 +54,6 @@ set scrolloff=3                 " Minimum lines to keep above and below cursor
 " endif
 "  set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 "
-augroup quickfix
-    autocmd!
-    autocmd FileType qf setlocal wrap
-augroup END
 
 "
 " set lazyredraw                  " Don't redraw while executing macros
@@ -97,24 +67,16 @@ augroup END
 "     au InsertLeave * set timeoutlen=1000
 "   augroup END
 " endif
-set tags=./tags;,tags;
 
-map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>
-nnoremap <Leader>j :cnext<CR>
-nnoremap <Leader>k :cprev<CR>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 noremap <C-d> <C-d>zz
 noremap <C-u> <C-u>zz
-nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
-set pastetoggle=<leader>8
 nmap <leader>bg :call ToggleBG()<CR>
 nnoremap <C-/> <Plug>TComment
 nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
 cmap cwd lcd %:p:h
 nnoremap <Leader><Space> za
-
-nnoremap <Leader>. :TagbarToggle<CR>
 
 augroup notgo
 au FileType scala,js nmap <Leader>d <C-]>

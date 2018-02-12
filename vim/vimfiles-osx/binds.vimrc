@@ -30,3 +30,21 @@ inoremap kj <Esc>
 
 nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
+
+" jump to prev/next quickfix results
+nnoremap <Leader>j :cnext<CR>
+nnoremap <Leader>k :cprev<CR>
+
+" toggle ctags sidebar
+nnoremap <Leader>. :TagbarToggle<CR>
+" regenerate tags
+map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>
+" point to tags?
+" set tags=./tags;,tags;
+set tags=./.git/tags;,tags;
+
+" toggle paste mode
+set pastetoggle=<leader>8
+
+" toggle line numbers
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
