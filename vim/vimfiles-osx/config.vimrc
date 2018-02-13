@@ -26,7 +26,7 @@ set splitright
 set scrolloff=3                 " Minimum lines to keep above and below cursor
 
 set foldmethod=indent "set foldmethod=syntax
-set foldlevelstart=3  "set foldlevel=0
+set foldlevelstart=-1  "set foldlevel=0
 set foldignore=/      "dont fold comments
 augroup myfiletypes
   autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
@@ -46,4 +46,9 @@ endfunction
 augroup resCur
     autocmd!
     autocmd BufWinEnter * call ResCur()
+augroup END
+
+augroup quickfix
+    autocmd!
+    autocmd FileType qf setlocal wrap
 augroup END
