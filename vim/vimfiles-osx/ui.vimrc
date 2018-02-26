@@ -40,3 +40,42 @@ function! Status(winnr)
 
   return contents
 endfunction
+
+set foldmethod=indent "set foldmethod=syntax
+set foldignore=/      "dont fold comments
+" https://superuser.com/a/567391/278908
+" begin folding with everything expanded:
+augroup foldgroup
+  autocmd!
+  autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
+augroup END
+
+" Whitespace:
+set textwidth=140
+set tabstop=2
+set softtabstop=2
+set expandtab   " tab inserts two spaces
+set shiftwidth=2
+set autoindent
+augroup myfiletypes
+  autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
+  autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
+  autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
+augroup END
+
+" Restore cursor position when a file is re-opened
+function! ResCur()
+    if line("'\"") <= line("$")
+        silent! normal! g`"
+        return 1
+    endif
+endfunction
+augroup resCur
+    autocmd!
+    autocmd BufWinEnter * call ResCur()
+augroup END
+
+augroup quickfix
+    autocmd!
+    autocmd FileType qf setlocal wrap
+augroup END

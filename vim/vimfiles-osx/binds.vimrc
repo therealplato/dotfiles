@@ -12,8 +12,8 @@ nnoremap <Leader>= :vs<CR>
 " close window
 nnoremap <Leader>- <C-w>c
 
-" close buffer
-nnoremap <Leader><Backspace> :bdel<CR>
+" close buffer without closing window https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window#8585343
+nnoremap <Leader><Backspace> :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " swap vert/horz splits
 nnoremap <Leader>[ <C-w>H

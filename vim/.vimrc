@@ -111,6 +111,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'jstemmer/gotags'
   Plug 'majutsushi/tagbar'
   Plug 'w0rp/ale'
+  Plug 'kien/rainbow_parentheses.vim'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
@@ -142,15 +143,42 @@ let g:ale_sign_column_always = 1
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
 " let g:ale_lint_delay = 300
-hi! link difftext statusline
-highlight link Constant ALEErrorSign
-highlight link Constant ALEWarningSign
+highlight link ALEErrorSign Constant
+highlight link ALEWarningSign Constant
+
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+let g:rbpt_colorpairs = [
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
 
 " config.vimrc:
 set hidden
 set number      " start with line number displayed
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
 set signcolumn=yes
+set backspace=indent,eol,start
+set nomodeline
+set mouse=a     " click to position cursor always
+set splitbelow  " open windows to right and down
+set splitright
+set scrolloff=3                 " Minimum lines to keep above and below cursor
 
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste
@@ -159,48 +187,6 @@ if has('clipboard')
     set clipboard=unnamed
   endif
 endif
-
-set textwidth=140
-set tabstop=2
-set softtabstop=2
-set expandtab   " tab inserts two spaces
-set shiftwidth=2
-set autoindent
-
-set backspace=indent,eol,start
-set nomodeline
-set mouse=a     " click to position cursor always
-set splitbelow  " open windows to right and down
-set splitright
-set scrolloff=3                 " Minimum lines to keep above and below cursor
-
-set foldmethod=indent "set foldmethod=syntax
-set foldlevelstart=0  "set foldlevel=0
-set foldignore=/      "dont fold comments
-augroup myfiletypes
-  autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
-  autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
-  autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
-augroup END
-
-
-
-" Restore cursor position when a file is re-opened
-function! ResCur()
-    if line("'\"") <= line("$")
-        silent! normal! g`"
-        return 1
-    endif
-endfunction
-augroup resCur
-    autocmd!
-    autocmd BufWinEnter * call ResCur()
-augroup END
-
-augroup quickfix
-    autocmd!
-    autocmd FileType qf setlocal wrap
-augroup END
 
 " ui.vimrc:
 " via blaenk/dots
@@ -246,6 +232,45 @@ function! Status(winnr)
   return contents
 endfunction
 
+set foldmethod=indent "set foldmethod=syntax
+set foldignore=/      "dont fold comments
+" https://superuser.com/a/567391/278908
+" begin folding with everything expanded:
+augroup foldgroup
+  autocmd!
+  autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
+augroup END
+
+" Whitespace:
+set textwidth=140
+set tabstop=2
+set softtabstop=2
+set expandtab   " tab inserts two spaces
+set shiftwidth=2
+set autoindent
+augroup myfiletypes
+  autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
+  autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
+  autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
+augroup END
+
+" Restore cursor position when a file is re-opened
+function! ResCur()
+    if line("'\"") <= line("$")
+        silent! normal! g`"
+        return 1
+    endif
+endfunction
+augroup resCur
+    autocmd!
+    autocmd BufWinEnter * call ResCur()
+augroup END
+
+augroup quickfix
+    autocmd!
+    autocmd FileType qf setlocal wrap
+augroup END
+
 " binds.vimrc:
 let mapleader=","
 
@@ -262,7 +287,8 @@ nnoremap <Leader>= :vs<CR>
 nnoremap <Leader>- <C-w>c
 
 " close buffer
-nnoremap <Leader><Backspace> :bdel<CR>
+" nnoremap <Leader><Backspace> :bdel<CR>
+nnoremap <Leader><Backspace> :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " swap vert/horz splits
 nnoremap <Leader>[ <C-w>H

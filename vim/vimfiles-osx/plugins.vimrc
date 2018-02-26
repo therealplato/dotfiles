@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'jstemmer/gotags'
   Plug 'majutsushi/tagbar'
   Plug 'w0rp/ale'
+  Plug 'kien/rainbow_parentheses.vim'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
@@ -42,5 +43,27 @@ let g:ale_sign_column_always = 1
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
 " let g:ale_lint_delay = 300
-highlight link Constant ALEErrorSign
-highlight link Constant ALEWarningSign
+highlight link ALEErrorSign Constant
+highlight link ALEWarningSign Constant
+
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+let g:rbpt_colorpairs = [
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
