@@ -13,6 +13,10 @@ augroup END
 
 hi statusline ctermfg=6 guifg=LightBlue ctermbg=9 guibg=DarkGrey
 hi statuslinenc ctermfg=7 guifg=LightGrey ctermbg=9 guibg=DarkGrey
+hi! CursorLine term=bold cterm=bold ctermfg=14 ctermbg=242 guifg=Cyan guibg=DarkGrey 
+" Cursor overridden by terminal settings :(
+" hi Cursor term=reverse cterm=reverse ctermfg=7 ctermbg=9 gui=reverse guifg=LightGrey guibg=DarkGrey 
+hi! link folded underlined
 hi! link pmenusel underlined 
 hi! link pmenu preproc 
 hi! link vertsplit statusline
@@ -41,7 +45,8 @@ function! Status(winnr)
   return contents
 endfunction
 
-set foldmethod=indent "set foldmethod=syntax
+" set foldmethod=indent "set foldmethod=syntax
+set foldmethod=syntax
 set foldignore=/      "dont fold comments
 " https://superuser.com/a/567391/278908
 " begin folding with everything expanded:

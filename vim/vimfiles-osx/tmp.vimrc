@@ -9,7 +9,6 @@ call plug#begin('~/.vim/plugged')
  Plug 'Shougo/vimproc.vim', {'do' : 'make'}
  Plug 'Shougo/vimshell.vim'
  Plug 'sebdah/vim-delve'
- Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
 call plug#end()
 
 

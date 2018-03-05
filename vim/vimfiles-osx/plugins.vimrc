@@ -12,6 +12,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'majutsushi/tagbar'
   Plug 'w0rp/ale'
   Plug 'kien/rainbow_parentheses.vim'
+  Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
+  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
@@ -37,8 +39,11 @@ endif
 let g:tagbar_width = 50
 
 let g:ale_enabled = 1
-let g:ale_lint_on_text_changed = 'always'
+" let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_save= 1
+let g:ale_linters = {'go': ['gometalinter']}
 let g:ale_sign_column_always = 1
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
@@ -67,3 +72,14 @@ let g:rbpt_colorpairs = [
     \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ]
+
+augroup js
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+autocmd BufWritePre *.js,*.json,*.md PrettierAsync
+au FileType js,html nmap <Leader>d :TernDef<CR>
+au FileType js,html nmap <Leader>r :TernRename<CR>
+let g:prettier#autoformat = 0
+let g:prettier#config#single_quote = 'false'
+let g:prettier#config#print_width = 120
+let g:prettier#config#parser = 'babylon'
+augroup END

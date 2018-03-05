@@ -112,6 +112,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'majutsushi/tagbar'
   Plug 'w0rp/ale'
   Plug 'kien/rainbow_parentheses.vim'
+  Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
+  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
@@ -137,8 +139,11 @@ endif
 let g:tagbar_width = 50
 
 let g:ale_enabled = 1
-let g:ale_lint_on_text_changed = 'always'
+" let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_save= 1
+let g:ale_linters = {'go': ['gometalinter']}
 let g:ale_sign_column_always = 1
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
@@ -168,6 +173,17 @@ let g:rbpt_colorpairs = [
     \ ['red',         'firebrick3'],
     \ ]
 
+augroup js
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+autocmd BufWritePre *.js,*.json,*.md PrettierAsync
+au FileType js,html nmap <Leader>d :TernDef<CR>
+au FileType js,html nmap <Leader>r :TernRename<CR>
+let g:prettier#autoformat = 0
+let g:prettier#config#single_quote = 'false'
+let g:prettier#config#print_width = 120
+let g:prettier#config#parser = 'babylon'
+augroup END
+
 " config.vimrc:
 set hidden
 set number      " start with line number displayed
@@ -179,6 +195,7 @@ set mouse=a     " click to position cursor always
 set splitbelow  " open windows to right and down
 set splitright
 set scrolloff=3                 " Minimum lines to keep above and below cursor
+set cursorline
 
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste
@@ -204,6 +221,10 @@ augroup END
 
 hi statusline ctermfg=6 guifg=LightBlue ctermbg=9 guibg=DarkGrey
 hi statuslinenc ctermfg=7 guifg=LightGrey ctermbg=9 guibg=DarkGrey
+hi! CursorLine term=bold cterm=bold ctermfg=14 ctermbg=242 guifg=Cyan guibg=DarkGrey 
+" Cursor overridden by terminal settings :(
+" hi Cursor term=reverse cterm=reverse ctermfg=7 ctermbg=9 gui=reverse guifg=LightGrey guibg=DarkGrey 
+hi! link folded underlined
 hi! link pmenusel underlined 
 hi! link pmenu preproc 
 hi! link vertsplit statusline
@@ -232,7 +253,8 @@ function! Status(winnr)
   return contents
 endfunction
 
-set foldmethod=indent "set foldmethod=syntax
+" set foldmethod=indent "set foldmethod=syntax
+set foldmethod=syntax
 set foldignore=/      "dont fold comments
 " https://superuser.com/a/567391/278908
 " begin folding with everything expanded:
@@ -286,9 +308,10 @@ nnoremap <Leader>= :vs<CR>
 " close window
 nnoremap <Leader>- <C-w>c
 
-" close buffer
-" nnoremap <Leader><Backspace> :bdel<CR>
-nnoremap <Leader><Backspace> :bp<bar>sp<bar>bn<bar>bd<CR>
+" close buffer without closing window https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window#8585343
+" buggy with quickfixes :(
+" nnoremap <Leader><Backspace> :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <Leader><Backspace> :bdel<CR>
 
 " swap vert/horz splits
 nnoremap <Leader>[ <C-w>H
