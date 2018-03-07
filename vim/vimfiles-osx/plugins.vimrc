@@ -74,12 +74,12 @@ let g:rbpt_colorpairs = [
     \ ]
 
 augroup js
-" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-autocmd BufWritePre *.js,*.json,*.md PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+" autocmd BufWritePre *.js,*.json,*.md PrettierAsync
 au FileType js,html nmap <Leader>d :TernDef<CR>
 au FileType js,html nmap <Leader>r :TernRename<CR>
 let g:prettier#autoformat = 0
 let g:prettier#config#single_quote = 'false'
 let g:prettier#config#print_width = 120
-let g:prettier#config#parser = 'babylon'
+" let g:prettier#config#parser = 'babylon'
 augroup END
