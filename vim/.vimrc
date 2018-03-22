@@ -174,7 +174,7 @@ let g:rbpt_colorpairs = [
     \ ]
 
 augroup js
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
 " autocmd BufWritePre *.js,*.json,*.md PrettierAsync
 au FileType js,html nmap <Leader>d :TernDef<CR>
 au FileType js,html nmap <Leader>r :TernRename<CR>
@@ -253,8 +253,8 @@ function! Status(winnr)
   return contents
 endfunction
 
-" set foldmethod=indent "set foldmethod=syntax
-set foldmethod=syntax
+set foldmethod=indent
+" set foldmethod=syntax
 set foldignore=/      "dont fold comments
 " https://superuser.com/a/567391/278908
 " begin folding with everything expanded:
