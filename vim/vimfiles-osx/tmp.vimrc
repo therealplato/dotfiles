@@ -73,7 +73,6 @@ noremap <C-d> <C-d>zz
 noremap <C-u> <C-u>zz
 nmap <leader>bg :call ToggleBG()<CR>
 nnoremap <C-/> <Plug>TComment
-nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
 cmap cwd lcd %:p:h
 nnoremap <Leader><Space> za
 

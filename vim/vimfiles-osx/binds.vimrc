@@ -6,6 +6,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" delete trailing whitespace
+nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
+
 " new window
 nnoremap <Leader>= :vs<CR>
 
