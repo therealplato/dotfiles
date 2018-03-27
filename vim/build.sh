@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 FORCE=0
-V=./vimfiles-osx
+V=./osx
 VRC=./.vimrc
 if [ -z ${OS+x} ]; then
     echo -e "Env OS not set, assuming osx"
