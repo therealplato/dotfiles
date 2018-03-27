@@ -5,6 +5,7 @@ export GOPATH=$HOME/go
 export G=$GOPATH/src
 export P=$GOPATH/src/github.com/therealplato
 export R=$GOPATH/src/github.com/movio/red
+export B=$GOPATH/src/github.com/movio/blue
 export PATH=/usr/local/Cellar/coreutils/8.28_1/libexec/gnubin:$GOPATH/bin:/usr/local/sbin:$HOME/bin:/usr/local/opt/imagemagick@6/bin:$PATH
 
 # prompt
@@ -34,6 +35,7 @@ alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
 alias cd='cd -P' # dereference symlinks
 alias cp='cp -vi' #verbose interactive
 alias mv='mv -vi' #verbose interactive
+alias diff='diff -y --suppress-common-lines'
 alias pwd='pwd -L && pwd -P' # show both absolute+symlinked
 alias pwdcd='command pwd -P |xargs cd'
 alias agv="ag --ignore=vendor --ignore='*[tT]est*'"
@@ -97,17 +99,13 @@ function wut() {
   find . | grep -i $@ | less
 }
 
-function catsup {
-        curl -A "User-Agent: curl:alphabetsoup:v0.0.1 (by /u/alphabetsoup)" -s https://www.reddit.com/r/CatsStandingUp.json > ~/cats.json
-        cats
-}
-
 function cats {
-        idx=$(($RANDOM % 10))
-        url=$(cat ~/cats.json|jq -r ".data.children[$idx].data.preview.images[0].source.url")
-        echo "![cat]($url)"
-        echo "![cat]($url)" | pbcopy
-        open $url
+  echo "![cat](https://$(curl -s https://imgur.com/r/catsstandingup \
+    | grep -Eo 'i\.imgur\.com/[a-zA-Z0-9]{5,10}\.jpg' \
+    | sed 's/b.jpg/.jpg/' \
+    | sort --random-sort \
+    | head -n1 \
+  ))"
 }
 
 # Convert video to gif file.
@@ -117,4 +115,10 @@ video2gif() {
   ffmpeg -y -i "${1}" -vf fps=${3:-10},scale=${2:-320}:-1:flags=lanczos,palettegen "${1}.png"
   ffmpeg -i "${1}" -i "${1}.png" -filter_complex "fps=${3:-10},scale=${2:-320}:-1:flags=lanczos[x];[x][1:v]paletteuse" "${1}".gif
   rm "${1}.png"
+}
+
+
+function yamlok ()
+{
+    ruby -e "require 'yaml';puts YAML.load_file('$1')" > /dev/null 2>&1
 }
