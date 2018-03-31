@@ -11,19 +11,20 @@ augroup status
   autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call <SID>RefreshStatus()
 augroup END
 
-hi statusline ctermfg=6 guifg=LightBlue ctermbg=9 guibg=DarkGrey
-hi statuslinenc ctermfg=7 guifg=LightGrey ctermbg=9 guibg=DarkGrey
-hi! CursorLine term=bold cterm=bold ctermfg=14 ctermbg=242 guifg=Cyan guibg=DarkGrey 
-" Cursor overridden by terminal settings :(
-" hi Cursor term=reverse cterm=reverse ctermfg=7 ctermbg=9 gui=reverse guifg=LightGrey guibg=DarkGrey 
-hi! link folded underlined
-hi! link pmenusel underlined 
-hi! link pmenu preproc 
-hi! link vertsplit statusline
-hi! link diffchange statuslinenc
-hi! link diffdelete constant
-hi! link diffadd moremsg
-hi! link difftext statusline
+colorscheme ThemerVim
+" hi statusline ctermfg=6 guifg=LightBlue ctermbg=9 guibg=DarkGrey
+" hi statuslinenc ctermfg=7 guifg=LightGrey ctermbg=9 guibg=DarkGrey
+" hi! CursorLine term=bold cterm=bold ctermfg=14 ctermbg=242 guifg=Cyan guibg=DarkGrey 
+" " Cursor overridden by terminal settings :(
+" " hi Cursor term=reverse cterm=reverse ctermfg=7 ctermbg=9 gui=reverse guifg=LightGrey guibg=DarkGrey 
+" hi! link folded underlined
+" hi! link pmenusel underlined 
+" hi! link pmenu preproc 
+" hi! link vertsplit statusline
+" hi! link diffchange statuslinenc
+" hi! link diffdelete constant
+" hi! link diffadd moremsg
+" hi! link difftext statusline
 
 function! Status(winnr)
   let active = winnr() == a:winnr

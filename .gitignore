@@ -2,3 +2,5 @@
 node_modules/
 yarn.lock
 *secret.sh*
+generated/
+tmp/
