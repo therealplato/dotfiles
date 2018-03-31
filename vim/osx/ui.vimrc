@@ -12,9 +12,14 @@ augroup status
 augroup END
 
 colorscheme ThemerVim
-" hi statusline ctermfg=6 guifg=LightBlue ctermbg=9 guibg=DarkGrey
-" hi statuslinenc ctermfg=7 guifg=LightGrey ctermbg=9 guibg=DarkGrey
-" hi! CursorLine term=bold cterm=bold ctermfg=14 ctermbg=242 guifg=Cyan guibg=DarkGrey 
+set background=dark
+hi! Comment ctermfg=LightGrey
+hi! StatusLine ctermbg=DarkGreen ctermfg=Black term=none cterm=none
+hi! StatusLineNC ctermbg=2* ctermfg=4* term=none cterm=none
+hi! link VertSplit StatusLineNC
+hi! CursorLine term=bold ctermfg=0 ctermbg=2
+hi! link CursorLineNr CursorLine
+hi! link WildMenu CursorLine
 " " Cursor overridden by terminal settings :(
 " " hi Cursor term=reverse cterm=reverse ctermfg=7 ctermbg=9 gui=reverse guifg=LightGrey guibg=DarkGrey 
 " hi! link folded underlined
@@ -56,7 +61,7 @@ augroup foldgroup
   autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
 augroup END
 
-" Whitespace:
+" Whitespace
 set textwidth=140
 set tabstop=2
 set softtabstop=2

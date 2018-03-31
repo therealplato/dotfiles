@@ -18,6 +18,10 @@ if [ -z ${OS+x} ]; then
 fi
 
 #
+# prereqs
+yarn install
+
+#
 # clean
 rm -rf ./tmp/ ./generated/
 mkdir -p ./generated/.vim/colors
@@ -29,8 +33,9 @@ cp dotfiles/.screenrc generated
 #
 # theming
 echo "generating themes..."
-THEME="./misc/themes/monogreen-v4.colors"
-themer -t themer-wallpaper-block-wave -t themer-vim -t themer-xresources -c $THEME -o tmp/
+THEME="./misc/themes/monogreen-v5.colors"
+# THEME="./misc/themes/themer-default.colors"
+./node_modules/.bin/themer -t themer-wallpaper-block-wave -t themer-vim -t themer-xresources -c $THEME -o tmp/
 cp tmp/themer-vim/ThemerVim.vim ./generated/.vim/colors
 
 #
@@ -91,8 +96,8 @@ if [ $FORCE -eq 1 ]; then
     cp -vi $VRC $HOME/.vimrc
   fi
   echo "copied vimrc"
-  cp -r ./generated/.vim/colors $VIMFILES
+  cp -vir ./generated/.vim/colors $VIMFILES
   echo "copied vim colorscheme"
-  cp ./generated/.Xresources $HOME
+  cp -vi ./generated/.Xresources $HOME
   echo "copied .Xresources, consider xrdb merge ~/.Xresources"
 fi

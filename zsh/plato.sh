@@ -41,7 +41,7 @@ alias pwdcd='command pwd -P |xargs cd'
 alias agv="ag --ignore=vendor --ignore='*[tT]est*'"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 # brew vim:
-alias vim="/usr/local/Cellar/vim/8.0.1450/bin/vim"
+# alias vim="/usr/local/Cellar/vim/8.0.1450/bin/vim"
 # alias vim='vim()'
 # macvim:
 # alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
@@ -121,4 +121,28 @@ video2gif() {
 function yamlok ()
 {
     ruby -e "require 'yaml';puts YAML.load_file('$1')" > /dev/null 2>&1
+}
+
+function termcolors () {
+	for x in {0..8}; do 
+	    for i in {30..37}; do 
+		for a in {40..47}; do 
+		    echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "
+		done
+		echo
+	    done
+	done
+	echo ""
+}
+
+function termcolors2 () {
+  echo -e "\033[0mNC (No color)"
+  echo -e "\033[1;37m15 White\t\033[0;30m0 Black"
+  echo -e "\033[0;34m1 DarkBlue\t\033[1;34m9 LightBlue"
+  echo -e "\033[0;32m2 DarkGreen\t\033[1;32m10 LightGreen"
+  echo -e "\033[0;36m3 DarkCyan\t\033[1;36m11 LightCyan"
+  echo -e "\033[0;31m4 DarkRed\t\033[1;31m12 LightRed"
+  echo -e "\033[0;35m5 DarkMagenta\t\033[1;35m13 LightMagenta"
+  echo -e "\033[0;33m6 DarkYellow\t\033[1;33m14 LightYellow"
+  echo -e "\033[1;30m6 DarkGrey\t\033[0;37m7 LightGrey"
 }
