@@ -17,15 +17,24 @@ if [ -z ${OS+x} ]; then
     OS="osx"
 fi
 
-echo "generating themes..."
-
+#
+# clean
 rm -rf ./tmp/ ./generated/
 mkdir -p ./generated/.vim/colors
-themer -t themer-wallpaper-block-wave -t themer-vim -t themer-xresources -c ./misc/themes/monogreen-v3.colors -o tmp/
-cp tmp/themer-vim/ThemerVim.vim ./generated/.vim/colors
+
+#
+# easy dotfiles
 cp dotfiles/.screenrc generated
 
+#
+# theming
+echo "generating themes..."
+THEME="./misc/themes/monogreen-v4.colors"
+themer -t themer-wallpaper-block-wave -t themer-vim -t themer-xresources -c $THEME -o tmp/
+cp tmp/themer-vim/ThemerVim.vim ./generated/.vim/colors
 
+#
+# concat X config and generated xresources theme
 while read line
 do
   echo $line >> ./generated/.Xresources
@@ -38,9 +47,7 @@ done < ./tmp/themer-xresources/themer-xresources-dark/.Xresources
 set -e
 
 #
-#
-# VIM
-
+# vim
 function appendVimComment() {
   printf "\"\n\" $1\n" >> $VRC
 }
@@ -83,7 +90,9 @@ if [ $FORCE -eq 1 ]; then
   else
     cp -vi $VRC $HOME/.vimrc
   fi
+  echo "copied vimrc"
   cp -r ./generated/.vim/colors $VIMFILES
+  echo "copied vim colorscheme"
   cp ./generated/.Xresources $HOME
   echo "copied .Xresources, consider xrdb merge ~/.Xresources"
 fi
