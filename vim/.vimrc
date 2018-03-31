@@ -224,21 +224,27 @@ colorscheme ThemerVim
 set background=dark
 hi! Comment ctermfg=LightGrey
 hi! StatusLine ctermbg=DarkGreen ctermfg=Black term=none cterm=none
-hi! StatusLineNC ctermbg=2* ctermfg=LightGrey term=none cterm=none
+hi! StatusLineNC ctermbg=2* ctermfg=4* term=none cterm=none
+hi! link SpellCap StatusLine
 hi! link VertSplit StatusLineNC
 hi! CursorLine term=bold ctermfg=0 ctermbg=2
 hi! link CursorLineNr CursorLine
+hi! link Question CursorLine
 hi! link WildMenu CursorLine
+
+" hi! link Identifier Constant
+" hi! link Function Constant
+
 " " Cursor overridden by terminal settings :(
 " " hi Cursor term=reverse cterm=reverse ctermfg=7 ctermbg=9 gui=reverse guifg=LightGrey guibg=DarkGrey 
-" hi! link folded underlined
-" hi! link pmenusel underlined 
-" hi! link pmenu preproc 
-" hi! link vertsplit statusline
-" hi! link diffchange statuslinenc
-" hi! link diffdelete constant
-" hi! link diffadd moremsg
-" hi! link difftext statusline
+hi! link folded underlined
+hi! link pmenusel underlined 
+hi! link pmenu preproc 
+hi! link vertsplit statusline
+hi! link diffchange statuslinenc
+hi! link diffdelete constant
+hi! link diffadd moremsg
+hi! link difftext statusline
 
 function! Status(winnr)
   let active = winnr() == a:winnr

@@ -100,4 +100,7 @@ if [ $FORCE -eq 1 ]; then
   echo "copied vim colorscheme"
   cp -vi ./generated/.Xresources $HOME
   echo "copied .Xresources, consider xrdb merge ~/.Xresources"
+  cp -vi dotfiles/.zshrc ~/.zshrc
+  cp -rvi zsh/* ~/.zsh
+  echo "copied zsh configs"
 fi
