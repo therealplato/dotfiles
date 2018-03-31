@@ -1,15 +1,18 @@
-source /usr/local/etc/profile.d/z.sh
-source ~/zsh/gitps.sh
-source ~/zsh/plato.sh
-source ~/zsh/nvm.sh
+source /home/ubuntu/go/src/github.com/rupa/z/z.sh
+source ~/.zsh/gitps.sh
+source ~/.zsh/plato.sh
+source ~/.zsh/nvm.sh
+source ~/.zsh/wsl.sh
 PROMPT='$(prompt_flag)
  $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
 #prompt redhat # preview: prompt -p
 autoload -Uz promptinit && promptinit
 autoload -U colors && colors
 
+unsetopt BG_NICE
+
 #alias xc='xclip -selection primary -o | xclip -selection clipboard -i'     # for linux. for osx use ...| pbcopy
-source ~/zsh/secret.sh
+source ~/.zsh/secret.sh
 
 
 # Lines configured by zsh-newuser-install
@@ -39,3 +42,4 @@ bindkey '\e.' insert-last-word
 bindkey '[4~' end-of-line
 bindkey '[1~' beginning-of-line
 bindkey '[3~' delete-char
+export SCREENDIR=$HOME/.screen
