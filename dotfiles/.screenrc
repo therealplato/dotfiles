@@ -5,9 +5,9 @@
 
 # Enable mouse scrolling and scroll bar history scrolling
 termcapinfo xterm* ti@:te@
-term screen-256color
+# term screen-256color
 shell /bin/zsh
-
+mousetrack on
 
 escape ^Aa
 autodetach on
@@ -28,10 +28,19 @@ bind 0 select 10
 
 # Default windows and commands
 # Anyone know how to automatically cd somewhere when invoking zsh?
-screen -t red 1 zsh
-screen -t php 2 zsh
-screen -t java 3 zsh
-#screen -t buk 4 zsh 
+split
+screen -t vim 1 zsh
+
+focus
+screen -t chat 2 zsh
+resize 6
+focus
+
+screen -t shell 3 zsh
+screen -t scratch 4 zsh 
 #screen -t svs 5 zsh
 #screen -t kry 6 ssh foo@bar
 #screen -t ec2 7 ssh foo@baz
+
+
+
