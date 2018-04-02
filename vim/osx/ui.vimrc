@@ -1,61 +1,3 @@
-" via blaenk/dots
-" Highlight active window bar
-function! s:RefreshStatus()
-  for nr in range(1, winnr('$'))
-    call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
-  endfor
-endfunction
-
-augroup status
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call <SID>RefreshStatus()
-augroup END
-
-colorscheme ThemerVim
-set background=dark
-hi! Comment ctermfg=LightGrey
-hi! StatusLine ctermbg=DarkGreen ctermfg=Black term=none cterm=none
-hi! StatusLineNC ctermbg=2* ctermfg=4* term=none cterm=none
-hi! link SpellCap StatusLine
-hi! link VertSplit StatusLineNC
-hi! CursorLine term=bold ctermfg=0 ctermbg=2
-hi! link CursorLineNr CursorLine
-hi! link Question CursorLine
-hi! link WildMenu CursorLine
-
-" hi! link Identifier Constant
-" hi! link Function Constant
-
-" " Cursor overridden by terminal settings :(
-" " hi Cursor term=reverse cterm=reverse ctermfg=7 ctermbg=9 gui=reverse guifg=LightGrey guibg=DarkGrey 
-hi! link folded underlined
-hi! link pmenusel underlined 
-hi! link pmenu preproc 
-hi! link vertsplit statusline
-hi! link diffchange statuslinenc
-hi! link diffdelete constant
-hi! link diffadd moremsg
-hi! link difftext statusline
-
-function! Status(winnr)
-  let active = winnr() == a:winnr
-  let buffer = winbufnr(a:winnr)
-
-  let modified = getbufvar(buffer, '&modified')
-  let readonly = getbufvar(buffer, '&ro')
-  let fname = bufname(buffer)
-
-  let contents = ''
-  let contents .= '%m%r '                      "[+] modified, [RO] readonly
-  let contents .= '%.30(%f%)'                " Filename
-  let contents .= '%{go#statusline#Show()}'
-  let contents .= '%='                     " Right align from here
-  let contents .= '⎇\'                 " branch symbol
-  let contents .= '%.20(%{fugitive#head()}%)' " Git Hotness
-  let contents .= '%10.(%l/%L%)\ (%p%%)'  " file nav info
-
-  return contents
-endfunction
 
 set foldmethod=indent
 " set foldmethod=syntax
@@ -80,6 +22,30 @@ augroup myfiletypes
   autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
 
+
+colorscheme ThemerVim
+set background=dark
+hi! Comment ctermfg=LightGrey
+
+" hi! CursorLine term=bold ctermfg=0 ctermbg=2
+" hi! StatusLine ctermbg=DarkGreen ctermfg=Black term=none cterm=none
+hi! CursorLine term=none cterm=none ctermbg=none ctermfg=none
+hi! link CursorLineNr MoreMsg
+hi! link StatusLine MoreMsg
+hi! StatusLineNC term=none cterm=none ctermbg=0 ctermfg=none
+hi! link SpellCap StatusLine
+hi! link VertSplit Comment
+hi! link Question CursorLine
+hi! link WildMenu CursorLine
+
+hi! link folded underlined
+hi! link pmenusel underlined 
+hi! link pmenu preproc 
+hi! link diffchange statusline
+hi! link diffdelete constant
+hi! link diffadd moremsg
+hi! link difftext statusline
+
 " Restore cursor position when a file is re-opened
 function! ResCur()
     if line("'\"") <= line("$")
@@ -96,3 +62,36 @@ augroup quickfix
     autocmd!
     autocmd FileType qf setlocal wrap
 augroup END
+
+" via blaenk/dots
+" Highlight active window bar
+function! s:RefreshStatus()
+  for nr in range(1, winnr('$'))
+    call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
+  endfor
+endfunction
+
+augroup status
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call <SID>RefreshStatus()
+augroup END
+
+function! Status(winnr)
+  let active = winnr() == a:winnr
+  let buffer = winbufnr(a:winnr)
+
+  let modified = getbufvar(buffer, '&modified')
+  let readonly = getbufvar(buffer, '&ro')
+  let fname = bufname(buffer)
+
+  let contents = ''
+  let contents .= '%m%r '                      "[+] modified, [RO] readonly
+  let contents .= '%.30(%f%)'                " Filename
+  let contents .= '%{go#statusline#Show()}'
+  let contents .= '%='                     " Right align from here
+  let contents .= '⎇\'                 " branch symbol
+  let contents .= '%.20(%{fugitive#head()}%)' " Git Hotness
+  let contents .= '%10.(%l/%L%)\ (%p%%)'  " file nav info
+
+  return contents
+endfunction

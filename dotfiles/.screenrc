@@ -3,18 +3,27 @@
 # If you have a screen inside a screen (maybe running screen on both server and
 # local,) you might want to set different escape keys for them
 
-# Enable mouse scrolling and scroll bar history scrolling
-termcapinfo xterm* ti@:te@
-# term screen-256color
 shell /bin/zsh
-mousetrack on
-
+startup_message off
 escape ^Aa
 autodetach on
 
-startup_message off
-#bindkey "^[Od" prev  # change window with ctrl-left
-#bindkey "^[Oc" next  # change window with ctrl-right
+# Enable mouse scrolling and scroll bar history scrolling
+termcapinfo xterm* ti@:te@
+term rxvt-unicode-256color
+# term screen-256color
+
+# Fix vim buffers on close
+altscreen
+
+# Hide horizontal Region labels
+caption string "%{03} "
+
+# Do not intercept selection events
+defmousetrack on
+
+# Do not flash
+vbell off
 
 hardstatus off
 hardstatus alwayslastline
@@ -32,15 +41,18 @@ split
 screen -t vim 1 zsh
 
 focus
-screen -t chat 2 zsh
+screen -t chat 4 zsh
 resize 6
 focus
 
+screen -t scratch 2 zsh 
 screen -t shell 3 zsh
-screen -t scratch 4 zsh 
 #screen -t svs 5 zsh
 #screen -t kry 6 ssh foo@bar
 #screen -t ec2 7 ssh foo@baz
+focus
+focus
+select 1
 
-
-
+#bindkey "^[Od" prev  # change window with ctrl-left
+#bindkey "^[Oc" next  # change window with ctrl-right

@@ -1,8 +1,10 @@
 URxvt.font: xft:inconsolata:size=19
 
+URxvt*loginShell: true
 URxvt.saveLines:32767
 URxvt.scrollBar: false
-URxvt.visualBell: true
+URxvt.visualBell: false
+URxvt*urgentOnBell: false
 URxvt.cursorBlink: true
 
 !URxvt.depth: 32
