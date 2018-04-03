@@ -37,6 +37,9 @@ hi! link SpellCap StatusLine
 hi! link VertSplit Comment
 hi! link Question CursorLine
 hi! link WildMenu CursorLine
+hi! link Visual IncSearch
+hi! link VisualNOS IncSearch
+" hi! VisualNOS ctermbg=2 ctermfg=0 term=none cterm=none
 
 hi! link folded underlined
 hi! link pmenusel underlined 
