@@ -3,6 +3,9 @@ source ~/.zsh/gitps.sh
 source ~/.zsh/plato.sh
 source ~/.zsh/nvm.sh
 source ~/.zsh/wsl.sh
+source $P/plato-dotfiles/vendor/github.com/zsh-users/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $P/plato-dotfiles/vendor/github.com/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 PROMPT='$(prompt_flag)
  $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
 #prompt redhat # preview: prompt -p
