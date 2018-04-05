@@ -1,5 +1,13 @@
 #!/bin/bash
-set -e
+
+#
+# clean
+rm -rf ./tmp/ ./generated/
+mkdir -p ./generated/.vim/colors
+mkdir -p $HOME/.zsh
+
+#
+# envs
 
 FORCE=0
 VRC=./generated/.vimrc
@@ -33,19 +41,15 @@ fi
 yarn install
 
 #
-# clean
-rm -rf ./tmp/ ./generated/
-mkdir -p ./generated/.vim/colors
-mkdir -p $HOME/.zsh
-
-#
 # theming
 # THEME="./misc/themes/themer-default.colors"
 THEME="./misc/themes/monogreen-v5.colors"
 echo "generating themes..."
-./node_modules/.bin/themer -t themer-wallpaper-block-wave -t themer-vim -t themer-xresources -c $THEME -o tmp/
+./node_modules/.bin/themer -t themer-hyper -t themer-wallpaper-block-wave -t themer-vim -c $THEME -o tmp/
+# ./node_modules/.bin/themer -t themer-xterm -t themer-hyper -t themer-wallpaper-block-wave -t themer-vim -t themer-xresources -c $THEME -o tmp/
 cp tmp/themer-vim/ThemerVim.vim ./generated/.vim/colors
 
+set -e
 #
 # concat X config and generated xresources theme
 while read line

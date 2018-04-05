@@ -15,6 +15,7 @@
     "themer": "^2.2.0",
     "themer-colors-default": "^1.0.1",
     "themer-hyper": "^2.0.2",
+    "themer-iterm": "^1.0.6",
     "themer-vim": "^2.2.3",
     "themer-wallpaper-block-wave": "^1.0.2"
   },
