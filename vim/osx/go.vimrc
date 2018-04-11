@@ -45,6 +45,6 @@ let g:go_metalinter_autosave_enabled = []
 " let g:go_highlight_fields = 1
 " let g:go_gocode_unimported_packages = 1
 " let g:go_gocode_propose_builtins = 1
-" let g:go_list_type = "quickfix"
+let g:go_list_type = "quickfix"
 " let g:go_gorename_prefill = 0
 " let g:go_highlight_extra_types = 1
