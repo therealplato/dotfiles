@@ -3,24 +3,22 @@
 #
 # clean
 rm -rf ./tmp/ ./generated/
-mkdir -p ./generated/.vim/colors
+# mkdir -p ./generated/.vim/colors
 mkdir -p ./generated/themer
 mkdir -p $HOME/.zsh
 
 #
 # configure
-if [ -z ${OS+x} ]; then
-    echo -e "Env OS not set, assuming osx"
-    OS="osx"
-fi
+
+# default to osx if not set:
+OS=${OS:-osx}
 
 FORCE=0
 # THEME="./misc/themes/themer-default.colors"
 THEME="./misc/themes/monogreen-v5.colors"
-VRC_DEST=$HOME/.vimrc
-VIMFILES=./generated/.vim
 V=./vim
 VRC=./generated/.vimrc
+VIMFILES=./generated/.vim
 CP=cp
 :>$VRC
 
@@ -42,45 +40,55 @@ yarn install
 #
 # OS Specific
 
-# brew's recursive copy is broke
 if [ "$OS" = "osx" ]; then
-  VRC_DEST=$HOME/_vimrc
+  # brew's recursive copy is broke
   CP="/bin/cp"
 
-  echo "\" osx-specific vim comfig via plato/dotfiles" >> ./generated/vimfiles/platform.vimrc
+  mkdir -p $VIMFILES
+  printf "\n\" osx-specific vim config via plato/dotfiles\n" >> $VIMFILES/platform.vimrc
   cat $V/osx.vimrc >> $VIMFILES/platform.vimrc
 fi
 
 if [ "$OS" = "windows" ]; then
-  VIMFILES=$HOME/_vim
-  VRC_DEST=$HOME/_vimrc
+  VRC=./generated/_vimrc
+  VIMFILES=./generated/_vim
+  # mkdir -p $VIMFILES
+  # echo "\" windows-specific vim config via plato/dotfiles" >> $VIMFILES/platform.vimrc
+  # cat $V/windows.vimrc >> $VIMFILES/platform.vimrc
 fi
 
 if [ "$OS" = "linux" ]; then
   ./node_modules/.bin/themer -t themer-xresources -c $THEME -o ./tmp
   $CP tmp/themer-xresources/themer-xresources-dark/.Xresources ./generated
+  # mkdir -p $VIMFILES
+  # echo "\" linux-specific vim config via plato/dotfiles" >> $VIMFILES/platform.vimrc
+  # cat $V/linux.vimrc >> $VIMFILES/platform.vimrc
+  
+  $CP - dotfiles/.bash_profile dotfiles/.bashrc ./generated
+  $CP -R dotfiles/xmonad ./generated
+
+  # concat X config and generated xresources theme
+  while read line
+  do
+    echo $line >> ./generated/.Xresources
+  done < ./dotfiles/.Xresources
+  while read line
+  do
+    echo $line >> ./generated/.Xresources
+  done < ./tmp/themer-xresources/themer-xresources-dark/.Xresources
 fi
+
+mkdir -p $VIMFILES/colors
 
 
 #
 # theming
 echo "generating themes..."
 ./node_modules/.bin/themer -t themer-hyper -t themer-wallpaper-block-wave -t themer-vim -c $THEME -o tmp/
-# ./node_modules/.bin/themer -t themer-xterm -t themer-hyper -t themer-wallpaper-block-wave -t themer-vim -t themer-xresources -c $THEME -o tmp/
 $CP tmp/themer-vim/ThemerVim.vim ./generated/.vim/colors
 # $CP tmp/themer-hyper...
 
 set -e
-#
-# concat X config and generated xresources theme
-while read line
-do
-  echo $line >> ./generated/.Xresources
-done < ./dotfiles/.Xresources
-while read line
-do
-  echo $line >> ./generated/.Xresources
-done < ./tmp/themer-xresources/themer-xresources-dark/.Xresources
 
 
 #
@@ -109,14 +117,17 @@ cat $V/binds.vimrc >> $VRC
 appendVimComment "go.vimrc"
 cat $V/go.vimrc >> $VRC
 
+echo "" >> $VIMFILES/platform.vimrc
+cat $VIMFILES/platform.vimrc >> $VRC
+
 echo "generated $(wc -l $VRC | grep -Eo ^[0-9]+) lines of vimrc"
 
+$CP dotfiles/.screenrc ./generated
+$CP dotfiles/.zshrc ./generated
+$CP dotfiles/.slate.js ./generated
+$CP dotfiles/.slatetile.js ./generated
+$CP -R zsh/ generated/.zsh
+
 if [ $FORCE -eq 1 ]; then
-  $CP -R ./generated/ $HOME
-  # $CP -v $VRC $VRC_DEST
-  # $CP -vr ./generated/.vim/colors $VIMFILES
-  # $CP -v ./generated/.Xresources $HOME
-  $CP -v dotfiles/.screenrc $HOME
-  $CP -v dotfiles/.zshrc $HOME
-  $CP -rv zsh/* $HOME/.zsh
+  $CP -vR ./generated/ $HOME
 fi
