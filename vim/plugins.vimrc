@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'kien/rainbow_parentheses.vim'
   Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+  Plug 'tpope/vim-unimpaired'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1

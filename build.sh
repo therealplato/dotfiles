@@ -4,21 +4,25 @@
 # clean
 rm -rf ./tmp/ ./generated/
 mkdir -p ./generated/.vim/colors
+mkdir -p ./generated/themer
 mkdir -p $HOME/.zsh
 
 #
-# envs
-
-FORCE=0
-VRC=./generated/.vimrc
-:>$VRC
-VRC_DEST=$HOME/.vimrc
-VIMFILES=$HOME/.vim
+# configure
 if [ -z ${OS+x} ]; then
     echo -e "Env OS not set, assuming osx"
     OS="osx"
 fi
-V=./vim/$OS
+
+FORCE=0
+# THEME="./misc/themes/themer-default.colors"
+THEME="./misc/themes/monogreen-v5.colors"
+VRC_DEST=$HOME/.vimrc
+VIMFILES=./generated/.vim
+V=./vim
+VRC=./generated/.vimrc
+CP=cp
+:>$VRC
 
 while test $# -gt 0; do
   case "$1" in
@@ -32,22 +36,39 @@ while test $# -gt 0; do
   esac	
 done
 
-if [ "$OS" = "windows" ]; then
-  VRC_DEST=$HOME/_vimrc
-fi
-
-#
 # prereqs
 yarn install
 
 #
+# OS Specific
+
+# brew's recursive copy is broke
+if [ "$OS" = "osx" ]; then
+  VRC_DEST=$HOME/_vimrc
+  CP="/bin/cp"
+
+  echo "\" osx-specific vim comfig via plato/dotfiles" >> ./generated/vimfiles/platform.vimrc
+  cat $V/osx.vimrc >> $VIMFILES/platform.vimrc
+fi
+
+if [ "$OS" = "windows" ]; then
+  VIMFILES=$HOME/_vim
+  VRC_DEST=$HOME/_vimrc
+fi
+
+if [ "$OS" = "linux" ]; then
+  ./node_modules/.bin/themer -t themer-xresources -c $THEME -o ./tmp
+  $CP tmp/themer-xresources/themer-xresources-dark/.Xresources ./generated
+fi
+
+
+#
 # theming
-# THEME="./misc/themes/themer-default.colors"
-THEME="./misc/themes/monogreen-v5.colors"
 echo "generating themes..."
 ./node_modules/.bin/themer -t themer-hyper -t themer-wallpaper-block-wave -t themer-vim -c $THEME -o tmp/
 # ./node_modules/.bin/themer -t themer-xterm -t themer-hyper -t themer-wallpaper-block-wave -t themer-vim -t themer-xresources -c $THEME -o tmp/
-cp tmp/themer-vim/ThemerVim.vim ./generated/.vim/colors
+$CP tmp/themer-vim/ThemerVim.vim ./generated/.vim/colors
+# $CP tmp/themer-hyper...
 
 set -e
 #
@@ -88,18 +109,14 @@ cat $V/binds.vimrc >> $VRC
 appendVimComment "go.vimrc"
 cat $V/go.vimrc >> $VRC
 
-if [ "$OS" = "osx" ]; then
-  appendVimComment "osx.vimrc"
-  cat $V/osx.vimrc >> $VRC
-fi
-
 echo "generated $(wc -l $VRC | grep -Eo ^[0-9]+) lines of vimrc"
 
 if [ $FORCE -eq 1 ]; then
-  cp -v $VRC $VRC_DEST
-  cp -vr ./generated/.vim/colors $VIMFILES
-  cp -v ./generated/.Xresources $HOME
-  cp -v dotfiles/.screenrc $HOME
-  cp -v dotfiles/.zshrc $HOME
-  cp -rv zsh/* $HOME/.zsh
+  $CP -R ./generated/ $HOME
+  # $CP -v $VRC $VRC_DEST
+  # $CP -vr ./generated/.vim/colors $VIMFILES
+  # $CP -v ./generated/.Xresources $HOME
+  $CP -v dotfiles/.screenrc $HOME
+  $CP -v dotfiles/.zshrc $HOME
+  $CP -rv zsh/* $HOME/.zsh
 fi
