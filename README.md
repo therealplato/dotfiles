@@ -1,22 +1,17 @@
-plato-dotfiles
+therealplato/dotfiles
 ==============
 
 plato's dotfiles
 
-####unix/linux:
-
-```sh
-git checkout master
-export $VIM = $HOME/.vim && mkdir -p $VIM/autoload
-curl -fLo $VIM/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-cp -r .vimrc .vim $HOME
 ```
+# zshrc sources some scripts, assuming this path:
+mkdir -p $GOPATH/src/github.com/therealplato/dotfiles
+git clone https://github.com/therealplato/dotfiles $GOPATH/src/github.com/therealplato/dotfiles
+cd $GOPATH/src/github.com/therealplato/dotfiles
 
-####windows git bash hyper:
+# Render output into ./generated:
+./build.sh
 
-```sh
-git checkout windows
-export VIM=$HOME/vimfiles && mkdir -p $VIM/autoload
-curl -fLo $VIM/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-./build.sh -f       # will concatenate then cp -i _vimrc $HOME
+# Render output into ./generated then copy into $HOME:
+./build.sh -f
 ```
