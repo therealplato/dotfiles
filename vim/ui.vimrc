@@ -1,4 +1,3 @@
-
 set foldmethod=indent
 " set foldmethod=syntax
 set foldignore=/      "dont fold comments
@@ -8,6 +7,11 @@ augroup foldgroup
   autocmd!
   autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
 augroup END
+
+" non-platform-specific highlights:
+hi! link folded underlined
+hi! link pmenusel underlined 
+hi! link pmenu preproc 
 
 " Whitespace
 set textwidth=140
@@ -21,33 +25,6 @@ augroup myfiletypes
   autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
   autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
-
-
-colorscheme ThemerVim
-set background=dark
-hi! Comment ctermfg=LightGrey
-
-" hi! CursorLine term=bold ctermfg=0 ctermbg=2
-" hi! StatusLine ctermbg=DarkGreen ctermfg=Black term=none cterm=none
-hi! CursorLine term=none cterm=none ctermbg=none ctermfg=none
-hi! link CursorLineNr MoreMsg
-hi! link StatusLine MoreMsg
-hi! StatusLineNC term=none cterm=none ctermbg=0 ctermfg=none
-hi! link SpellCap StatusLine
-hi! link VertSplit Comment
-hi! link Question CursorLine
-hi! link WildMenu CursorLine
-hi! link Visual IncSearch
-hi! link VisualNOS IncSearch
-" hi! VisualNOS ctermbg=2 ctermfg=0 term=none cterm=none
-
-hi! link folded underlined
-hi! link pmenusel underlined 
-hi! link pmenu preproc 
-hi! link diffchange statusline
-hi! link diffdelete constant
-hi! link diffadd moremsg
-hi! link difftext statusline
 
 " Restore cursor position when a file is re-opened
 function! ResCur()
@@ -98,3 +75,37 @@ function! Status(winnr)
 
   return contents
 endfunction
+
+" via queatzy https://stackoverflow.com/a/44950143/1380669
+function! DeleteCurBufferNotCloseWindow() abort
+    if &modified
+        echohl ErrorMsg
+        echom "E89: no write since last change"
+        echohl None
+    elseif winnr('$') == 1
+        bd
+    else  " multiple window
+        let oldbuf = bufnr('%')
+        let oldwin = winnr()
+        while 1   " all windows that display oldbuf will remain open
+            if buflisted(bufnr('#'))
+                b#
+            else
+                bn
+                let curbuf = bufnr('%')
+                if curbuf == oldbuf
+                    enew    " oldbuf is the only buffer, create one
+                endif
+            endif
+            let win = bufwinnr(oldbuf)
+            if win == -1
+                break
+            else        " there are other window that display oldbuf
+                exec win 'wincmd w'
+            endif
+        endwhile
+        " delete oldbuf and restore window to oldwin
+        exec oldbuf 'bd'
+        exec oldwin 'wincmd w'
+    endif
+endfunc

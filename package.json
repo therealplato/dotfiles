@@ -1,7 +1,7 @@
 {
-  "name": "plato-dotfiles",
+  "name": "therealplato-dotfiles",
   "version": "1.0.0",
-  "description": "plato-dotfiles ==============",
+  "description": "plato's dotfiles",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/therealplato/plato-dotfiles.git"
+    "url": "git+https://github.com/therealplato/dotfiles.git"
   },
   "dependencies": {
     "themer": "^2.2.0",
@@ -22,7 +22,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/therealplato/plato-dotfiles/issues"
+    "url": "https://github.com/therealplato/dotfiles/issues"
   },
-  "homepage": "https://github.com/therealplato/plato-dotfiles#readme"
+  "homepage": "https://github.com/therealplato/dotfiles#readme"
 }
