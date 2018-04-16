@@ -64,14 +64,14 @@ if [ "$OS" = "linux" ]; then
   echo "\" linux-specific vim config via plato/dotfiles" >> $VIMFILES/platform.vimrc
   cat $V/linux.vimrc >> $VIMFILES/platform.vimrc
   
-  $CP - dotfiles/.bash_profile dotfiles/.bashrc ./generated
-  $CP -R dotfiles/xmonad ./generated
+  $CP - home/.bash_profile home/.bashrc ./generated
+  $CP -R home/xmonad ./generated
 
   # concat X config and generated xresources theme
   while read line
   do
     echo $line >> ./generated/.Xresources
-  done < ./dotfiles/.Xresources
+  done < ./home/.Xresources
   while read line
   do
     echo $line >> ./generated/.Xresources
@@ -125,10 +125,10 @@ echo "generated $(wc -l $VRC | grep -Eo ^[0-9]+) lines of vimrc"
 mkdir -p $VIMFILES/autoload
 $CP vendor/github.com/junegunn/vim-plug/plug.vim $VIMFILES/autoload/
 
-$CP dotfiles/.screenrc ./generated
-$CP dotfiles/.zshrc ./generated
-$CP dotfiles/.slate.js ./generated
-$CP dotfiles/.slatetile.js ./generated
+$CP home/.screenrc ./generated
+$CP home/.zshrc ./generated
+$CP home/.slate.js ./generated
+$CP home/.slatetile.js ./generated
 $CP -R zsh/ generated/.zsh
 
 if [ $FORCE -eq 1 ]; then
