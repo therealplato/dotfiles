@@ -6,7 +6,6 @@ au FileType go nmap <Leader>r :GoRename<CR>
 au FileType go nmap <Leader>R :GoRun<CR>
 au FileType go nmap <Leader>z :GoCallers<CR>
 au FileType go nmap <Leader>x :GoCallees<CR>
-au FileType go nmap <Leader>? :GoCoverageToggle<CR>
 au FileType go nmap <Leader>c :GoReferrers<CR>
 au FileType go nmap <Leader>v :GoImplements<CR>
 au FileType go nmap <Leader>d :GoDef<CR>

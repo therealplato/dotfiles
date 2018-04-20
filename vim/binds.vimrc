@@ -6,9 +6,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" delete trailing whitespace
-nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
-
 " new window
 nnoremap <Leader>= :vs<CR>
 
@@ -33,6 +30,8 @@ nnoremap <silent> <Leader>o <C-w>h <C-w>h :vertical resize +10<CR>
 " leave insert by hitting j k together
 inoremap jk <Esc>
 inoremap kj <Esc>
+inoremap JK <Esc>
+inoremap KJ <Esc>
 
 nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
@@ -48,9 +47,16 @@ map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>
 " point to tags?
 " set tags=./tags;,tags;
 set tags=./.git/tags;,tags;
+"
+" delete trailing whitespace
+nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
 
 " toggle paste mode
 set pastetoggle=<leader>8
 
 " toggle line numbers
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+
+" fzf
+nmap <Leader>f :FZF<CR>
+nmap <Leader>F :FZF $GOPATH/src/github.com/movio/red<CR>

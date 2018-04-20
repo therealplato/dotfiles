@@ -15,6 +15,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
   Plug 'tpope/vim-unimpaired'
+  Plug 'junegunn/fzf'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
@@ -58,6 +59,9 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 let g:rbpt_colorpairs = [
+    \ ['blue',    'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['white', 'white'],
     \ ['Darkblue',    'SeaGreen3'],
     \ ['darkgray',    'DarkOrchid3'],
     \ ['darkgreen',   'firebrick3'],
@@ -83,4 +87,10 @@ let g:prettier#autoformat = 0
 let g:prettier#config#single_quote = 'false'
 let g:prettier#config#print_width = 120
 " let g:prettier#config#parser = 'babylon'
+augroup END
+
+augroup fuzzy
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
