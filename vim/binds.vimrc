@@ -1,5 +1,8 @@
 let mapleader=","
 
+" Y yanks line without newline
+nnoremap Y _y$
+
 " move window
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
