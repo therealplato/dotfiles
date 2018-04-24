@@ -1,4 +1,4 @@
-URxvt.font: xft:inconsolata:size=19
+URxvt.font: xft:inconsolata:size=25
 
 URxvt*loginShell: true
 URxvt.saveLines:32767

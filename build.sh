@@ -21,6 +21,7 @@ VRC=./generated/.vimrc
 VIMFILES=./generated/.vim
 CP=cp
 :>$VRC
+OS=$(uname | tr '[:upper:]' '[:lower:]')
 
 while test $# -gt 0; do
   case "$1" in
@@ -59,7 +60,6 @@ fi
 
 if [ "$OS" = "linux" ]; then
   ./node_modules/.bin/themer -t themer-xresources -c $THEME -o ./tmp
-  $CP tmp/themer-xresources/themer-xresources-dark/.Xresources ./generated
   mkdir -p $VIMFILES
   echo "\" linux-specific vim config via plato/dotfiles" >> $VIMFILES/platform.vimrc
   cat $V/linux.vimrc >> $VIMFILES/platform.vimrc
@@ -132,5 +132,11 @@ $CP home/.slatetile.js ./generated
 $CP -R zsh/ generated/.zsh
 
 if [ $FORCE -eq 1 ]; then
-  $CP -vR ./generated/ $HOME
+  echo "$CP -vR ./generated/ $HOME"
+  $CP -vR ./generated/. $HOME
+
+  # couldn't find how to source this pre-X...
+  if [ "$OS" = "linux" ]; then
+    xrdb merge $HOME/.Xresources
+  fi
 fi
