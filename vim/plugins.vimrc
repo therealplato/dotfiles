@@ -16,6 +16,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
   Plug 'tpope/vim-unimpaired'
   Plug 'junegunn/fzf'
+  Plug 'fholgado/minibufexpl.vim'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
@@ -94,3 +95,5 @@ autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
+
+let g:miniBufExplBRSplit = 0

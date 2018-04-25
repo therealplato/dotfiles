@@ -46,7 +46,7 @@ bold "$CMD" && $CMD
 #
 # OS Specific
 
-if [ "$OS" = "osx" ]; then
+if [ "$OS" = "darwin" ]; then
   # brew's recursive copy is broke
   CP="/bin/cp"
 
@@ -56,7 +56,7 @@ if [ "$OS" = "osx" ]; then
   printf "\n\" osx-specific vim config via plato/dotfiles\n" >> $VIMFILES/platform.vimrc
 
   CMD="cat $V/osx.vimrc >> $VIMFILES/platform.vimrc"
-  bold "$CMD" && $CMD
+  bold "$CMD" && eval $CMD
 fi
 
 if [ "$OS" = "windows" ]; then

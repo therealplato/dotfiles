@@ -13,6 +13,13 @@ hi! link folded underlined
 hi! link pmenusel underlined 
 hi! link pmenu preproc 
 
+hi! link MBENormal preproc 
+hi! link MBEVisibleNormal preproc 
+hi! link MBEChanged SignColumn
+hi! link MBEVisibleChanged SignColumn
+hi! link MBEVisibleActiveNormal Underlined
+hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=14
+
 " Whitespace
 set textwidth=140
 set tabstop=2
