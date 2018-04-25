@@ -18,7 +18,7 @@ hi! link MBEVisibleNormal preproc
 hi! link MBEChanged SignColumn
 hi! link MBEVisibleChanged SignColumn
 hi! link MBEVisibleActiveNormal Underlined
-hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=14
+hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
 
 " Whitespace
 set textwidth=140
