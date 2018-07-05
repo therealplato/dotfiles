@@ -83,6 +83,20 @@ alias gvl="govendor list"
 alias dc="docker-compose"
 alias dm="docker-machine"
 
+alias GS="git status"
+alias digs="dig +short"
+
+function rdns() {
+  if (( $# < 1 )); then
+    echo "$0 <ip> ..."
+    return
+  fi
+  for ip in "${@}"; do
+    dig +short -x $ip
+  done
+}
+
+
 function dnuke() {
   docker ps -q        | xargs docker stop
   docker volume ls -q | xargs docker volume rm

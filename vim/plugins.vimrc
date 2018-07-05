@@ -17,6 +17,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-unimpaired'
   Plug 'junegunn/fzf'
   Plug 'fholgado/minibufexpl.vim'
+  Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
