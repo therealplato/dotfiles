@@ -19,6 +19,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'fholgado/minibufexpl.vim'
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
+  Plug 'mhinz/vim-startify'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
@@ -47,6 +48,7 @@ let g:ale_enabled = 1
 " let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save= 1
 let g:ale_linters = {'go': ['gometalinter']}
 let g:ale_sign_column_always = 1
@@ -88,3 +90,5 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 augroup END
 
 let g:miniBufExplBRSplit = 0
+
+let g:startify_custom_header = ['']
