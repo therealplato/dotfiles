@@ -12,8 +12,8 @@ set background=dark
 " hi! link MBEVisibleChanged SignColumn
 " hi! link MBEVisibleActiveNormal Underlined
 " hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
-hi! StatusLine term=underline cterm=underline ctermfg=12
-hi! StatusLineNC term=NONE cterm=NONE ctermfg=12
+hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
+hi! StatusLineNC term=underline cterm=underline ctermfg=12
 hi! VertSplit term=NONE cterm=NONE ctermfg=12
 
 " Whitespace
@@ -76,17 +76,27 @@ function! Status(winnr)
   " let modified = getbufvar(buffer, '&modified')
   " let readonly = getbufvar(buffer, '&ro')
   " let fname = bufname(buffer)
+  " let contents .= '%f'                   " Relative filename
 
-  let contents = ''
-  let contents .= '%m%r '                      "[+] modified, [RO] readonly
-  let contents .= '%(%f%)'                " Filename
-  let contents .= '%='                   " Right justify from here
-  let contents .= ' %{go#statusline#Show()}'
-  let contents .= '%.30('                " max 30 width from here to closing paren 
-  let contents .= ' ⎇\'                 " branch symbol
+  let contents = '%.50('                 " begin group, left justified, max width 50
+  " let contents .= '%#User1#'             " start color
+  let contents .= '%m'                   " [+] modified, [RO] readonly
+  let contents .= ' '
+  let contents .= '%t'                   " Filename only
+  let contents .= ':%l'                  " line no
+  let contents .= ':%c'                  " col no
+  " let contents .= '%*'                   " end color
+  let contents .= '%)'                   " End group
+  let contents .= '%='                   " Begin Right justify
+  let contents .= ' '
+  let contents .= '%#VisualNOS#%{go#statusline#Show()}%*'
+  let contents .= '%.50('                " begin group max 50 width
+  let contents .= ' '
+  let contents .= '⎇ '                   " branch symbol
   let contents .= '%{fugitive#head()}'   " Git Hotness
-  let contents .= ' %p%%'                " file nav info
-  let contents .= '%)' " close right justified group
+  let contents .= ' '
+  let contents .= '%p%%'                 " file nav percent
+  let contents .= '%)'                   " end right justified group
 
   return contents
 endfunction
