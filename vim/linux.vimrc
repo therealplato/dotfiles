@@ -1,5 +1,3 @@
-colorscheme ThemerVim
-set background=dark
 hi! Comment ctermfg=LightGrey
 
 " hi! CursorLine term=bold ctermfg=0 ctermbg=2

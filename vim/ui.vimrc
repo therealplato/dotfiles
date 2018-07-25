@@ -1,12 +1,5 @@
-set foldmethod=indent
-" set foldmethod=syntax
-set foldignore=/      "dont fold comments
-" https://superuser.com/a/567391/278908
-" begin folding with everything expanded:
-augroup foldgroup
-  autocmd!
-  autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
-augroup END
+colorscheme ThemerVim
+set background=dark
 
 " non-platform-specific highlights:
 " hi! link folded underlined
@@ -19,6 +12,9 @@ augroup END
 " hi! link MBEVisibleChanged SignColumn
 " hi! link MBEVisibleActiveNormal Underlined
 " hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
+hi! StatusLine term=underline cterm=underline ctermfg=12
+hi! StatusLineNC term=NONE cterm=NONE ctermfg=12
+hi! VertSplit term=NONE cterm=NONE ctermfg=12
 
 " Whitespace
 set textwidth=140
@@ -31,6 +27,16 @@ augroup myfiletypes
   autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
   autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
   autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
+augroup END
+
+set foldmethod=indent
+" set foldmethod=syntax
+set foldignore=/      "dont fold comments
+" https://superuser.com/a/567391/278908
+" begin folding with everything expanded:
+augroup foldgroup
+  autocmd!
+  autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
 augroup END
 
 " Restore cursor position when a file is re-opened
@@ -67,18 +73,20 @@ function! Status(winnr)
   let active = winnr() == a:winnr
   let buffer = winbufnr(a:winnr)
 
-  let modified = getbufvar(buffer, '&modified')
-  let readonly = getbufvar(buffer, '&ro')
-  let fname = bufname(buffer)
+  " let modified = getbufvar(buffer, '&modified')
+  " let readonly = getbufvar(buffer, '&ro')
+  " let fname = bufname(buffer)
 
   let contents = ''
   let contents .= '%m%r '                      "[+] modified, [RO] readonly
-  let contents .= '%.30(%f%)'                " Filename
-  let contents .= '%{go#statusline#Show()}'
-  let contents .= '%='                     " Right align from here
-  let contents .= '⎇\'                 " branch symbol
-  let contents .= '%.20(%{fugitive#head()}%)' " Git Hotness
-  let contents .= '%10.(%l/%L%)\ (%p%%)'  " file nav info
+  let contents .= '%(%f%)'                " Filename
+  let contents .= '%='                   " Right justify from here
+  let contents .= ' %{go#statusline#Show()}'
+  let contents .= '%.30('                " max 30 width from here to closing paren 
+  let contents .= ' ⎇\'                 " branch symbol
+  let contents .= '%{fugitive#head()}'   " Git Hotness
+  let contents .= ' %p%%'                " file nav info
+  let contents .= '%)' " close right justified group
 
   return contents
 endfunction

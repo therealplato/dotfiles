@@ -34,6 +34,9 @@ au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = []
+let g:go_list_type = "quickfix"
+let g:go_statusline_duration = 7 
+
 " let g:go_metalinter_autosave_enabled = ['golint']
 " let g:go_auto_sameids = 1 " causes buffer corruption
 " let g:go_highlight_trailing_whitespace_error = 1
@@ -44,6 +47,5 @@ let g:go_metalinter_autosave_enabled = []
 " let g:go_highlight_fields = 1
 " let g:go_gocode_unimported_packages = 1
 " let g:go_gocode_propose_builtins = 1
-let g:go_list_type = "quickfix"
 " let g:go_gorename_prefill = 0
 " let g:go_highlight_extra_types = 1
