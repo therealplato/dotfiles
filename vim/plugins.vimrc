@@ -20,6 +20,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'mhinz/vim-startify'
+  Plug 'will133/vim-dirdiff'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1

@@ -1,3 +1,4 @@
+colorscheme ThemerVim
 set background=dark
 
 nnoremap Ó :bp!<CR>

@@ -20,7 +20,8 @@ bold "$CMD" && $CMD
 
 FORCE=0
 # THEME="./misc/themes/themer-default.colors"
-THEME="./misc/themes/monogreen-v5.colors"
+# THEME="./misc/themes/monogreen-v5.colors"
+THEME="./misc/themes/themer-pink/colors.js"
 V=./vim
 VRC=./generated/.vimrc
 VIMFILES=./generated/.vim
@@ -136,7 +137,7 @@ bold "$CMD" && $CMD
 CMD="$CP vendor/github.com/junegunn/vim-plug/plug.vim $VIMFILES/autoload/"
 bold "$CMD" && $CMD
 
-CMD="$CP home/.screenrc home/.zshrc home/.slate.js home/.slatetile.js ./generated"
+CMD="$CP home/.screenrc home/.zshrc ./generated"
 bold "$CMD" && $CMD
 
 CMD="$CP -R zsh/ generated/.zsh"
