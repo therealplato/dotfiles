@@ -136,6 +136,24 @@ function derps {
   ))"
 }
 
+function tips {
+  echo "![derp](https://$(curl -s https://imgur.com/r/tippytaps \
+    | grep -Eo 'i\.imgur\.com/[a-zA-Z0-9]{5,10}\.jpg' \
+    | sed 's/b.jpg/.jpg/' \
+    | sort --random-sort \
+    | head -n1 \
+  ))"
+}
+
+function awws {
+  echo "![derp](https://$(curl -s https://imgur.com/r/awwducational\
+    | grep -Eo 'i\.imgur\.com/[a-zA-Z0-9]{5,10}\.jpg' \
+    | sed 's/b.jpg/.jpg/' \
+    | sort --random-sort \
+    | head -n1 \
+  ))"
+}
+
 # Convert video to gif file.
 # via https://superuser.com/a/1154859/278908
 # Usage: video2gif video_file (scale) (fps)
