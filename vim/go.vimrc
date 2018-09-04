@@ -10,14 +10,16 @@ au FileType go nmap <Leader>c :GoReferrers<CR>
 au FileType go nmap <Leader>v :GoImplements<CR>
 au FileType go nmap <Leader>d :GoDef<CR>
 au FileType go nmap <Leader>D :GoDefPop<CR>
-au FileType go nmap <Leader>i :GoImports<CR>
 au FileType go nmap <Leader>I :GoInstall<CR>
-au FileType go nmap <Leader>gp :GoPlay<CR>
 au FileType go nmap <Leader>' :GoDoc<CR>
 au FileType go nmap <Leader>/ :GoInfo<CR>
-au FileType go nmap <Leader>p :DlvToggleBreakpoint<CR>
-au FileType go nmap <Leader>dt :DlvTest<CR>
-au FileType go nmap <Leader>dd :DlvDebug<CR>
+" au FileType go nmap <Leader>p :DlvToggleBreakpoint<CR>
+" au FileType go nmap <Leader>dt :DlvTest<CR>
+" au FileType go nmap <Leader>dd :DlvDebug<CR>
+au FileType go nmap <Leader>gp :GoPlay<CR>
+au FileType go nmap <Leader>gk :GoKeyify<CR>
+au FileType go nmap <Leader>gf :GoFillStruct<CR>
+au FileType go nmap <Leader>gc :GoChannelPeers<CR>
 augroup END
 
 " One command to build tests or implementations
@@ -36,6 +38,7 @@ let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = []
 let g:go_list_type = "quickfix"
 let g:go_statusline_duration = 3 
+let g:go_gocode_propose_source = 1
 
 " let g:go_metalinter_autosave_enabled = ['golint']
 " let g:go_auto_sameids = 1 " causes buffer corruption
