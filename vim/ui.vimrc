@@ -6,12 +6,13 @@ set background=dark
 " hi! link pmenusel underlined
 " hi! link pmenu preproc
 "
-" hi! link MBENormal preproc
-" hi! link MBEVisibleNormal preproc
-" hi! link MBEChanged SignColumn
-" hi! link MBEVisibleChanged SignColumn
-" hi! link MBEVisibleActiveNormal Underlined
-" hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
+hi! link MBENormal preproc
+hi! link MBEVisibleNormal preproc
+hi! link MBEChanged LineNr
+hi! link MBEVisibleChanged LineNr
+hi! link MBEVisibleActiveNormal Underlined
+hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
+
 hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
 hi! StatusLineNC term=underline cterm=underline ctermfg=12
 hi! VertSplit term=NONE cterm=NONE ctermfg=12
