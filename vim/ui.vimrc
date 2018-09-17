@@ -17,10 +17,10 @@ hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
 hi! StatusLineNC term=underline cterm=underline ctermfg=12
 hi! VertSplit term=NONE cterm=NONE ctermfg=12
 hi clear SignColumn
-hi! link GitGutterAddLine DiffAdd
-hi! link GitGutterChangeLine DiffChange
-hi! link GitGutterDeleteLine DiffDelete
-hi! link GitGutterChangeDeleteLine GitGutterChangeLineDefault
+hi! link GitGutterAdd GitGutterAddDefault
+hi! link GitGutterChange GitGutterChangeDefault
+hi! link GitGutterDelete GitGutterDeleteDefault 
+hi! link GitGutterChangeDelete GitGutterChangeDeleteDefault
 
 " Whitespace
 set textwidth=140
@@ -93,6 +93,7 @@ function! Status(winnr)
   let contents .= ':%c'                  " col no
   " let contents .= '%*'                   " end color
   let contents .= '%)'                   " End group
+  " let contents .= '%{go#complete#GetInfo()}'
   let contents .= '%='                   " Begin Right justify
   let contents .= ' '
   let contents .= '%#VisualNOS#%{go#statusline#Show()}%*'

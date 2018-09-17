@@ -27,12 +27,14 @@ let NERDTreeQuitOnOpen = 1
 let g:NERDTreeDirArrowExpandable = '◎'
 let g:NERDTreeDirArrowCollapsible = '◉'
 
-let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:SuperTabClosePreviewOnPopupClose = 1
-autocmd FileType *
-  \ if &omnifunc != '' |
-  \   call SuperTabChain(&omnifunc, "<c-p>") |
-\ endif
+" let g:SuperTabContextDefaultCompletionType = "asdf"
+
+" autocmd FileType *
+"   \ if &omnifunc != '' |
+"   \   call SuperTabChain(&omnifunc, "<c-p>") |
+" \ endif
 
 " let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-b>"
