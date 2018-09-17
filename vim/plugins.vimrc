@@ -56,8 +56,8 @@ let g:ale_sign_column_always = 1
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
 " let g:ale_lint_delay = 300
-highlight link ALEErrorSign Constant
-highlight link ALEWarningSign Constant
+hi! link ALEErrorSign ErrorMsg
+hi! link ALEWarningSign LineNr
 
 
 au VimEnter * RainbowParenthesesToggle
@@ -93,3 +93,5 @@ augroup END
 let g:miniBufExplBRSplit = 0
 
 let g:startify_custom_header = ['']
+
+let g:gitgutter_override_sign_column_highlight = 0

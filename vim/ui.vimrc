@@ -16,6 +16,11 @@ hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
 hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
 hi! StatusLineNC term=underline cterm=underline ctermfg=12
 hi! VertSplit term=NONE cterm=NONE ctermfg=12
+hi clear SignColumn
+hi! link GitGutterAddLine DiffAdd
+hi! link GitGutterChangeLine DiffChange
+hi! link GitGutterDeleteLine DiffDelete
+hi! link GitGutterChangeDeleteLine GitGutterChangeLineDefault
 
 " Whitespace
 set textwidth=140
