@@ -13,6 +13,8 @@ export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
+#initdb: docker-compose run initdb new blah
+
 # prompt
 # add-zsh-hook preexec preexec_prev_cmd_time
 # add-zsh-hook precmd precmd_prev_cmd_time

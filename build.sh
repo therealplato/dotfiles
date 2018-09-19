@@ -137,6 +137,10 @@ bold "$CMD" && $CMD
 CMD="$CP vendor/github.com/junegunn/vim-plug/plug.vim $VIMFILES/autoload/"
 bold "$CMD" && $CMD
 
+## emacs
+CMD="$CP -R home/emacs.d ./generated/.emacs.d"
+bold "$CMD" && $CMD
+
 CMD="$CP home/.screenrc home/.zshrc ./generated"
 bold "$CMD" && $CMD
 
