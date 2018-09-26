@@ -19,8 +19,13 @@ hi! VertSplit term=NONE cterm=NONE ctermfg=12
 hi clear SignColumn
 hi! link GitGutterAdd GitGutterAddDefault
 hi! link GitGutterChange GitGutterChangeDefault
-hi! link GitGutterDelete GitGutterDeleteDefault 
+hi! link GitGutterDelete GitGutterDeleteDefault
 hi! link GitGutterChangeDelete GitGutterChangeDeleteDefault
+
+hi! link DiffAdd GitGutterAddDefault
+hi! link DiffChange GitGutterChangeDefault
+hi! link DiffDelete GitGutterDeleteDefault
+hi! link DiffText GitGutterChangeDefault
 
 " Whitespace
 set textwidth=140

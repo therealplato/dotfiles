@@ -80,9 +80,12 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 " autocmd BufWritePre *.js,*.json,*.md PrettierAsync
 au FileType js,html nmap <Leader>d :TernDef<CR>
 au FileType js,html nmap <Leader>r :TernRename<CR>
+au FileType js set textwidth=80
 let g:prettier#autoformat = 0
-let g:prettier#config#single_quote = 'false'
-let g:prettier#config#print_width = 120
+let g:prettier#config#single_quote = 'true'
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#print_width = 80
+let g:prettier#config#prose_wrap = 'never'
 " let g:prettier#config#parser = 'babylon'
 augroup END
 
