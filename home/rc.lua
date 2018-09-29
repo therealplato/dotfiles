@@ -14,6 +14,9 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+-- eyedeekay/awesome-network-manager
+require("network.pech")
+
 -- Load Debian menu entries
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
@@ -134,6 +137,21 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Keyboard map indicator and switcher
 -- mykeyboardlayout = awful.widget.keyboardlayout()
 
+-- create a network menu widget
+function mynetworkmenu()
+    networkmenu = awful.menu({	items = netmgr.generate_network_menu()	  })
+    return networkmenu
+end
+
+mynetworklauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+                                            menu = mynetworkmenu()})
+nettimer = timer({ timeout = 360 })
+nettimer:connect_signal("timeout", function()
+        mynetworklauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+                                                menu = mynetworkmenu()})
+    end)
+nettimer:start()
+
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
@@ -238,6 +256,7 @@ awful.screen.connect_for_each_screen(function(s)
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
+            mynetworklauncher,
             s.mylayoutbox,
         },
     }
