@@ -77,7 +77,13 @@ if [ "$OS" = "linux" ]; then
   CMD="$CP home/.bash_profile home/.bashrc ./generated"
   bold "$CMD" && $CMD
 
-  CMD="$CP -R home/.xmonad ./generated"
+  CMD="$CP -R home/.xmonad home/crt.json ./generated"
+  bold "$CMD" && $CMD
+
+  CMD="mkdir -p generated/.config/awesome"
+  bold "$CMD" && $CMD
+
+  CMD="$CP -R  home/rc.lua ./generated/.config/awesome"
   bold "$CMD" && $CMD
 
   bold "assemble generated/.Xresources"

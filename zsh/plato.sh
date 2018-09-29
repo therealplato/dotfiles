@@ -37,7 +37,7 @@ export PATH=/usr/local/bin:$PATH
 # }
 
 alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
-alias ls='ls -aG'
+alias ls='ls -aG --color=auto'
 alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
 alias cd='cd -P' # dereference symlinks
 alias cp='cp -vi' #verbose interactive

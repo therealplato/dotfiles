@@ -4,3 +4,4 @@ yarn.lock
 *secret.sh*
 generated/
 tmp/
+*DS_Store
