@@ -80,10 +80,14 @@ if [ "$OS" = "linux" ]; then
   CMD="$CP -R home/.xmonad home/crt.json ./generated"
   bold "$CMD" && $CMD
 
-  CMD="mkdir -p generated/.config/awesome"
+  AWESOME="./generated/.config/awesome"
+  CMD="mkdir -p $AWESOME"
   bold "$CMD" && $CMD
 
-  CMD="$CP -R  home/rc.lua ./generated/.config/awesome"
+  CMD="$CP -R  home/rc.lua $AWESOME"
+  bold "$CMD" && $CMD
+
+  CMD="$CP -R vendor/github.com/lcpz/lain $AWESOME"
   bold "$CMD" && $CMD
 
   bold "assemble generated/.Xresources"

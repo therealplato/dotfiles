@@ -1,5 +1,6 @@
 -- Standard awesome library
 local gears = require("gears")
+local shape = require("gears.shape")
 local awful = require("awful")
 require("awful.autofocus")
 -- Widget and layout library
@@ -17,6 +18,8 @@ require("awful.hotkeys_popup.keys")
 -- Load Debian menu entries
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
+
+local lain = require("lain")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -135,8 +138,16 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
+local markup = lain.util.markup
+local space3 = markup.font("Tamsyn 3", " ")
+ 
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%a %d %R " .. markup.font("Tamsyn 4", " ")), 5)
+local myutcclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. " (%F %RZ) " .. markup.font("Tamsyn 4", " ")), 5, "Z")
+-- local clock_icon = wibox.widget.imagebox(beautiful.clock)
+-- local clockbg = wibox.container.background(mytextclock, beautiful.bg_focus, shape.rectangle)
+-- local clockwidget = wibox.container.margin(clockbg, 0, 3, 5, 5)
+
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -237,7 +248,9 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
+            clockwidget,
             mytextclock,
+            myutcclock,
             s.mylayoutbox,
         },
     }
