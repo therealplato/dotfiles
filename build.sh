@@ -84,11 +84,11 @@ if [ "$OS" = "linux" ]; then
   CMD="mkdir -p $AWESOME"
   bold "$CMD" && $CMD
 
-  CMD="$CP -R  home/rc.lua $AWESOME"
+  CMD="$CP -R -T home/.config/awesome $AWESOME"
   bold "$CMD" && $CMD
 
-  CMD="$CP -R vendor/github.com/lcpz/lain $AWESOME"
-  bold "$CMD" && $CMD
+  # CMD="$CP -R vendor/github.com/lcpz/lain $AWESOME"
+  # bold "$CMD" && $CMD
 
   bold "assemble generated/.Xresources"
   while read line

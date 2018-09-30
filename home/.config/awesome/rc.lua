@@ -267,6 +267,13 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+    -- custom:
+    awful.key({                   }, "Print", function () awful.util.spawn("scrot -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
+		-- 121 XF86AudioMute
+		-- 122 XF86AudioLowerVolume
+		-- 123 XF86AudioRaiseVolume
+
+    --default:
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -590,3 +597,6 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- Startup programs
+awful.spawn.with_shell("~/.config/awesome/autorun.sh")
