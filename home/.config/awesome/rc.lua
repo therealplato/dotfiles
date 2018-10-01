@@ -268,8 +268,8 @@ root.buttons(gears.table.join(
 -- {{{ Key bindings
 globalkeys = gears.table.join(
     -- custom:
-    awful.key({                   }, "Print", function () awful.util.spawn("scrot -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
-    awful.key({ modkey, "Control", "Shift" }, "Escape", function () awful.with_shell("light-locker-command -l 2>/dev/null'", false) end),
+    awful.key({                   }, "Print", function () awful.spawn("scrot -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
+    awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("light-locker-command -l 2>/dev/null", false) end),
 		-- 121 XF86AudioMute
 		-- 122 XF86AudioLowerVolume
 		-- 123 XF86AudioRaiseVolume
@@ -524,6 +524,7 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = false }
     },
 
+    -- Force some windows to specific workspaces:
     { rule = { instance = "movio.slack.com" },
       properties = { tag = "2. Slack",
                      floating = false,
@@ -531,6 +532,11 @@ awful.rules.rules = {
 
     { rule = { instance = "soundcloud.com__discover" },
       properties = { tag = "4. Media",
+                     floating = false,
+    } },
+
+    { rule = { class = "Firefox" },
+      properties = { tag = "3. Web",
                      floating = false,
     } },
 }

@@ -9,5 +9,7 @@ function run {
 }
 
 run nm-applet
+run light-locker
+run firefox
 run google-chrome --app=https://movio.slack.com
 run google-chrome --app=https://soundcloud.com/discover
