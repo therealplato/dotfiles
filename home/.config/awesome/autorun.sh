@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function run {
-  if [ $1 = "firefox" ]; then
+  if [ $1 = "google-chrome" ]; then
     $@&
   elif ! pgrep $1 ; then
     $@&
@@ -9,5 +9,5 @@ function run {
 }
 
 run nm-applet
-# run firefox https://soundcloud.com/discover
-# run firefox https://movio.slack.com
+run google-chrome --app=https://movio.slack.com
+run google-chrome --app=https://soundcloud.com/discover

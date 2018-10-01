@@ -64,16 +64,16 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    -- awful.layout.suit.floating,
-    awful.layout.suit.tile,
+    awful.layout.suit.max,
     awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.floating,
+    -- awful.layout.suit.tile,
     -- awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
+    -- awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
+    -- awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.magnifier,
     -- awful.layout.suit.corner.nw,
@@ -213,7 +213,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     -- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
-    awful.tag({ "1", "2", "3", "4"}, s, awful.layout.layouts[1])
+    awful.tag({ "1. Term", "2. Slack", "3. Web", "4. Media", "5. Scratch"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -269,6 +269,7 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     -- custom:
     awful.key({                   }, "Print", function () awful.util.spawn("scrot -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
+    awful.key({ modkey, "Control", "Shift" }, "Escape", function () awful.with_shell("light-locker-command -l 2>/dev/null'", false) end),
 		-- 121 XF86AudioMute
 		-- 122 XF86AudioLowerVolume
 		-- 123 XF86AudioRaiseVolume
@@ -520,12 +521,18 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+    { rule = { instance = "movio.slack.com" },
+      properties = { tag = "2. Slack",
+                     floating = false,
+    } },
+
+    { rule = { instance = "soundcloud.com__discover" },
+      properties = { tag = "4. Media",
+                     floating = false,
+    } },
 }
 -- }}}
 
