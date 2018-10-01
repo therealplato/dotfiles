@@ -1,45 +1,67 @@
 local gears = require("gears")
 local awful = require("awful")
 
+-- Couldn't find an obvious way to have $WALLPAPERS set at time this executes:
+local wp_path = os.getenv("HOME") .. "/wallpaper/"
+
+local wp_timeout  = 60 * 30
+local wp_timer = gears.timer { timeout = wp_timeout }
+
+local i = 1
+wp_index = 1
+wp_paths = {}
+wp_screens = {}
+
 local themes_path = gears.filesystem.get_themes_dir()
-local wp_index = 1
-local wp_timeout  = 10
-local wp_timer = timer { timeout = wp_timeout }
-local wp_path = gears.filesystem.get_configuration_dir() .. "/../../wallpaper/"
-local wp_paths = {}
+table.insert(wp_paths, 1, themes_path .. "default/background.png")
 
-local rotate = function(s)
-    gears.wallpaper.maximized(wp_paths[wp_index], s, true)
-    -- gears.wallpaper.maximized("/home/isaac/wallpaper/04091_hafencityhamburg_2880x1800.jpg", s, true)
-end
-
-done = function(stdout, stderr, exitreason, exitcode)
-  error("done")
-  if exitcode ~= 0 then
-    error("No jpg, jpeg, png found in $WALLPAPER")
+-- test a single result for filename 
+local on_line = function(line)
+  if 
+    string.match(line, "[pP][nN][gG]$") == nil and
+    string.match(line, "[jJ][pP][eE]?[gG]$") == nil 
+  then
     return
   end
-
-	local i = 1
-	for line in string.gmatch(stdout, "[^\r\n]+") do
-		wp_paths[i] = line
-    i = i + 1
-	end
-
-  error(wp_paths)
+  wp_paths[i] = line
+  i = i + 1
 end
 
-ret = awful.spawn.easy_async_with_shell("ls -1 $WALLPAPERS | grep -iE '(jpe?g|png)$'", done)
-error(ret)
+awful.spawn.with_line_callback("ls -1 " .. wp_path, {stdout=on_line})
+
 
 local on_tick = function()
-  wp_index = math.random( 1, #wp_files)
-  error("jhkl")
+  if #wp_paths < 2 then
+    return
+  end
+  wp_index = math.random( 1, #wp_paths)
+  for k, v in pairs(wp_screens) do
+    wp_rotate(v)
+  end
+end
+
+wp_rotate = function(s)
+    f = wp_paths[wp_index]
+    if f == nil then
+      gears.debug.print_error("can't rotate due to nil path")
+      return
+    end
+    gears.wallpaper.maximized(wp_path .. f, s, true)
+end
+
+
+start = function(s)
+    gears.debug.print_error(gears.debug.dump_return(s, "screen"))
+    table.insert(wp_screens, s.index, s)
+end
+stop = function(s)
+    table.remove(wp_paths)
 end
 
 wp_timer:connect_signal("timeout", on_tick)
 wp_timer:start()
 
 return {
-    rotate = rotate
+  start = start,
+  stop = stop,
 }

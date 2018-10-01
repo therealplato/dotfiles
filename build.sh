@@ -148,7 +148,7 @@ bold "$CMD" && $CMD
 CMD="$CP -R home/emacs.d ./generated/.emacs.d"
 bold "$CMD" && $CMD
 
-CMD="$CP home/.screenrc home/.zshrc ./generated"
+CMD="$CP home/.screenrc home/.zshrc home/.zshenv ./generated"
 bold "$CMD" && $CMD
 
 CMD="$CP -R zsh/ generated/.zsh"

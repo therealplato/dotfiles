@@ -52,78 +52,6 @@ end
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.init(gears.filesystem.get_xdg_config_home()  .. "/awesome/theme.lua")
 
-
-
-
-
-
--- -- {{{ Function definitions
---
--- -- scan directory, and optionally filter outputs
--- function scandir(directory, filter)
---     local i, t, popen = 0, {}, io.popen
---     if not filter then
---         filter = function(s) return true end
---     end
---     print(filter)
---     for filename in popen('ls -a "'..directory..'"'):lines() do
---         if filter(filename) then
---             i = i + 1
---             t[i] = filename
---         end
---     end
---     return t
--- end
---
--- -- }}}
---
--- -- configuration - edit to your liking
--- -- wallpaper rotation
--- local wp_index = 1
--- local wp_timeout  = 10
--- local wp_path = gears.filesystem.get_configuration_dir() .. "/../../wallpaper/"
---
--- function apply_wallpaper(path, s)
--- end
--- local wp_filter = function(s) return string.match(s,"%.png$") or string.match(s,"%.jpeg$") end
--- local wp_files = scandir(wp_path, wp_filter)
---
--- -- setup the timer
--- local wp_timer = timer { timeout = wp_timeout }
--- wp_timer:connect_signal("timeout", function()
---  
---   -- set wallpaper to current index for all screens
---   for s = 1, screen.count() do
--- 		set_wallpaper(s)
---   end
---  
---   -- stop the timer (we don't need multiple instances running at the same time)
---   wp_timer:stop()
---  
---   -- get next random index
---   wp_index = math.random( 1, #wp_files)
---  
---   --restart the timer
---   wp_timer.timeout = wp_timeout
---   wp_timer:start()
--- end)
---  
--- -- initial start when rc.lua is first run
--- wp_timer:start()
-
--- To rotate the wallpapers randomly, just comment the {{ic|wallpaper_cmd}} line above, and add a script into your {{ic|.xinitrc}} with the codes below(for awesome <= 3.4 ):
--- {{bc|
--- while true;
--- do
---   awsetbg -r <path/to/the/directory/of/your/wallpapers>
---   sleep 15m
--- done &
--- }}
-
-
-
-
-
 -- This is used later as the default terminal and editor to run.
 terminal = "cool-retro-term"
 editor = os.getenv("EDITOR") or "nano"
@@ -263,24 +191,17 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
--- local function set_wallpaper(s)
---     -- Wallpaper
---     if beautiful.wallpaper then
---         local wallpaper = beautiful.wallpaper
---         -- If wallpaper is a function, call it with the screen
---         if type(wallpaper) == "function" then
---             wallpaper = wallpaper(s)
---         end
--- 				gears.wallpaper.maximized(wp_path .. wp_files[wp_index], s, true)
---     end
--- end
-
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", wallpaper.rotate)
+-- gears.debug.dump(wallpaper.rotate)
+-- screen.connect_signal("property::geometry", wallpaper.rotate)
+
+-- awful.screen.disconnect_for_each_screen(function(s)
+--     wallpaper.unrotate(s)
+-- end)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    wallpaper.rotate(s)
+    wallpaper.start(s)
 
     -- Each screen has its own tag table.
     -- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
