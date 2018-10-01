@@ -23,7 +23,7 @@ local on_line = function(line)
   then
     return
   end
-  wp_paths[i] = line
+  wp_paths[i] = wp_path .. line
   i = i + 1
 end
 
@@ -43,16 +43,15 @@ end
 wp_rotate = function(s)
     f = wp_paths[wp_index]
     if f == nil then
-      gears.debug.print_error("can't rotate due to nil path")
       return
     end
-    gears.wallpaper.maximized(wp_path .. f, s, true)
+    gears.wallpaper.maximized(f, s, true)
 end
 
 
 start = function(s)
-    gears.debug.print_error(gears.debug.dump_return(s, "screen"))
     table.insert(wp_screens, s.index, s)
+    wp_rotate(s)
 end
 stop = function(s)
     table.remove(wp_paths)
@@ -60,6 +59,7 @@ end
 
 wp_timer:connect_signal("timeout", on_tick)
 wp_timer:start()
+on_tick()
 
 return {
   start = start,
