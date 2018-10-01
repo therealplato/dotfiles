@@ -192,12 +192,11 @@ local tasklist_buttons = gears.table.join(
                                           end))
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
--- gears.debug.dump(wallpaper.rotate)
--- screen.connect_signal("property::geometry", wallpaper.rotate)
+screen.connect_signal("property::geometry", wallpaper.start)
 
--- awful.screen.disconnect_for_each_screen(function(s)
---     wallpaper.unrotate(s)
--- end)
+awful.screen.disconnect_for_each_screen(function(s)
+    wallpaper.stop(s)
+end)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper

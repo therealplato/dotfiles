@@ -7,7 +7,6 @@ local wp_path = os.getenv("HOME") .. "/wallpaper/"
 local wp_timeout  = 60 * 30
 local wp_timer = gears.timer { timeout = wp_timeout }
 
-local i = 1
 wp_index = 1
 wp_paths = {}
 wp_screens = {}
@@ -15,6 +14,7 @@ wp_screens = {}
 local themes_path = gears.filesystem.get_themes_dir()
 table.insert(wp_paths, 1, themes_path .. "default/background.png")
 
+local i = 1
 -- test a single result for filename 
 local on_line = function(line)
   if 
@@ -48,7 +48,6 @@ wp_rotate = function(s)
     gears.wallpaper.maximized(f, s, true)
 end
 
-
 start = function(s)
     table.insert(wp_screens, s.index, s)
     wp_rotate(s)
@@ -59,7 +58,6 @@ end
 
 wp_timer:connect_signal("timeout", on_tick)
 wp_timer:start()
-on_tick()
 
 return {
   start = start,
