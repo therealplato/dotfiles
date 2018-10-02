@@ -1,10 +1,10 @@
-colorscheme ThemerVim
+" colorscheme ThemerVim
 set background=dark
 
 " non-platform-specific highlights:
-" hi! link folded underlined
-" hi! link pmenusel underlined
-" hi! link pmenu preproc
+hi! link folded underlined
+hi! link pmenusel underlined
+hi! link pmenu preproc
 "
 hi! link MBENormal preproc
 hi! link MBEVisibleNormal preproc
@@ -36,7 +36,7 @@ set shiftwidth=2
 set autoindent
 augroup myfiletypes
   autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
-  autocmd FileType go  setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
+  autocmd FileType go setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
   autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
 
@@ -70,6 +70,8 @@ augroup END
 " via blaenk/dots
 " Highlight active window bar
 function! s:RefreshStatus()
+	let g:git_branch = FugitiveHead(7)
+  let g:go_status = go#statusline#Show()
   for nr in range(1, winnr('$'))
     call setwinvar(nr, '&statusline', '%!Status(' . nr . ')')
   endfor
@@ -90,22 +92,19 @@ function! Status(winnr)
   " let contents .= '%f'                   " Relative filename
 
   let contents = '%.50('                 " begin group, left justified, max width 50
-  " let contents .= '%#User1#'             " start color
   let contents .= '%m'                   " [+] modified, [RO] readonly
   let contents .= ' '
   let contents .= '%t'                   " Filename only
   let contents .= ':%l'                  " line no
   let contents .= ':%c'                  " col no
-  " let contents .= '%*'                   " end color
   let contents .= '%)'                   " End group
-  " let contents .= '%{go#complete#GetInfo()}'
   let contents .= '%='                   " Begin Right justify
   let contents .= ' '
-  let contents .= '%#VisualNOS#%{go#statusline#Show()}%*'
+  let contents .= '%#VisualNOS#%{g:go_status}%*'
   let contents .= '%.50('                " begin group max 50 width
   let contents .= ' '
   let contents .= '⎇ '                   " branch symbol
-  let contents .= '%{fugitive#head()}'   " Git Hotness
+  let contents .= '%{g:git_branch}'      " Git Hotness
   let contents .= ' '
   let contents .= '%p%%'                 " file nav percent
   let contents .= '%)'                   " end right justified group
