@@ -5,7 +5,8 @@ local awful = require("awful")
 local wp_path = os.getenv("HOME") .. "/wallpaper/"
 
 local wp_timeout  = 60 * 30
-local wp_timer = gears.timer { timeout = wp_timeout }
+local wp_timer = gears.timer { timeout = wp_timeout, autostart=true }
+local startup_timer = gears.timer { timeout = 0.05, single_shot=true, autostart=true }
 
 wp_index = 1
 wp_paths = {}
@@ -14,50 +15,58 @@ wp_screens = {}
 local themes_path = gears.filesystem.get_themes_dir()
 table.insert(wp_paths, 1, themes_path .. "default/background.png")
 
-local i = 1
--- test a single result for filename 
+wallpaper_i = 1
+-- test a single result for filename
 local on_line = function(line)
-  if 
+  if
     string.match(line, "[pP][nN][gG]$") == nil and
-    string.match(line, "[jJ][pP][eE]?[gG]$") == nil 
+    string.match(line, "[jJ][pP][eE]?[gG]$") == nil
   then
     return
   end
-  wp_paths[i] = wp_path .. line
-  i = i + 1
+  table.insert(wp_paths, wallpaper_i, wp_path .. line)
+  wallpaper_i = wallpaper_i + 1
 end
 
-awful.spawn.with_line_callback("ls -1 " .. wp_path, {stdout=on_line})
+local on_wallpapers_listed = function(reason, code)
+  if code ~= 0 then
+    return
+  end
+  wp_rotate()
+end
+
+
+awful.spawn.with_line_callback("ls -1 " .. wp_path, {stdout=on_line, exit=on_wallpapers_listed})
 
 
 local on_tick = function()
-  if #wp_paths < 2 then
+  if wallpaper_i < 2 then
     return
   end
-  wp_index = math.random( 1, #wp_paths)
-  for k, v in pairs(wp_screens) do
-    wp_rotate(v)
-  end
+  wp_rotate()
 end
 
-wp_rotate = function(s)
-    f = wp_paths[wp_index]
-    if f == nil then
-      return
-    end
-    gears.wallpaper.maximized(f, s, true)
+wp_rotate = function()
+  wp_index = math.random( 1, wallpaper_i)
+  f = wp_paths[wp_index]
+  if f == nil then
+    return
+  end
+  for k, v in pairs(wp_screens) do
+    gears.wallpaper.maximized(f, v, true)
+  end
 end
 
 start = function(s)
     table.insert(wp_screens, s.index, s)
-    wp_rotate(s)
+    wp_rotate()
 end
 stop = function(s)
-    table.remove(wp_paths)
+    table.remove(wp_screens, s.index)
 end
 
 wp_timer:connect_signal("timeout", on_tick)
-wp_timer:start()
+startup_timer:connect_signal("timeout", on_tick)
 
 return {
   start = start,

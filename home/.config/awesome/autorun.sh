@@ -7,14 +7,15 @@ function run {
   fi
 }
 
-run nm-applet
 run light-locker
+run compton
+run autorandr --change --force
+run nm-applet
 run firefox
+run slack
 
 # chrome uses one process for all app windows
-APP1="https://movio.slack.com"
-APP2="https://soundcloud.com/discover"
+APP1="https://soundcloud.com/discover"
 if ! pgrep --full -- "chrome --app=$APP1" ; then
   run google-chrome --app=$APP1
-  run google-chrome --app=$APP2
 fi

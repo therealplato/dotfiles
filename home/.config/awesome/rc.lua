@@ -144,7 +144,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- {{{ Wibar
 local markup = lain.util.markup
 local space3 = markup.font("Tamsyn 3", " ")
- 
+
 -- Create a textclock widget
 local mytextclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. "%a %d %R " .. markup.font("Tamsyn 4", " ")), 5)
 local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. " (%F %RZ) " .. markup.font("Tamsyn 4", " ")), 5, "Z")
@@ -520,13 +520,13 @@ awful.rules.rules = {
         }
       }, properties = { floating = true }},
 
-    -- Add titlebars to normal clients and dialogs
+    -- Hide titlebar
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = false }
     },
 
     -- Force some windows to specific workspaces:
-    { rule = { instance = "movio.slack.com" },
+    { rule = { instance = "slack" },
       properties = { tag = "2. Slack",
                      floating = false,
     } },
@@ -608,8 +608,15 @@ client.connect_signal("mouse::enter", function(c)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c)
+  c.border_color = beautiful.border_focus
+  c.opacity = 1
+end)
+
+client.connect_signal("unfocus", function(c)
+  c.opacity = 0.6
+  c.border_color = beautiful.border_normal
+end)
 -- }}}
 
 -- Startup programs
