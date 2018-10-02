@@ -11,18 +11,20 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "sans 8"
+-- theme.font          = "sans 8"
+theme.font          = "inconsolata 8"
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#535d6c"
-theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
+theme.bg_normal     = "#120900"
+
+theme.bg_focus      = "#120900"
+theme.bg_urgent     = "#FFD400"
+theme.bg_minimize   = "#120900"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
+theme.fg_normal     = "#F57B00"
+theme.fg_focus      = "#FFD400"
 theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+theme.fg_minimize   = "#EB3C00"
 
 theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(1)

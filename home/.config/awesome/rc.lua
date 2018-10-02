@@ -21,6 +21,8 @@ local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 local lain = require("lain")
+local power = require("power_widget")
+power:init()
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -50,7 +52,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-beautiful.init(gears.filesystem.get_xdg_config_home()  .. "/awesome/theme.lua")
+ beautiful.init(gears.filesystem.get_xdg_config_home()  .. "/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "cool-retro-term"
@@ -144,8 +146,8 @@ local markup = lain.util.markup
 local space3 = markup.font("Tamsyn 3", " ")
  
 -- Create a textclock widget
-local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%a %d %R " .. markup.font("Tamsyn 4", " ")), 5)
-local myutcclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. " (%F %RZ) " .. markup.font("Tamsyn 4", " ")), 5, "Z")
+local mytextclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. "%a %d %R " .. markup.font("Tamsyn 4", " ")), 5)
+local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. " (%F %RZ) " .. markup.font("Tamsyn 4", " ")), 5, "Z")
 
 
 -- Create a wibox for each screen and add it
@@ -230,7 +232,6 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
@@ -238,11 +239,11 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
-            wibox.widget.systray(),
             clockwidget,
             mytextclock,
             myutcclock,
-            s.mylayoutbox,
+            power,
+            wibox.widget.systray(),
         },
     }
 end)
