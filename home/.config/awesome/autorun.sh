@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
+ACTIVE=0
 function run {
-  if [ $1 = "google-chrome" ]; then
-    $@&
-  elif ! pgrep $1 ; then
+  if ! pgrep $1 ; then
     $@&
   fi
 }
@@ -11,5 +10,11 @@ function run {
 run nm-applet
 run light-locker
 run firefox
-run google-chrome --app=https://movio.slack.com
-run google-chrome --app=https://soundcloud.com/discover
+
+# chrome uses one process for all app windows
+APP1="https://movio.slack.com"
+APP2="https://soundcloud.com/discover"
+if ! pgrep --full -- "chrome --app=$APP1" ; then
+  run google-chrome --app=$APP1
+  run google-chrome --app=$APP2
+fi
