@@ -38,6 +38,12 @@ zstyle ':completion:*' rehash true
 bindkey -v
 bindkey "^R" history-incremental-pattern-search-backward
 
+# Open editor with C-X C-E
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
+
 # Make alt-dot append the last argument of previous command:
 bindkey '\e.' insert-last-word
 # Rebind home, end
