@@ -145,12 +145,11 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 local markup = lain.util.markup
 local space3 = markup.font("Tamsyn 3", " ")
 
--- Create a textclock widget
-local mytextclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. "%a %d %R " .. markup.font("Tamsyn 4", " ")), 5)
+-- clock widgets
 local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. " (%F %RZ) " .. markup.font("Tamsyn 4", " ")), 5, "Z")
+local mytextclock = wibox.widget.textclock(markup(beautiful.fg_orange, space3 .. " %a %d %R " .. markup.font("Tamsyn 4", " ")), 5)
 
 
--- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
                     awful.button({ modkey }, 1, function(t)
@@ -240,8 +239,8 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             clockwidget,
-            mytextclock,
             myutcclock,
+            mytextclock,
             power,
             wibox.widget.systray(),
         },
@@ -260,8 +259,9 @@ root.buttons(gears.table.join(
 -- {{{ Key bindings
 globalkeys = gears.table.join(
     -- custom:
-    awful.key({                   }, "Print", function () awful.spawn("scrot -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
-    awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("light-locker-command -l 2>/dev/null", false) end),
+    awful.key({                   }, "Print", nil, function () awful.spawn("scrot -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
+    -- awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("light-locker-command -l 2>/dev/null", false) end),
+    awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("systemctl suspend 2>/dev/null", false) end),
    awful.key({}, "XF86AudioLowerVolume", function ()
      awful.util.spawn("amixer -q -D pulse sset Master 5%-", false)
    end),
@@ -270,6 +270,12 @@ globalkeys = gears.table.join(
    end),
    awful.key({}, "XF86AudioMute", function ()
      awful.util.spawn("amixer -D pulse set Master 1+ toggle", false)
+   end),
+   awful.key({}, "XF86MonBrightnessDown", function ()
+     awful.util.spawn("xbacklight -dec 15", false)
+   end),
+   awful.key({}, "XF86MonBrightnessUp", function ()
+     awful.util.spawn("xbacklight -inc 15", false)
    end),
 		-- 121 XF86AudioMute
 		-- 122 XF86AudioLowerVolume

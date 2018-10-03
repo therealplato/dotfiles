@@ -13,17 +13,18 @@ local theme = {}
 
 theme.font          = "inconsolata 8"
 
-theme.bg_normal     = "#120900"
+theme.bg_normal     = "#12090000"
 
-theme.bg_focus      = "#120900"
+theme.bg_focus      = "#120900AA"
 theme.bg_urgent     = "#FFD400"
 theme.bg_minimize   = "#120900"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#F57B00"
+theme.fg_normal     = "#666666"
 theme.fg_focus      = "#FFD400"
 theme.fg_urgent     = "#000000"
 theme.fg_minimize   = "#EB3C00"
+theme.fg_orange     = "#F57B00"
 
 theme.useless_gap   = dpi(0)
 theme.border_width  = dpi(0)
@@ -32,6 +33,9 @@ theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
 
 theme.tooltip_fg_color = theme.fg_normal
+theme.taglist_fg_color = theme.fg_grey
+theme.taglist_bg_color = theme.fg_grey
+theme.taglist_fg_focus = theme.fg_orange
 
 -- There are other variable sets
 -- overriding the default one when
@@ -49,7 +53,7 @@ theme.tooltip_fg_color = theme.fg_normal
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
+    taglist_square_size, theme.fg_orange
 )
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
     taglist_square_size, theme.fg_normal
