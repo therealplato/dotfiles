@@ -13,14 +13,13 @@ local theme = {}
 
 theme.font          = "inconsolata 8"
 
-theme.bg_normal     = "#12090000"
-
-theme.bg_focus      = "#120900AA"
+theme.bg_normal     = "#12090099"
 theme.bg_urgent     = "#FFD400"
-theme.bg_minimize   = "#120900"
+theme.bg_minimize   = "#12090099"
+theme.bg_focus      = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#666666"
+theme.fg_normal     = "#888888"
 theme.fg_focus      = "#FFD400"
 theme.fg_urgent     = "#000000"
 theme.fg_minimize   = "#EB3C00"
@@ -32,10 +31,11 @@ theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
 
-theme.tooltip_fg_color = theme.fg_normal
-theme.taglist_fg_color = theme.fg_grey
-theme.taglist_bg_color = theme.fg_grey
+theme.tooltip_fg_color = theme.fg_orange
 theme.taglist_fg_focus = theme.fg_orange
+theme.tasklist_fg_focus = theme.fg_orange
+-- theme.taglist_fg_color = theme.fg_grey
+-- theme.taglist_bg_color = theme.fg_grey
 
 -- There are other variable sets
 -- overriding the default one when

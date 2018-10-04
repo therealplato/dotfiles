@@ -6,7 +6,7 @@ local wp_path = os.getenv("HOME") .. "/wallpaper/"
 
 local wp_timeout  = 60 * 30
 local wp_timer = gears.timer { timeout = wp_timeout, autostart=true }
-local startup_timer = gears.timer { timeout = 0.05, single_shot=true, autostart=true }
+local startup_timer = gears.timer { timeout = 5, single_shot=true, autostart=true }
 
 wp_index = 1
 wp_paths = {}
@@ -14,6 +14,10 @@ wp_screens = {}
 
 local themes_path = gears.filesystem.get_themes_dir()
 table.insert(wp_paths, 1, themes_path .. "default/background.png")
+
+-- Seed and stir our PRNG:
+math.randomseed(os.time())
+math.random(); math.random(); math.random()
 
 wallpaper_i = 1
 -- test a single result for filename
@@ -66,7 +70,7 @@ stop = function(s)
 end
 
 wp_timer:connect_signal("timeout", on_tick)
-startup_timer:connect_signal("timeout", on_tick)
+startup_timer:connect_signal("timeout", wp_rotate)
 
 return {
   start = start,

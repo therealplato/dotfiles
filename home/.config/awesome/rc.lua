@@ -104,35 +104,33 @@ end
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
-myawesomemenu = {
-   { "hotkeys", function() return false, hotkeys_popup.show_help end},
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end}
-}
-
-local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
-local menu_terminal = { "open terminal", terminal }
-
-if has_fdo then
-    mymainmenu = freedesktop.menu.build({
-        before = { menu_awesome },
-        after =  { menu_terminal }
-    })
-else
-    mymainmenu = awful.menu({
-        items = {
-                  menu_awesome,
-                  { "Debian", debian.menu.Debian_menu.Debian },
-                  menu_terminal,
-                }
-    })
-end
-
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
+-- myawesomemenu = {
+--    { "hotkeys", function() return false, hotkeys_popup.show_help end},
+--    { "manual", terminal .. " -e man awesome" },
+--    { "edit config", editor_cmd .. " " .. awesome.conffile },
+--    { "restart", awesome.restart },
+--    { "quit", function() awesome.quit() end}
+-- }
+--
+-- local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
+-- local menu_terminal = { "open terminal", terminal }
+--
+-- if has_fdo then
+--     mymainmenu = freedesktop.menu.build({
+--         before = { menu_awesome },
+--         after =  { menu_terminal }
+--     })
+-- else
+--     mymainmenu = awful.menu({
+--         items = {
+--                   menu_awesome,
+--                   { "Debian", debian.menu.Debian_menu.Debian },
+--                   menu_terminal,
+--                 }
+--     })
+-- end
+-- mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+--                                      menu = mymainmenu })
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -221,7 +219,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, {tasklist_disable_icon=true, align="center"})
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -261,7 +259,7 @@ globalkeys = gears.table.join(
     -- custom:
     awful.key({                   }, "Print", nil, function () awful.spawn("scrot -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
     -- awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("light-locker-command -l 2>/dev/null", false) end),
-    awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("systemctl suspend 2>/dev/null", false) end),
+   awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("systemctl suspend", false) end),
    awful.key({}, "XF86AudioLowerVolume", function ()
      awful.util.spawn("amixer -q -D pulse sset Master 5%-", false)
    end),
@@ -270,7 +268,11 @@ globalkeys = gears.table.join(
    end),
    awful.key({}, "XF86AudioMute", function ()
      awful.util.spawn("amixer -D pulse set Master 1+ toggle", false)
+     -- awful.util.spawn("amixer -D pulse set Headphone 1+ toggle", false)
    end),
+
+       -- amixer -c 2 cset iface=MIXER,name='Line Playback Volume",index=1 40%
+
    awful.key({}, "XF86MonBrightnessDown", function ()
      awful.util.spawn("xbacklight -dec 15", false)
    end),
@@ -616,7 +618,7 @@ end)
 
 client.connect_signal("focus", function(c)
   c.border_color = beautiful.border_focus
-  c.opacity = 1
+  c.opacity = 0.94
 end)
 
 client.connect_signal("unfocus", function(c)
