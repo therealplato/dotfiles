@@ -3,6 +3,7 @@ local gears = require("gears")
 local shape = require("gears.shape")
 local awful = require("awful")
 local wallpaper = require("wallpaper")
+local shstatus = require("shstatus")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -21,8 +22,25 @@ local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 local lain = require("lain")
+local markup = lain.util.markup
+
 local power = require("power_widget")
 power:init()
+
+local shellwidgets = {}
+for k, v in props(shstatus) do
+  local f = function(widget, stdout, stderr, exitreason, exitcode)
+    if exitcode == 0 then
+      widget:set_text(markup(beautiful.green, k))
+      return
+    end
+    widget:set_text(markup(beautiful.red, k))
+  end
+  local w = awful.widget.watch(k, f)
+  table.insert(shellwidgets, w)
+end
+
+error(gears.debug.dump(shellwidgets))
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -181,7 +199,6 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 -- {{{ Widgets
-local markup = lain.util.markup
 local space3 = markup.font("Tamsyn 3", " ")
 
 local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. " (%F %RZ) " .. markup.font("Tamsyn 4", " ")), 5, "Z")

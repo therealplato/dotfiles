@@ -22,6 +22,7 @@ theme.yellow        = "#FFD400"
 theme.orange        = "#F57B00"
 theme.orange2       = "#FFD400"
 theme.red           = "#EB3C00"
+theme.green         = "#3CEB00"
 
 theme.bg_normal     = theme.shaded
 theme.bg_minimize   = theme.shaded
