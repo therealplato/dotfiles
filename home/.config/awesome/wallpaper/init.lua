@@ -75,4 +75,5 @@ startup_timer:connect_signal("timeout", wp_rotate)
 return {
   start = start,
   stop = stop,
+  rotate = wp_rotate,
 }

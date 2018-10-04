@@ -305,6 +305,7 @@ globalkeys = gears.table.join(
    awful.key({}, "XF86MonBrightnessUp", function ()
      awful.util.spawn("xbacklight -inc 15", false)
    end),
+   awful.key({modkey, }, "w", wallpaper.rotate),
 		-- 121 XF86AudioMute
 		-- 122 XF86AudioLowerVolume
 		-- 123 XF86AudioRaiseVolume
