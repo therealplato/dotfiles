@@ -228,7 +228,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     -- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
-    awful.tag({ "1. Term", "2. Slack", "3. Web", "4. Media", "5. Scratch"}, s, awful.layout.layouts[1])
+    awful.tag({ "1. Term", "3. Slack", "2. Web", "4. Media", "5. Scratch"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -562,7 +562,7 @@ awful.rules.rules = {
 
     -- Force some windows to specific workspaces:
     { rule = { instance = "slack" },
-      properties = { tag = "2. Slack",
+      properties = { tag = "3. Slack",
                      floating = false,
     } },
 
@@ -572,7 +572,7 @@ awful.rules.rules = {
     } },
 
     { rule = { class = "Firefox" },
-      properties = { tag = "3. Web",
+      properties = { tag = "2. Web",
                      floating = false,
     } },
 }
