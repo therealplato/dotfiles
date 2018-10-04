@@ -3,7 +3,6 @@ local gears = require("gears")
 local shape = require("gears.shape")
 local awful = require("awful")
 local wallpaper = require("wallpaper")
-local shstatus = require("shstatus")
 require("awful.autofocus")
 -- Widget and layout library
 local wibox = require("wibox")
@@ -27,20 +26,31 @@ local markup = lain.util.markup
 local power = require("power_widget")
 power:init()
 
-local shellwidgets = {}
-for k, v in props(shstatus) do
-  local f = function(widget, stdout, stderr, exitreason, exitcode)
-    if exitcode == 0 then
-      widget:set_text(markup(beautiful.green, k))
-      return
-    end
-    widget:set_text(markup(beautiful.red, k))
+local shwidget = function(env, text)
+  cmd = os.getenv(env)
+  cmd = os.getenv(env)
+  if cmd == nil or cmd == "" then
+    -- error("Expected env `" .. env .. "` to be a command")
+    cmd = "false"
   end
-  local w = awful.widget.watch(k, f)
-  table.insert(shellwidgets, w)
+  if cmd == nil or cmd == "" then
+    -- error("Expected env `" .. env .. "` to be a command")
+    cmd = "false"
+  end
+  local w = awful.widget.watch("bash -c '" .. cmd .. "'", 3,
+    function(widget, stdout, stderr, exitreason, exitcode)
+      if exitcode == 0 then
+        widget:set_markup_silently(markup(beautiful.green, text))
+        return
+      end
+      error("ping returned " .. exitcode)
+      widget:set_markup_silently(markup(beautiful.red, text))
+    end
+  )
+  return w
 end
+vpnwidget = shwidget("AWESOME_SH_VPN", "VPN")
 
-error(gears.debug.dump(shellwidgets))
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -86,9 +96,9 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    awful.layout.suit.max,
     awful.layout.suit.tile,
     awful.layout.suit.tile.bottom,
-    awful.layout.suit.max,
     -- awful.layout.suit.floating,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.top,
@@ -199,10 +209,9 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 -- {{{ Widgets
-local space3 = markup.font("Tamsyn 3", " ")
 
-local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. " (%F %RZ) " .. markup.font("Tamsyn 4", " ")), 5, "Z")
-local mytextclock = wibox.widget.textclock(markup(beautiful.orange, space3 .. " %a %d %R " .. markup.font("Tamsyn 4", " ")), 5)
+local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, " (%F %RZ) "), 5, "Z")
+local mytextclock = wibox.widget.textclock(markup(beautiful.orange, " %a %d %R "), 5)
 
 local systray = wibox.widget.systray({opacity=0})
 
@@ -255,6 +264,7 @@ awful.screen.connect_for_each_screen(function(s)
             clockwidget,
             myutcclock,
             mytextclock,
+            vpnwidget,
             power,
             systray,
         },
@@ -264,7 +274,7 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    -- awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -321,8 +331,8 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
+    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+    --           {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
@@ -633,7 +643,7 @@ client.connect_signal("mouse::enter", function(c)
 end)
 
 client.connect_signal("focus", function(c)
-  c.opacity = 0.94
+  c.opacity = 0.93
 end)
 
 client.connect_signal("unfocus", function(c)

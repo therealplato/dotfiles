@@ -19,6 +19,7 @@ bold "$CMD" && $CMD
 
 
 FORCE=0
+USE_THEME=0
 # THEME="./misc/themes/themer-default.colors"
 # THEME="./misc/themes/monogreen-v5.colors"
 THEME="./misc/themes/themer-pink/colors.js"
@@ -37,12 +38,22 @@ while test $# -gt 0; do
     *)
       break
       ;;
+    --theme)
+	  USE_THEME=1
+	  break
+      ;;
+    *)
+      break
+      ;;
   esac	
 done
 
 # prereqs
-CMD="yarn install -s"
-bold "$CMD" && $CMD
+
+if [ $USE_THEME -eq 1 ]; then
+  CMD="yarn install -s"
+  bold "$CMD" && $CMD
+fi
 
 #
 # OS Specific
@@ -69,7 +80,10 @@ if [ "$OS" = "windows" ]; then
 fi
 
 if [ "$OS" = "linux" ]; then
-  ./node_modules/.bin/themer -t themer-xresources -c $THEME -o ./tmp
+  if [ $USE_THEME -eq 1 ]; then
+    CMD="./node_modules/.bin/themer -t themer-xresources -c $THEME -o ./tmp"
+    bold "$CMD" && $CMD
+  fi
   mkdir -p $VIMFILES
   echo "\" linux-specific vim config via plato/dotfiles" >> $VIMFILES/platform.vimrc
   cat $V/linux.vimrc >> $VIMFILES/platform.vimrc
@@ -92,10 +106,12 @@ if [ "$OS" = "linux" ]; then
   do
     echo $line >> ./generated/.Xresources
   done < ./home/.Xresources
-  while read line
-  do
-    echo $line >> ./generated/.Xresources
-  done < ./tmp/themer-xresources/themer-xresources-dark/.Xresources
+  if [ $USE_THEME -eq 1 ]; then
+    while read line
+    do
+      echo $line >> ./generated/.Xresources
+    done < ./tmp/themer-xresources/themer-xresources-dark/.Xresources
+  fi
 fi
 
 CMD="mkdir -p $VIMFILES/colors"
@@ -104,10 +120,12 @@ bold "$CMD" && $CMD
 
 #
 # theming
-CMD="./node_modules/.bin/themer -t themer-hyper -t themer-wallpaper-block-wave -t themer-vim -c $THEME -o tmp/"
-bold "$CMD" && $CMD
-CMD="$CP tmp/themer-vim/ThemerVim.vim ./generated/.vim/colors"
-bold "$CMD" && $CMD
+if [ $USE_THEME -eq 1 ]; then
+  CMD="./node_modules/.bin/themer -t themer-hyper -t themer-wallpaper-block-wave -t themer-vim -c $THEME -o tmp/"
+  bold "$CMD" && $CMD
+  CMD="$CP tmp/themer-vim/ThemerVim.vim ./generated/.vim/colors"
+  bold "$CMD" && $CMD
+fi
 set -e
 
 
