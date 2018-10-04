@@ -120,6 +120,10 @@ function wut() {
   find . | grep -i $@ | less
 }
 
+function sanitize(){
+  sed -E '{s/[^ @]+@[^ @]+/sanitized@dev.null/g}' -
+}
+
 function cats {
   echo "![cat](https://$(curl -s https://imgur.com/r/catsstandingup \
     | grep -Eo 'i\.imgur\.com/[a-zA-Z0-9]{5,10}\.jpg' \
