@@ -139,15 +139,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Keyboard map indicator and switcher
 -- mykeyboardlayout = awful.widget.keyboardlayout()
 
--- {{{ Wibar
-local markup = lain.util.markup
-local space3 = markup.font("Tamsyn 3", " ")
-
--- clock widgets
-local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. " (%F %RZ) " .. markup.font("Tamsyn 4", " ")), 5, "Z")
-local mytextclock = wibox.widget.textclock(markup(beautiful.fg_orange, space3 .. " %a %d %R " .. markup.font("Tamsyn 4", " ")), 5)
-
-
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
                     awful.button({ modkey }, 1, function(t)
@@ -189,6 +180,14 @@ local tasklist_buttons = gears.table.join(
                      awful.button({ }, 5, function ()
                                               awful.client.focus.byidx(-1)
                                           end))
+-- {{{ Widgets
+local markup = lain.util.markup
+local space3 = markup.font("Tamsyn 3", " ")
+
+local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, space3 .. " (%F %RZ) " .. markup.font("Tamsyn 4", " ")), 5, "Z")
+local mytextclock = wibox.widget.textclock(markup(beautiful.orange, space3 .. " %a %d %R " .. markup.font("Tamsyn 4", " ")), 5)
+
+local systray = wibox.widget.systray({opacity=0})
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", wallpaper.start)
@@ -240,7 +239,7 @@ awful.screen.connect_for_each_screen(function(s)
             myutcclock,
             mytextclock,
             power,
-            wibox.widget.systray(),
+            systray,
         },
     }
 end)
@@ -617,13 +616,11 @@ client.connect_signal("mouse::enter", function(c)
 end)
 
 client.connect_signal("focus", function(c)
-  c.border_color = beautiful.border_focus
   c.opacity = 0.94
 end)
 
 client.connect_signal("unfocus", function(c)
   c.opacity = 0.6
-  c.border_color = beautiful.border_normal
 end)
 -- }}}
 
