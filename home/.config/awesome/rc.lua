@@ -34,7 +34,7 @@ local shwidget = function(env, text)
     cmd = "false"
   end
   if cmd == nil or cmd == "" then
-    -- error("Expected env `" .. env .. "` to be a command")
+    error("Expected env `" .. env .. "` to be a command")
     cmd = "false"
   end
   local w = awful.widget.watch("bash -c '" .. cmd .. "'", 3,
@@ -43,7 +43,6 @@ local shwidget = function(env, text)
         widget:set_markup_silently(markup(beautiful.green, text))
         return
       end
-      error("ping returned " .. exitcode)
       widget:set_markup_silently(markup(beautiful.red, text))
     end
   )
@@ -228,7 +227,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     -- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
-    awful.tag({ "1. Term", "3. Slack", "2. Web", "4. Media", "5. Scratch"}, s, awful.layout.layouts[1])
+    awful.tag({ "1. Term", "2. Web", "3. Slack", "4. Media", "5. Scratch"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -561,6 +560,11 @@ awful.rules.rules = {
     },
 
     -- Force some windows to specific workspaces:
+    { rule = { class = "Firefox" },
+      properties = { tag = "2. Web",
+                     floating = false,
+    } },
+
     { rule = { instance = "slack" },
       properties = { tag = "3. Slack",
                      floating = false,
@@ -568,11 +572,6 @@ awful.rules.rules = {
 
     { rule = { instance = "soundcloud.com__discover" },
       properties = { tag = "4. Media",
-                     floating = false,
-    } },
-
-    { rule = { class = "Firefox" },
-      properties = { tag = "2. Web",
                      floating = false,
     } },
 }
@@ -595,7 +594,7 @@ end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
-    -- buttons for the titlebar
+    -- remove
     local buttons = gears.table.join(
         awful.button({ }, 1, function()
             client.focus = c
@@ -643,12 +642,29 @@ client.connect_signal("mouse::enter", function(c)
     end
 end)
 
+function set_opacity(client, signal)
+  local pf = "Firefox"
+  local pc = "chrome"
+  local s = client.instance .. client.class
+  if string.match(s, pf) or string.match(s, pc) then
+    client.opacity = 1
+    return
+  end
+  if signal == "focus" then
+    client.opacity = 0.93
+  elseif signal == "unfocus" then
+    client.opacity = 0.6
+  else
+    error("set_opacity for `" .. signal "`?")
+  end
+end
+
 client.connect_signal("focus", function(c)
-  c.opacity = 0.93
+  set_opacity(c, "focus")
 end)
 
 client.connect_signal("unfocus", function(c)
-  c.opacity = 0.6
+  set_opacity(c, "unfocus")
 end)
 -- }}}
 
