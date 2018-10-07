@@ -26,29 +26,42 @@ local markup = lain.util.markup
 local power = require("power_widget")
 power:init()
 
-local shwidget = function(env, text)
-  cmd = os.getenv(env)
-  cmd = os.getenv(env)
-  if cmd == nil or cmd == "" then
+local shwidget2 = function(test_env, click_env, text, period_s)
+  local cmd1, cmd2
+  if not period_s then period_s = 5 end
+  cmd1 = os.getenv(test_env)
+  if cmd1 == nil or cmd1 == "" then
     -- error("Expected env `" .. env .. "` to be a command")
-    cmd = "false"
+    cmd1 = "false"
   end
-  if cmd == nil or cmd == "" then
-    error("Expected env `" .. env .. "` to be a command")
-    cmd = "false"
+  if click_env ~= nil then
+    cmd2 = os.getenv(click_env)
   end
-  local w = awful.widget.watch("bash -c '" .. cmd .. "'", 3,
+  if not cmd2 then cmd2 = "false" end
+  local w = awful.widget.watch("bash -c '" .. cmd1 .. "'", 3,
     function(widget, stdout, stderr, exitreason, exitcode)
+      if text == nil then
+        text = stdout
+      end
       if exitcode == 0 then
         widget:set_markup_silently(markup(beautiful.green, text))
         return
       end
       widget:set_markup_silently(markup(beautiful.red, text))
-    end
+    end,
+    base
   )
+  w:buttons(awful.button({}, 1, nil, function ()
+    awful.spawn.with_shell(cmd2)
+    error(cmd2)
+  end
+  ))
+
   return w
 end
-vpnwidget = shwidget("AWESOME_SH_VPN", "VPN")
+vpnwidget = shwidget2("AWESOME_SH_VPN", "AWESOME_SH_VPN_CLICK", "VPN ")
+podwidget = shwidget2("AWESOME_SH_POD_RESTARTS", "AWESOME_SH_POD_RESTARTS_CLICK", "US PODS ", 60 * 10 )
+
 
 
 -- {{{ Error handling
@@ -264,6 +277,7 @@ awful.screen.connect_for_each_screen(function(s)
             myutcclock,
             mytextclock,
             vpnwidget,
+            podwidget,
             power,
             systray,
         },
@@ -355,6 +369,8 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(terminal) end,
+              {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -517,7 +533,7 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
+      properties = { border_width = 0,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
@@ -592,47 +608,6 @@ client.connect_signal("manage", function (c)
     end
 end)
 
--- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-    -- remove
-    local buttons = gears.table.join(
-        awful.button({ }, 1, function()
-            client.focus = c
-            c:raise()
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 3, function()
-            client.focus = c
-            c:raise()
-            awful.mouse.client.resize(c)
-        end)
-    )
-
-    awful.titlebar(c) : setup {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
-end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
@@ -670,9 +645,3 @@ end)
 
 -- Startup programs
 awful.spawn.with_shell("~/.config/awesome/autorun.sh")
-
-
-
-
-
-
