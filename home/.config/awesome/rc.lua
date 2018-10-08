@@ -26,14 +26,6 @@ local markup = lain.util.markup
 local power = require("power_widget")
 power:init()
 
-local netmgr = require("network.pech")
--- create a network menu widget
-function mynetworkmenu()
-    networkmenu = awful.menu({	items = netmgr.generate_network_menu()	  })
-    return networkmenu
-end
-mynetworklauncher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mynetworkmenu()})
-
 local shwidget2 = function(test_env, click_env, text, period_s)
   local cmd1, cmd2
   if not period_s then period_s = 5 end
@@ -286,7 +278,6 @@ awful.screen.connect_for_each_screen(function(s)
             mytextclock,
             vpnwidget,
             podwidget,
-            mynetworklauncher,
             power,
             systray,
         },
