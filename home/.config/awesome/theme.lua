@@ -43,6 +43,7 @@ theme.taglist_fg_focus = theme.orange
 theme.tasklist_fg_focus = theme.orange
 
 theme.useless_gap   = dpi(0)
+theme.menu_height = dpi(20)
 
 -- There are other variable sets
 -- overriding the default one when
@@ -71,6 +72,9 @@ theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
     taglist_square_size, theme.fg_normal
 )
+
+-- Generate Awesome icon:
+theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.bg_focus, theme.fg_focus)
 
 return theme
 
