@@ -17,16 +17,7 @@ hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
 hi! StatusLineNC term=underline cterm=underline ctermfg=12
 hi! VertSplit term=NONE cterm=NONE ctermfg=12
 hi clear SignColumn
-hi! link GitGutterAdd GitGutterAddDefault
-hi! link GitGutterChange GitGutterChangeDefault
-hi! link GitGutterDelete GitGutterDeleteDefault
-hi! link GitGutterChangeDelete GitGutterChangeDeleteDefault
-
-hi! link DiffAdd GitGutterAddDefault
-hi! link DiffChange GitGutterChangeDefault
-hi! link DiffDelete GitGutterDeleteDefault
-hi! link DiffText GitGutterChangeDefault
-
+"
 " Whitespace
 set textwidth=140
 set tabstop=2
@@ -48,6 +39,16 @@ set foldignore=/      "dont fold comments
 augroup foldgroup
   autocmd!
   autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
+augroup END
+
+" hi! link CursorLine FoldColumn
+" hi! CursorLine term=bold ctermfg=0 ctermbg=2
+hi! link CursorLine Visual
+hi! link CursorLineNr Visual
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
 augroup END
 
 " Restore cursor position when a file is re-opened

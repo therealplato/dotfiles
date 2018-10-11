@@ -60,6 +60,7 @@ let g:ale_sign_warning='?'
 " let g:ale_lint_delay = 300
 hi! link ALEErrorSign ErrorMsg
 hi! link ALEWarningSign LineNr
+hi! link ALEErrorLine Pmenu
 
 
 au VimEnter * RainbowParenthesesToggle
@@ -67,17 +68,14 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 let g:rbpt_colorpairs = [
-    \ ['blue',    'RoyalBlue3'],
     \ ['darkmagenta', 'DarkOrchid3'],
     \ ['white', 'white'],
-    \ ['Darkblue',    'SeaGreen3'],
     \ ['darkgray',    'DarkOrchid3'],
     \ ['darkgreen',   'firebrick3'],
     \ ]
 
 augroup js
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync
-" autocmd BufWritePre *.js,*.json,*.md PrettierAsync
 au FileType js,html nmap <Leader>d :TernDef<CR>
 au FileType js,html nmap <Leader>r :TernRename<CR>
 au FileType js set textwidth=80
@@ -98,5 +96,3 @@ augroup END
 let g:miniBufExplBRSplit = 0
 
 let g:startify_custom_header = ['']
-
-let g:gitgutter_override_sign_column_highlight = 0
