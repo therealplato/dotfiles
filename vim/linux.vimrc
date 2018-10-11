@@ -1,7 +1,7 @@
 hi! Comment ctermfg=LightGrey
-
 hi! StatusLine ctermbg=DarkGreen ctermfg=Black term=none cterm=none
-hi! StatusLineNC term=none cterm=none ctermbg=0 ctermfg=none
+
+" hi! StatusLineNC term=none cterm=none ctermbg=0 ctermfg=none
 " hi! link CursorLineNr MoreMsg
 " hi! link StatusLine MoreMsg
 " hi! link SpellCap StatusLine

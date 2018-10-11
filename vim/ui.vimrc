@@ -5,7 +5,6 @@ set background=dark
 hi! link folded underlined
 hi! link pmenusel underlined
 hi! link pmenu preproc
-"
 hi! link MBENormal preproc
 hi! link MBEVisibleNormal preproc
 hi! link MBEChanged LineNr
@@ -14,7 +13,8 @@ hi! link MBEVisibleActiveNormal Underlined
 hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
 
 hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
-hi! StatusLineNC term=underline cterm=underline ctermfg=12
+" hi! StatusLineNC term=underline cterm=underline ctermfg=12
+hi! link StatusLineNC Underlined
 hi! VertSplit term=NONE cterm=NONE ctermfg=12
 hi clear SignColumn
 "
@@ -101,10 +101,10 @@ function! Status(winnr)
   let contents .= '%)'                   " End group
   let contents .= '%='                   " Begin Right justify
   let contents .= ' '
-  let contents .= '%#VisualNOS#%{g:go_status}%*'
+  let contents .= '%{g:go_status}'
   let contents .= '%.50('                " begin group max 50 width
   let contents .= ' '
-  let contents .= '⎇ '                   " branch symbol
+  " let contents .= '⎇ '                   " branch symbol
   let contents .= '%{g:git_branch}'      " Git Hotness
   let contents .= ' '
   let contents .= '%p%%'                 " file nav percent
