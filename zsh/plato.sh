@@ -49,6 +49,7 @@ alias pwd='pwd -L && pwd -P' # show both absolute+symlinked
 alias pwdcd='command pwd -P |xargs cd'
 alias agv="ag --ignore=vendor --ignore='*[tT]est*'"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+alias xclip="xclip -selection clipboard"
 # brew vim:
 # alias vim="/usr/local/Cellar/vim/8.0.1450/bin/vim"
 # alias vim='vim()'
@@ -127,12 +128,14 @@ function sanitize(){
 }
 
 function cats {
-  echo "![cat](https://$(curl -s https://imgur.com/r/catsstandingup \
+  url="https://""$(curl -s https://imgur.com/r/catsstandingup \
     | grep -Eo 'i\.imgur\.com/[a-zA-Z0-9]{5,10}\.jpg' \
     | sed 's/b.jpg/.jpg/' \
     | sort --random-sort \
-    | head -n1 \
-  ))"
+    | head -n1
+  )"
+  xdg-open $url
+  echo "![cat]($url)"
 }
 
 function derps {

@@ -576,7 +576,9 @@ awful.rules.rules = {
     },
 
     -- Force some windows to specific workspaces:
-    { rule = { class = "Firefox" },
+    { rule_any = {
+      class = { "Firefox" },
+    },
       properties = { tag = "2. Web",
                      floating = false,
     } },
@@ -586,7 +588,10 @@ awful.rules.rules = {
                      floating = false,
     } },
 
-    { rule = { instance = "soundcloud.com__discover" },
+    { rule_any = {
+      instance = { "soundcloud.com__discover" },
+      name = { "Discover on SoundCloud - Mozilla Firefox" },
+    },
       properties = { tag = "4. Media",
                      floating = false,
     } },
