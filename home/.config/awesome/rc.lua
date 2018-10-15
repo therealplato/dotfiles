@@ -258,11 +258,27 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, {tasklist_disable_icon=true, align="center"})
 
-    -- Create the wibox
+    -- Create the main wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
+    --
+    -- Create the secondary wibox
+    s.mywibox2 = awful.wibar({ position = "top", screen = s })
+    s.mywibox2:setup({
+      layout = wibox.layout.align.horizontal,
+      { layout = wibox.layout.align.horizontal },
+      { layout = wibox.layout.align.horizontal },
+      {
+        layout = wibox.layout.fixed.horizontal,
+        vpnwidget,
+        podwidget,
+        systray,
+        myutcclock,
+      }
+    })
+
 
     -- Add widgets to the wibox
-    s.mywibox:setup {
+    s.mywibox:setup({
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
@@ -274,14 +290,10 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             clockwidget,
-            myutcclock,
             mytextclock,
-            vpnwidget,
-            podwidget,
             power,
-            systray,
         },
-    }
+    })
 end)
 -- }}}
 
