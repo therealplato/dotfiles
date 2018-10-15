@@ -576,12 +576,12 @@ awful.rules.rules = {
     },
 
     -- Force some windows to specific workspaces:
-    { rule_any = {
-      class = { "Firefox" },
-    },
-      properties = { tag = "2. Web",
-                     floating = false,
-    } },
+    -- { rule_any = {
+    --   class = { "Firefox" },
+    -- },
+    --   properties = { tag = "2. Web",
+    --                  floating = false,
+    -- } },
 
     { rule = { instance = "slack" },
       properties = { tag = "3. Slack",

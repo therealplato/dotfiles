@@ -50,6 +50,7 @@ alias pwdcd='command pwd -P |xargs cd'
 alias agv="ag --ignore=vendor --ignore='*[tT]est*'"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias xclip="xclip -selection clipboard"
+alias emacs="emacs --no-window-system"
 # brew vim:
 # alias vim="/usr/local/Cellar/vim/8.0.1450/bin/vim"
 # alias vim='vim()'
