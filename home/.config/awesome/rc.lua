@@ -421,6 +421,55 @@ globalkeys = gears.table.join(
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
+              --
+    -- -- Show more info on mod press
+    -- awful.key({ }, "Alt", function () 
+    --     awful.screen.focused().mywibox2.visible = true
+    --   end, function () 
+    --     awful.screen.focused().mywibox2.visible = false
+    --   end, {description = "show second wibar (hold)", group = "extra"}
+    -- ),
+
+    -- Show more info on mod press
+    -- Does not error, does not change bar visibility
+    -- awful.key({ modkey }, nil, function () 
+    --     error("A")
+    --     awful.screen.focused().mywibox2.visible = true
+    --   end, function () 
+    --     error("B")
+    --     awful.screen.focused().mywibox2.visible = false
+    --   end, {description = "show second wibar (hold)", group = "extra"}
+    -- ),
+
+    -- -- Show more info on mod press
+    -- Does not error, does not change bar visibility
+    -- awful.key({ modkey }, "", function () 
+    --     awful.screen.focused().mywibox2.visible = true
+    --   end, function () 
+    --     awful.screen.focused().mywibox2.visible = false
+    --   end, {description = "show second wibar (hold)", group = "extra"}
+    -- ),
+  
+    -- Show more info on mod press
+    -- Does not error, does not change bar visibility
+    -- awful.key({ }, "Super_L", function () 
+    --     awful.screen.focused().mywibox2.visible = true
+    --   end, function () 
+    --     awful.screen.focused().mywibox2.visible = false
+    --   end, {description = "show second wibar (hold)", group = "extra"}
+    -- ),
+
+    -- Show more info 
+    awful.key({modkey }, "Down", function () 
+        awful.screen.focused().mywibox2.visible = true
+      end, {description = "show second wibar", group = "extra"}
+    ),
+    --
+    -- Show less info on mod press
+    awful.key({modkey }, "Up", function () 
+        awful.screen.focused().mywibox2.visible = false
+      end, {description = "hide second wibar", group = "extra"}
+    ),
 
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
