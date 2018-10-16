@@ -269,7 +269,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({ position = "top", screen = s })
     --
     -- Create the secondary wibox
-    s.mywibox2 = awful.wibar({ position = "top", screen = s })
+    s.mywibox2 = awful.wibar({ position = "top", screen = s, visible=false })
     s.mywibox2:setup({
       layout = wibox.layout.align.horizontal,
       { layout = wibox.layout.align.horizontal,
