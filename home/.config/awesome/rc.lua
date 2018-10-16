@@ -252,8 +252,15 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+
+   taglist_filter1 = awful.widget.taglist.filter.selected
+   taglist_filter2 = function(t)
+     return not awful.widget.taglist.filter.selected(t)
+   end
+
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    s.mytaglist = awful.widget.taglist(s, taglist_filter1, taglist_buttons)
+    s.mytaglist2 = awful.widget.taglist(s, taglist_filter2, taglist_buttons)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, {tasklist_disable_icon=true, align="center"})
@@ -265,7 +272,9 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox2 = awful.wibar({ position = "top", screen = s })
     s.mywibox2:setup({
       layout = wibox.layout.align.horizontal,
-      { layout = wibox.layout.align.horizontal },
+      { layout = wibox.layout.align.horizontal,
+        s.mytaglist2,
+      },
       { layout = wibox.layout.align.horizontal },
       {
         layout = wibox.layout.fixed.horizontal,
@@ -423,19 +432,19 @@ globalkeys = gears.table.join(
               {description = "run prompt", group = "launcher"}),
               --
     -- -- Show more info on mod press
-    -- awful.key({ }, "Alt", function () 
+    -- awful.key({ }, "Alt", function ()
     --     awful.screen.focused().mywibox2.visible = true
-    --   end, function () 
+    --   end, function ()
     --     awful.screen.focused().mywibox2.visible = false
     --   end, {description = "show second wibar (hold)", group = "extra"}
     -- ),
 
     -- Show more info on mod press
     -- Does not error, does not change bar visibility
-    -- awful.key({ modkey }, nil, function () 
+    -- awful.key({ modkey }, nil, function ()
     --     error("A")
     --     awful.screen.focused().mywibox2.visible = true
-    --   end, function () 
+    --   end, function ()
     --     error("B")
     --     awful.screen.focused().mywibox2.visible = false
     --   end, {description = "show second wibar (hold)", group = "extra"}
@@ -443,30 +452,30 @@ globalkeys = gears.table.join(
 
     -- -- Show more info on mod press
     -- Does not error, does not change bar visibility
-    -- awful.key({ modkey }, "", function () 
+    -- awful.key({ modkey }, "", function ()
     --     awful.screen.focused().mywibox2.visible = true
-    --   end, function () 
-    --     awful.screen.focused().mywibox2.visible = false
-    --   end, {description = "show second wibar (hold)", group = "extra"}
-    -- ),
-  
-    -- Show more info on mod press
-    -- Does not error, does not change bar visibility
-    -- awful.key({ }, "Super_L", function () 
-    --     awful.screen.focused().mywibox2.visible = true
-    --   end, function () 
+    --   end, function ()
     --     awful.screen.focused().mywibox2.visible = false
     --   end, {description = "show second wibar (hold)", group = "extra"}
     -- ),
 
-    -- Show more info 
-    awful.key({modkey }, "Down", function () 
+    -- Show more info on mod press
+    -- Does not error, does not change bar visibility
+    -- awful.key({ }, "Super_L", function ()
+    --     awful.screen.focused().mywibox2.visible = true
+    --   end, function ()
+    --     awful.screen.focused().mywibox2.visible = false
+    --   end, {description = "show second wibar (hold)", group = "extra"}
+    -- ),
+
+    -- Show more info
+    awful.key({modkey }, "Down", function ()
         awful.screen.focused().mywibox2.visible = true
       end, {description = "show second wibar", group = "extra"}
     ),
     --
     -- Show less info on mod press
-    awful.key({modkey }, "Up", function () 
+    awful.key({modkey }, "Up", function ()
         awful.screen.focused().mywibox2.visible = false
       end, {description = "hide second wibar", group = "extra"}
     ),
