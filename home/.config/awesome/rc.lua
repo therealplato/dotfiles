@@ -339,7 +339,7 @@ globalkeys = gears.table.join(
    awful.key({}, "XF86MonBrightnessUp", function ()
      awful.util.spawn("xbacklight -inc 15", false)
    end),
-   awful.key({modkey, }, "w", wallpaper.rotate),
+   awful.key({modkey, }, "b", wallpaper.rotate),
 		-- 121 XF86AudioMute
 		-- 122 XF86AudioLowerVolume
 		-- 123 XF86AudioRaiseVolume
@@ -492,7 +492,7 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+    awful.key({ modkey   }, "w",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
