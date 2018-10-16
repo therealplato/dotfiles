@@ -142,42 +142,10 @@ local function client_menu_toggle_fn()
 end
 -- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
--- myawesomemenu = {
---    { "hotkeys", function() return false, hotkeys_popup.show_help end},
---    { "manual", terminal .. " -e man awesome" },
---    { "edit config", editor_cmd .. " " .. awesome.conffile },
---    { "restart", awesome.restart },
---    { "quit", function() awesome.quit() end}
--- }
---
--- local menu_awesome = { "awesome", myawesomemenu, beautiful.awesome_icon }
--- local menu_terminal = { "open terminal", terminal }
---
--- if has_fdo then
---     mymainmenu = freedesktop.menu.build({
---         before = { menu_awesome },
---         after =  { menu_terminal }
---     })
--- else
---     mymainmenu = awful.menu({
---         items = {
---                   menu_awesome,
---                   { "Debian", debian.menu.Debian_menu.Debian },
---                   menu_terminal,
---                 }
---     })
--- end
--- mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
---                                      menu = mymainmenu })
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
-
--- Keyboard map indicator and switcher
--- mykeyboardlayout = awful.widget.keyboardlayout()
 
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -263,18 +231,19 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytaglist2 = awful.widget.taglist(s, taglist_filter2, taglist_buttons)
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons, {tasklist_disable_icon=true, align="center"})
+    s.mytasklist = awful.widget.tasklist(s,
+      awful.widget.tasklist.filter.currenttags,
+      tasklist_buttons,
+      {tasklist_disable_icon=true, align="center"})
 
-    -- Create the main wibox
+    -- Create the main wibar
     s.mywibox = awful.wibar({ position = "top", screen = s })
     --
-    -- Create the secondary wibox
+    -- Create the secondary wibar
     s.mywibox2 = awful.wibar({ position = "top", screen = s, visible=false })
     s.mywibox2:setup({
       layout = wibox.layout.align.horizontal,
-      { layout = wibox.layout.align.horizontal,
-        s.mytaglist2,
-      },
+      s.mytaglist2,
       { layout = wibox.layout.align.horizontal },
       {
         layout = wibox.layout.fixed.horizontal,
@@ -366,8 +335,6 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-    --           {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
