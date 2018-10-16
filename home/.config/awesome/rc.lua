@@ -222,9 +222,10 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
    taglist_filter1 = awful.widget.taglist.filter.selected
-   taglist_filter2 = function(t)
-     return not awful.widget.taglist.filter.selected(t)
-   end
+   taglist_filter2 = awful.widget.taglist.filter.all
+   -- function(t)
+   --   return not awful.widget.taglist.filter.selected(t)
+   -- end
 
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, taglist_filter1, taglist_buttons)
@@ -234,13 +235,16 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist(s,
       awful.widget.tasklist.filter.currenttags,
       tasklist_buttons,
-      {tasklist_disable_icon=true, align="center"})
+      {
+        tasklist_disable_icon=true,
+        align="center",
+      })
 
     -- Create the main wibar
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", screen = s, bg=beautiful.shaded })
     --
     -- Create the secondary wibar
-    s.mywibox2 = awful.wibar({ position = "top", screen = s, visible=false })
+    s.mywibox2 = awful.wibar({ position = "top", screen = s, visible=false, bg=beautiful.shaded })
     s.mywibox2:setup({
       layout = wibox.layout.align.horizontal,
       s.mytaglist2,

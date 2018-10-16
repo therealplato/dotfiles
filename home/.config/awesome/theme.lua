@@ -17,30 +17,45 @@ theme.font          = "inconsolata 8"
 theme.transparent   = "#00000000"
 theme.black         = "#000000"
 theme.grey8         = "#888888"
-theme.shaded        = "#120900AA"
+theme.shaded        = "#000000AA"
 theme.yellow        = "#FFD400"
 theme.orange        = "#F57B00"
 theme.orange2       = "#FFD400"
 theme.red           = "#EB3C00"
 theme.green         = "#3CEB00"
 
-theme.bg_normal     = theme.shaded
-theme.bg_minimize   = theme.shaded
-theme.bg_focus      = theme.shaded
-theme.bg_systray    = theme.shaded
+theme.bg_normal     = theme.transparent
+theme.bg_focus      = theme.transparent
 theme.bg_urgent     = theme.yellow
-theme.taglist_bg_normal = theme.transparent
-theme.taglist_bg_focus = theme.transparent
-theme.tasklist_bg_focus = theme.transparent
-theme.tasklist_bg_normal = theme.transparent
+theme.bg_minimize   = theme.transparent
 
 theme.fg_normal     = theme.grey8
 theme.fg_focus      = theme.yellow
 theme.fg_urgent     = theme.black
 theme.fg_minimize   = theme.red
-theme.tooltip_fg_color = theme.orange
-theme.taglist_fg_focus = theme.orange
+
+theme.border_normal = theme.orange
+
+-- x draws systray bad e.g. no transparency and/or scaling issues
+theme.bg_systray    = theme.transparent
+
+theme.taglist_bg_normal = theme.transparent
+-- theme.taglist_bg_focus = theme.transparent
+theme.taglist_fg_empty = theme.grey8
+-- theme.taglist_fg_focus = theme.orange
+theme.taglist_fg_occupied = theme.orange
+-- theme.taglist_fg_volatile = theme.yellow
+
+-- theme.tasklist_bg_focus = theme.shaded
+-- theme.tasklist_bg_normal = theme.transparent
 theme.tasklist_fg_focus = theme.orange
+
+theme.tooltip_fg_color = theme.orange
+theme.tooltip_bg_color = theme.shaded
+
+theme.notification_fg = theme.orange
+theme.notification_bg = theme.shaded
+theme.notification_margin = dpi(10)
 
 theme.useless_gap   = dpi(0)
 
@@ -64,13 +79,13 @@ theme.useless_gap   = dpi(0)
 -- notification_[border_color|border_width|shape|opacity]
 
 -- Generate taglist squares:
-local taglist_square_size = dpi(4)
-theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.transparent
-)
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-)
+-- local taglist_square_size = dpi(4)
+-- theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
+--     taglist_square_size, theme.transparent
+-- )
+-- theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
+--     taglist_square_size, theme.fg_normal
+-- )
 
 return theme
 

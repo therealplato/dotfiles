@@ -19,12 +19,12 @@ run1 autorandr --change --force
 run1 nm-applet
 run1 firefox
 
-if [ $CLEAN = 1 ] ; then
+# if [ $CLEAN = 1 ] ; then
   # firefox &
   # firefox session restore works fine
   # firefox --new-window https://soundcloud.com/discover &
   # firefox --new-window https://movio.slack.com &
-fi
+# fi
 # run1 slack
 
 # chrome is a cpu hog and is not allowed out
