@@ -14,7 +14,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
+-- require("awful.hotkeys_popup.keys")
 
 -- Load Debian menu entries
 local debian = require("debian.menu")
@@ -192,6 +192,11 @@ local tasklist_buttons = gears.table.join(
 
 local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, " (%F %RZ) "), 5, "Z")
 local mytextclock = wibox.widget.textclock(markup(beautiful.orange, " %a %d %R "), 5)
+local wallpapername = wibox.widget.textbox(wallpaper.name())
+local wallpaper_name_timer = gears.timer { timeout = 5, autostart=true }
+wallpaper_name_timer:connect_signal("timeout", function()
+  wallpapername:set_markup_silently(markup(beautiful.fg_normal, wallpaper.name()))
+end)
 
 local systray = wibox.widget.systray({opacity=0})
 
@@ -251,6 +256,7 @@ awful.screen.connect_for_each_screen(function(s)
       { layout = wibox.layout.align.horizontal },
       {
         layout = wibox.layout.fixed.horizontal,
+        wallpapername,
         vpnwidget,
         podwidget,
         systray,

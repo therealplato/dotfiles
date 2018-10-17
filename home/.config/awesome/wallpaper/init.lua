@@ -14,6 +14,7 @@ wp_screens = {}
 
 local themes_path = gears.filesystem.get_themes_dir()
 table.insert(wp_paths, 1, themes_path .. "default/background.png")
+current_wp = wp_paths[1]
 
 -- Seed and stir our PRNG:
 math.randomseed(os.time())
@@ -52,12 +53,12 @@ end
 
 wp_rotate = function()
   wp_index = math.random( 1, wallpaper_i)
-  f = wp_paths[wp_index]
-  if f == nil then
+  current_wp = wp_paths[wp_index]
+  if current_wp == nil then
     return
   end
   for k, v in pairs(wp_screens) do
-    gears.wallpaper.maximized(f, v, true)
+    gears.wallpaper.maximized(current_wp, v, true)
   end
 end
 
@@ -76,4 +77,7 @@ return {
   start = start,
   stop = stop,
   rotate = wp_rotate,
+  name = function()
+    return current_wp
+  end,
 }

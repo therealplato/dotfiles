@@ -35,6 +35,7 @@ theme.fg_urgent     = theme.black
 theme.fg_minimize   = theme.red
 
 theme.border_normal = theme.orange
+theme.border_width  = 0
 
 -- x draws systray bad e.g. no transparency and/or scaling issues
 theme.bg_systray    = theme.transparent
@@ -57,7 +58,23 @@ theme.notification_fg = theme.orange
 theme.notification_bg = theme.shaded
 theme.notification_margin = dpi(10)
 
-theme.useless_gap   = dpi(0)
+theme.useless_gap = dpi(3)
+
+theme.hotkeys_bg = theme.shaded
+theme.hotkeys_modifiers_fg = theme.orange
+-- [bg
+-- fg
+-- border_width
+-- border_color
+-- shape
+-- opacity
+-- modifiers_fg
+-- label_bg
+-- label_fg
+-- group_margin
+-- font
+-- description_font
+-- ]
 
 -- There are other variable sets
 -- overriding the default one when

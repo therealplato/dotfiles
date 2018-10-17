@@ -3,6 +3,18 @@ let mapleader=","
 " Y yanks line without newline
 nnoremap Y _y$
 
+" quick buffers
+nnoremap <Leader>1 :b1<CR>
+nnoremap <Leader>2 :b2<CR>
+nnoremap <Leader>3 :b3<CR>
+nnoremap <Leader>4 :b4<CR>
+nnoremap <Leader>5 :b5<CR>
+nnoremap <Leader>6 :b6<CR>
+nnoremap <Leader>7 :b7<CR>
+nnoremap <Leader>8 :b8<CR>
+nnoremap <Leader>9 :b9<CR>
+nnoremap <Leader>0 :b10<CR>
+
 " move window
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -55,7 +67,7 @@ set tags=./.git/tags;,tags;
 nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
 
 " toggle paste mode
-set pastetoggle=<leader>8
+" set pastetoggle=<leader>8
 
 " toggle line numbers
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
