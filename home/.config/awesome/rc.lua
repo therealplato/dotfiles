@@ -15,6 +15,8 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 -- require("awful.hotkeys_popup.keys")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 
 -- Load Debian menu entries
 local debian = require("debian.menu")
@@ -188,6 +190,21 @@ local tasklist_buttons = gears.table.join(
                      awful.button({ }, 5, function ()
                                               awful.client.focus.byidx(-1)
                                           end))
+
+bg_fadeleft= gears.color.create_linear_pattern(
+  {
+    type="linear",
+    from = {0, 0},
+    to = {dpi(400), 0},
+    stops = {
+      {0, beautiful.transparent},
+      {0.01, beautiful.shaded},
+      {0.6, beautiful.shaded},
+      {1.0, beautiful.transparent},
+    },
+  }
+)
+
 -- {{{ Widgets
 
 local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, " (%F %RZ) "), 5, "Z")
@@ -206,7 +223,6 @@ screen.connect_signal("property::geometry", wallpaper.start)
 awful.screen.disconnect_for_each_screen(function(s)
     wallpaper.stop(s)
 end)
-
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     wallpaper.start(s)
@@ -243,13 +259,24 @@ awful.screen.connect_for_each_screen(function(s)
       {
         tasklist_disable_icon=true,
         align="center",
-      })
+        bg_focus=bg_fadeleft,
+      } )
+
 
     -- Create the main wibar
-    s.mywibox = awful.wibar({ position = "top", screen = s, bg=beautiful.shaded })
+    s.mywibox = awful.wibar({
+      position = "top",
+      screen = s,
+      bg=beautiful.shaded,
+    })
     --
     -- Create the secondary wibar
-    s.mywibox2 = awful.wibar({ position = "top", screen = s, visible=false, bg=beautiful.shaded })
+    s.mywibox2 = awful.wibar({
+      position = "top",
+      screen = s,
+      visible=false,
+      bg=beautiful.shaded
+    })
     s.mywibox2:setup({
       layout = wibox.layout.align.horizontal,
       s.mytaglist2,
@@ -263,7 +290,6 @@ awful.screen.connect_for_each_screen(function(s)
         myutcclock,
       }
     })
-
 
     -- Add widgets to the wibox
     s.mywibox:setup({
@@ -692,6 +718,7 @@ client.connect_signal("unfocus", function(c)
   set_opacity(c, "unfocus")
 end)
 -- }}}
+
 
 -- Startup programs
 awful.spawn.with_shell("~/.config/awesome/autorun.sh")
