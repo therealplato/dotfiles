@@ -55,7 +55,10 @@ local shwidget2 = function(test_env, click_env, text, period_s)
   )
   w:buttons(awful.button({}, 1, nil, function ()
     awful.spawn.with_shell(cmd2)
-    error(cmd2)
+    naughty.notify({ preset = naughty.config.presets.normal,
+                     title = "Running command:",
+                     text = cmd2
+                   })
   end
   ))
 
