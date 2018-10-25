@@ -28,6 +28,8 @@ local markup = lain.util.markup
 local power = require("power_widget")
 power:init()
 
+presentation_mode = false
+
 local shwidget2 = function(test_env, click_env, text, period_s)
   local cmd1, cmd2
   if not period_s then period_s = 5 end
@@ -65,7 +67,8 @@ local shwidget2 = function(test_env, click_env, text, period_s)
   return w
 end
 vpnwidget = shwidget2("AWESOME_SH_VPN", "AWESOME_SH_VPN_CLICK", "VPN ")
-podwidget = shwidget2("AWESOME_SH_POD_RESTARTS", "AWESOME_SH_POD_RESTARTS_CLICK", "US PODS ", 60 * 10 )
+-- podwidget = shwidget2("AWESOME_SH_POD_RESTARTS", "AWESOME_SH_POD_RESTARTS_CLICK", "US PODS ", 60 * 10 )
+podwatchwidget = shwidget2("true", "AWESOME_SH_WATCH_PODS", " pods -w ")
 
 
 
@@ -232,7 +235,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     -- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
-    awful.tag({ "1. Term", "2. Web", "3. Slack", "4. Media", "z. Scratch", "x. Emacs"}, s, awful.layout.layouts[1])
+    awful.tag({ "1. Term", "2. Web", "3. Slack", "4. Media", "z. Scratch", "x. Kube", "c. Emacs"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -288,7 +291,8 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.fixed.horizontal,
         wallpapername,
         vpnwidget,
-        podwidget,
+        -- podwidget,
+        podwatchwidget,
         systray,
         myutcclock,
       }
@@ -325,7 +329,7 @@ root.buttons(gears.table.join(
 -- {{{ Key bindings
 globalkeys = gears.table.join(
     -- custom:
-    awful.key({                   }, "Print", nil, function () awful.spawn("scrot -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
+    awful.key({                   }, "Print", nil, function () awful.spawn("scrot '%Y-%m-%d-%0k%0M.png' -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
     -- awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("light-locker-command -l 2>/dev/null", false) end),
    awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("systemctl suspend", false) end),
    awful.key({}, "XF86AudioLowerVolume", function ()
@@ -348,9 +352,9 @@ globalkeys = gears.table.join(
      awful.util.spawn("xbacklight -inc 15", false)
    end),
    awful.key({modkey, }, "b", wallpaper.rotate),
-		-- 121 XF86AudioMute
-		-- 122 XF86AudioLowerVolume
-		-- 123 XF86AudioRaiseVolume
+   awful.key({modkey, }, "0", function()
+     presentation_mode = not presentation_mode
+   end),
 
     --default:
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -535,7 +539,7 @@ clientkeys = gears.table.join(
         {description = "(un)maximize horizontally", group = "client"})
 )
 
--- We use keycodes
+-- We use keycodes for numbers 1..4
 workspacekeys = {
   [1]="#10",
   [2]="#11",
@@ -696,11 +700,21 @@ client.connect_signal("mouse::enter", function(c)
     end
 end)
 
+-- pattern to help us escape arbitrary strings. outside the function to avoid calls
+-- via https://stackoverflow.com/a/20778724/1380669
+quotepattern = '(['..("%^$().[]*+-?"):gsub("(.)", "%%%1")..'])'
 function set_opacity(client, signal)
   local pf = "Firefox"
   local pc = "chrome"
+  local pt = terminal
+  -- cool-retro-term contains special characters when pattern matching:
+  pt = pt:gsub(quotepattern, "%%%1")
+
   local s = client.instance .. client.class
-  if string.match(s, pf) or string.match(s, pc) then
+  if string.match(s, pf)
+  or string.match(s, pc)
+  or string.match(s, pt)
+  then
     client.opacity = 1
     return
   end
@@ -708,6 +722,8 @@ function set_opacity(client, signal)
     client.opacity = 0.93
   elseif signal == "unfocus" then
     client.opacity = 0.6
+  elseif signal == "opaque" then
+    client.opacity = 1
   else
     error("set_opacity for `" .. signal "`?")
   end

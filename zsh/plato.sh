@@ -38,6 +38,7 @@ setxkbmap -option "terminate:ctrl_alt_bksp"
 #   fi
 # }
 
+function makeme() { make $@ 2>&1 | tee build.log }
 alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
 alias ls='ls -aG --color=auto'
 alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
