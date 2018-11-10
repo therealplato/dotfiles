@@ -11,7 +11,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'jstemmer/gotags'
   Plug 'majutsushi/tagbar'
   Plug 'w0rp/ale'
-  Plug 'kien/rainbow_parentheses.vim'
+  " Plug 'kien/rainbow_parentheses.vim'
   Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
   Plug 'tpope/vim-unimpaired'
@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'mxw/vim-jsx'
   Plug 'mhinz/vim-startify'
   Plug 'will133/vim-dirdiff'
+  Plug 'airblade/vim-matchquote'
 call plug#end()
 
 let NERDTreeQuitOnOpen = 1
@@ -47,7 +48,8 @@ endif
 
 let g:tagbar_width = 50
 
-let g:ale_enabled = 1
+" Unsolved issue - Cursor visibility is delayed ~200ms after any movement to or from a line with an ALE sign
+let g:ale_enabled = 0
 " let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_insert_leave = 1
@@ -58,21 +60,22 @@ let g:ale_sign_column_always = 1
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
 " let g:ale_lint_delay = 300
+hi clear ALEError
+hi clear ALEStyleError
+hi clear ALEStyleWarning
+hi clear ALEWarning
+hi clear ALEInfo
 hi! link ALEErrorSign ErrorMsg
 hi! link ALEWarningSign LineNr
-hi! link ALEErrorLine Pmenu
 
-
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-let g:rbpt_colorpairs = [
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['white', 'white'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ]
+" au VimEnter * RainbowParenthesesToggle
+" au Syntax * RainbowParenthesesLoadRound
+" au Syntax * RainbowParenthesesLoadSquare
+" au Syntax * RainbowParenthesesLoadBraces
+" let g:rbpt_colorpairs = [
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ]
 
 augroup js
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync

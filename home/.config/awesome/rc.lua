@@ -331,7 +331,8 @@ globalkeys = gears.table.join(
     -- custom:
     awful.key({                   }, "Print", nil, function () awful.spawn("scrot '%Y-%m-%d-%0k%0M.png' -s -e 'mv $f ~/screenshots/ 2>/dev/null'", false) end),
     -- awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("light-locker-command -l 2>/dev/null", false) end),
-   awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("systemctl suspend", false) end),
+   -- awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("systemctl suspend", false) end),
+   awful.key({"Control", "Shift" }, "Escape", function () awful.spawn("loginctl lock-session", false) end),
    awful.key({}, "XF86AudioLowerVolume", function ()
      awful.util.spawn("amixer -q -D pulse sset Master 5%-", false)
    end),
