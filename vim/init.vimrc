@@ -1,3 +1,5 @@
+let mapleader=","
+
 set hidden
 set number      " start with line number displayed
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility

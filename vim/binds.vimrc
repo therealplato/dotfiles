@@ -1,5 +1,3 @@
-let mapleader=","
-
 " Y yanks line without newline
 nnoremap Y _y$
 
@@ -48,15 +46,10 @@ inoremap kj <Esc>
 inoremap JK <Esc>
 inoremap KJ <Esc>
 
-nnoremap <F3> :NERDTreeToggle<CR>
-nnoremap <Leader>m :NERDTreeToggle<CR>
-
 " jump to prev/next quickfix results
 nnoremap <Leader>j :cnext<CR>
 nnoremap <Leader>k :cprev<CR>
 
-" toggle ctags sidebar
-nnoremap <Leader>. :TagbarToggle<CR>
 " regenerate tags
 map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>
 " point to tags?
@@ -72,6 +65,3 @@ nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
 " toggle line numbers
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
-" fzf
-nmap <Leader>f :FZF<CR>
-nmap <Leader>F :FZF $GOPATH/src/github.com/movio/red<CR>
