@@ -24,6 +24,19 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-matchquote'
 call plug#end()
 
+" Plugin specific binds (other than go.vimrc)
+" fzf
+nmap <Leader>f :FZF<CR>
+nmap <Leader>F :FZF $GOPATH/src/github.com/movio/red<CR>
+"
+" toggle ctags sidebar
+nnoremap <Leader>. :TagbarToggle<CR>
+
+nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <Leader>m :NERDTreeToggle<CR>
+
+nnoremap <Leader>e :ALEFirst<CR>
+
 let NERDTreeQuitOnOpen = 1
 let g:NERDTreeDirArrowExpandable = '◎'
 let g:NERDTreeDirArrowCollapsible = '◉'
@@ -48,22 +61,25 @@ endif
 
 let g:tagbar_width = 50
 
-" Unsolved issue - Cursor visibility is delayed ~200ms after any movement to or from a line with an ALE sign
-let g:ale_enabled = 0
-" let g:ale_lint_on_text_changed = 'always'
-let g:ale_lint_on_text_changed = 0
+let g:ale_enabled = 1
+" Solved by ale_echo_cursor=0: Cursor visibility is delayed ~200ms after any movement to or from a line with an ALE sign
+let g:ale_echo_cursor = 0
+"
 let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save= 1
+" let g:ale_lint_on_text_changed = 'always'
+" let g:ale_lint_on_text_changed = 0
 let g:ale_linters = {'go': ['gometalinter']}
 let g:ale_sign_column_always = 1
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
 " let g:ale_lint_delay = 300
-hi clear ALEError
+" hi clear ALEError
+hi! link ALEError ErrorMsg
+hi clear ALEWarning
 hi clear ALEStyleError
 hi clear ALEStyleWarning
-hi clear ALEWarning
 hi clear ALEInfo
 hi! link ALEErrorSign ErrorMsg
 hi! link ALEWarningSign LineNr
