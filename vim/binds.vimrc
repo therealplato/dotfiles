@@ -24,6 +24,7 @@ nnoremap <Leader>= :vs<CR>
 
 " close window
 nnoremap <Leader>- <C-w>c
+nmap <Leader>w <C-w>c
 
 " close buffer without closing window https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window#8585343
 " buggy with quickfixes :(

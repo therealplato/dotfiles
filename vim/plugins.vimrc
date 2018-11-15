@@ -2,6 +2,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
   Plug 'vim-scripts/tComment'
   Plug 'scrooloose/nerdtree'
+  Plug 'maralla/completor.vim'
   Plug 'ervandew/supertab'
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
@@ -36,6 +37,7 @@ nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
 
 nnoremap <Leader>e :ALEFirst<CR>
+nnoremap <Leader>E :ALEDetail<CR>
 
 let NERDTreeQuitOnOpen = 1
 let g:NERDTreeDirArrowExpandable = '◎'

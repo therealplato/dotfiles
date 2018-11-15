@@ -68,6 +68,9 @@ augroup quickfix
     autocmd FileType qf setlocal wrap
 augroup END
 
+augroup wordhighlight
+  autocmd CursorMoved * exe printf('match SpellBad /\V\%%%dl\@!\<%s\>/', line('.'), escape(expand('<cword>'), '/\'))
+augroup END
 " via blaenk/dots
 " Highlight active window bar
 function! s:RefreshStatus()
