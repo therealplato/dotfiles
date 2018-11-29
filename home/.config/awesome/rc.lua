@@ -25,6 +25,18 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 local lain = require("lain")
 local markup = lain.util.markup
 
+local pomo = require("pomodoro")
+pomo.format = function (t) return "[ <b>" .. t .. "</b> ]" end
+local pomos = pomo.init()
+local pomowidget = pomos.timer_widget
+pomowidget.align="left"
+-- when pomoing, hide all but pomo bar
+local pomoing = false
+
+
+local space = wibox.widget.textbox(" ")
+
+
 local power = require("power_widget")
 power:init()
 
@@ -217,9 +229,25 @@ local myutcclock = wibox.widget.textclock(markup(beautiful.fg_normal, " (%F %RZ)
 local mytextclock = wibox.widget.textclock(markup(beautiful.orange, " %a %d %R "), 5)
 local wallpapername = wibox.widget.textbox(wallpaper.name())
 local wallpaper_name_timer = gears.timer { timeout = 5, autostart=true }
+local emptywidget = wibox.widget.textbox("")
 wallpaper_name_timer:connect_signal("timeout", function()
   wallpapername:set_markup_silently(markup(beautiful.fg_normal, wallpaper.name()))
 end)
+todowidget = wibox.widget{
+    markup = 'todo',
+    align  = 'right',
+    valign = 'center',
+    widget = wibox.widget.textbox
+}
+-- local todo_timer = gears.timer { timeout = 5, autostart=true }
+-- local todo_head_callback = function(line)
+--   todo_item = line
+--   todowidget:set_markup_silently(markup(beautiful.fg_normal, todo_item))
+-- end
+-- todo_timer:connect_signal("timeout", function()
+--   awful.spawn.with_line_callback("head -n1 ~/todo" .. wp_path, {stdout=on_line, exit=todo_head_callback})
+-- end)
+awful.widget.watch('bash -c "head -n1 $HOME/todo"', 15, nil, todowidget)
 
 local systray = wibox.widget.systray({opacity=0})
 
@@ -283,6 +311,33 @@ awful.screen.connect_for_each_screen(function(s)
       visible=false,
       bg=beautiful.shaded
     })
+    -- Create the pomodoro wibar
+    s.mywibox3 = awful.wibar({
+      position = "top",
+      screen = s,
+      -- visible=false,
+      visible=true,
+      bg=beautiful.shaded
+    })
+
+    -- Add widgets to the wibox
+    s.mywibox:setup({
+        layout = wibox.layout.align.horizontal,
+        { -- Left widgets
+            layout = wibox.layout.fixed.horizontal,
+            s.mytaglist,
+            s.mypromptbox,
+        },
+        s.mytasklist, -- Middle widget
+        { -- Right widgets
+            layout = wibox.layout.fixed.horizontal,
+            mykeyboardlayout,
+      pomowidget,
+            clockwidget,
+            mytextclock,
+            power,
+        },
+    })
     s.mywibox2:setup({
       layout = wibox.layout.align.horizontal,
       s.mytaglist2,
@@ -298,23 +353,21 @@ awful.screen.connect_for_each_screen(function(s)
       }
     })
 
-    -- Add widgets to the wibox
-    s.mywibox:setup({
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            s.mytaglist,
-            s.mypromptbox,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            clockwidget,
-            mytextclock,
-            power,
-        },
+    -- wibox.layout.align.expand = 'outside'
+
+    s.mywibox3:setup({
+      layout = wibox.layout.align.horizontal,
+      expand = 'outside',
+      nil,
+      {
+        layout = wibox.layout.fixed.horizontal,
+        todowidget,
+        space,
+        pomowidget,
+      },
+      nil,
     })
+
 end)
 -- }}}
 
@@ -325,6 +378,30 @@ root.buttons(gears.table.join(
     awful.button({ }, 5, awful.tag.viewprev)
 ))
 -- }}}
+
+pomos.on_work_pomodoro_finish_callbacks = {
+  endPomo,
+}
+
+function beginPomo () 
+  pomoing = true
+  naughty.toggle()
+  if not naughty.is_suspended() then
+    naughty.toggle()
+  end
+  awful.screen.focused().mywibox.visible = false
+  awful.screen.focused().mywibox2.visible = false
+  awful.screen.focused().mywibox3.visible = true
+  pomos:start()
+end
+function endPomo () 
+  pomoing = false
+  naughty.toggle()
+  awful.screen.focused().mywibox.visible = true
+  awful.screen.focused().mywibox2.visible = false
+  awful.screen.focused().mywibox3.visible = false
+  pomos:pause()
+end
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
@@ -346,16 +423,31 @@ globalkeys = gears.table.join(
 
        -- amixer -c 2 cset iface=MIXER,name='Line Playback Volume",index=1 40%
 
-   awful.key({}, "XF86MonBrightnessDown", function ()
-     awful.util.spawn("xbacklight -dec 15", false)
-   end),
-   awful.key({}, "XF86MonBrightnessUp", function ()
-     awful.util.spawn("xbacklight -inc 15", false)
-   end),
-   awful.key({modkey, }, "b", wallpaper.rotate),
-   awful.key({modkey, }, "0", function()
-     presentation_mode = not presentation_mode
-   end),
+    awful.key({}, "XF86MonBrightnessDown", function ()
+      awful.util.spawn("xbacklight -dec 15", false)
+    end),
+    awful.key({}, "XF86MonBrightnessUp", function ()
+      awful.util.spawn("xbacklight -inc 15", false)
+    end),
+    awful.key({modkey, }, "b", wallpaper.rotate),
+    awful.key({modkey, }, "0", function()
+      presentation_mode = not presentation_mode
+    end),
+    awful.key({ modkey, }, "i", beginPomo ),
+    awful.key({ modkey, }, "o",  endPomo),
+    --
+    -- Show more info
+    awful.key({modkey }, "Down", function ()
+        awful.screen.focused().mywibox2.visible = true
+      end, {description = "show second wibar", group = "extra"}
+    ),
+    --
+    -- Show less info on mod press
+    awful.key({modkey }, "Up", function ()
+        awful.screen.focused().mywibox2.visible = false
+      end, {description = "hide second wibar", group = "extra"}
+    ),
+
 
     --default:
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -478,18 +570,6 @@ globalkeys = gears.table.join(
     --     awful.screen.focused().mywibox2.visible = false
     --   end, {description = "show second wibar (hold)", group = "extra"}
     -- ),
-
-    -- Show more info
-    awful.key({modkey }, "Down", function ()
-        awful.screen.focused().mywibox2.visible = true
-      end, {description = "show second wibar", group = "extra"}
-    ),
-    --
-    -- Show less info on mod press
-    awful.key({modkey }, "Up", function ()
-        awful.screen.focused().mywibox2.visible = false
-      end, {description = "hide second wibar", group = "extra"}
-    ),
 
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,

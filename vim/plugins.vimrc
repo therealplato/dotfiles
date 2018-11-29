@@ -36,8 +36,9 @@ nnoremap <Leader>. :TagbarToggle<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
 
-nnoremap <Leader>e :ALEFirst<CR>
-nnoremap <Leader>E :ALEDetail<CR>
+nnoremap <Leader>e <Plug>(ale_first)
+nnoremap <Leader>E <Plug>(ale_detail)
+nnoremap <Leader><Space> <Plug>(ale_next)
 
 let NERDTreeQuitOnOpen = 1
 let g:NERDTreeDirArrowExpandable = '◎'

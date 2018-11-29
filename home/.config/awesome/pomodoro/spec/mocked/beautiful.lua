@@ -1,0 +1,2 @@
+local beautiful = {}
+return beautiful
