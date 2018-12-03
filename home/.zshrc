@@ -36,7 +36,14 @@ zstyle ':completion:*' rehash true
 
 # Vim mode:
 bindkey -v
-bindkey "^R" history-incremental-pattern-search-backward
+# bindkey "^R" history-incremental-pattern-search-backward
+history-incremental-pattern-search-backward-from-line () {
+  zle history-incremental-pattern-search-backward $BUFFER
+}
+zle -N history-incremental-pattern-search-backward-from-line
+bindkey -M viins "^R" history-incremental-pattern-search-backward-from-line
+bindkey -M vicmd "^R" history-incremental-pattern-search-backward-from-line
+bindkey -M isearch "^R" history-incremental-pattern-search-backward
 
 # Open editor with C-X C-E
 autoload -z edit-command-line
