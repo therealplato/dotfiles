@@ -31,7 +31,9 @@ local pomos = pomo.init()
 local pomowidget = pomos.timer_widget
 pomowidget.align="left"
 -- when pomoing, hide all but pomo bar
-local pomoing = false
+local wibarStatusVisible = true
+local wibarMoreVisible = false
+local wibarPomoVisible = false
 
 
 local space = wibox.widget.textbox(" ")
@@ -248,6 +250,10 @@ todowidget = wibox.widget{
 --   awful.spawn.with_line_callback("head -n1 ~/todo" .. wp_path, {stdout=on_line, exit=todo_head_callback})
 -- end)
 awful.widget.watch('bash -c "head -n1 $HOME/todo"', 15, nil, todowidget)
+todowidget:buttons(awful.button({}, 1, nil, function ()
+  awful.spawn.with_shell(editor_cmd .. ' $HOME/todo')
+end
+))
 
 local systray = wibox.widget.systray({opacity=0})
 
@@ -372,35 +378,83 @@ end)
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
+-- root.buttons(gears.table.join(
     -- awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
+    -- awful.button({ }, 4, awful.tag.viewnext),
+    -- awful.button({ }, 5, awful.tag.viewprev)
+-- ))
 -- }}}
 
-pomos.on_work_pomodoro_finish_callbacks = {
-  endPomo,
-}
-
-function beginPomo () 
-  pomoing = true
-  naughty.toggle()
-  if not naughty.is_suspended() then
-    naughty.toggle()
-  end
-  awful.screen.focused().mywibox.visible = false
-  awful.screen.focused().mywibox2.visible = false
-  awful.screen.focused().mywibox3.visible = true
+function beginPomo ()
+  naughty.suspend()
+  wibarStatusVisible = false;
+  wibarMoreVisible = false;
+  wibarPomoVisible = true;
+  redrawWibars()
   pomos:start()
 end
-function endPomo () 
+function endPomo ()
   pomoing = false
-  naughty.toggle()
-  awful.screen.focused().mywibox.visible = true
-  awful.screen.focused().mywibox2.visible = false
-  awful.screen.focused().mywibox3.visible = false
+  naughty.resume()
+  wibarStatusVisible = true;
+  wibarMoreVisible = true;
+  wibarPomoVisible = false;
+  redrawWibars()
   pomos:pause()
+end
+
+pomos.icon_widget:connect_signal("work_elapsed", endPomo)
+pomos.icon_widget:connect_signal("break_elapsed", beginPomo)
+
+function changeWibarVisibility(more)
+  if more then
+    -- increase visibility
+    if not wibarStatusVisible then
+      wibarStatusVisible = true
+      return
+    end
+    if not wibarMoreVisible then
+      wibarMoreVisible  = true
+      return
+    end
+    if not wibarPomoVisible then
+      wibarPomoVisible = true
+      return
+    end
+  else
+    -- decrease visibility
+    if wibarPomoVisible then
+      wibarPomoVisible = false
+      return
+    end
+    if wibarMoreVisible then
+      wibarMoreVisible  = false
+      return
+    end
+    if wibarStatusVisible then
+      wibarStatusVisible = false
+      return
+    end
+  end
+end
+
+function redrawWibars ()
+  if wibarStatusVisible then
+  awful.screen.focused().mywibox.visible = true
+  else
+  awful.screen.focused().mywibox.visible = false
+  end
+
+  if wibarMoreVisible then
+  awful.screen.focused().mywibox2.visible = true
+  else
+  awful.screen.focused().mywibox2.visible = false
+  end
+  if wibarPomoVisible then
+  awful.screen.focused().mywibox3.visible = true
+  else
+  awful.screen.focused().mywibox3.visible = false
+  end
 end
 
 -- {{{ Key bindings
@@ -438,14 +492,18 @@ globalkeys = gears.table.join(
     --
     -- Show more info
     awful.key({modkey }, "Down", function ()
-        awful.screen.focused().mywibox2.visible = true
-      end, {description = "show second wibar", group = "extra"}
+      changeWibarVisibility(true)
+      redrawWibars()
+      -- awful.screen.focused().mywibox2.visible = true
+    end, {description = "show more wibars", group = "extra"}
     ),
     --
     -- Show less info on mod press
     awful.key({modkey }, "Up", function ()
-        awful.screen.focused().mywibox2.visible = false
-      end, {description = "hide second wibar", group = "extra"}
+      changeWibarVisibility(false)
+      redrawWibars()
+      -- awful.screen.focused().mywibox2.visible = false
+    end, {description = "show fewer wibars", group = "extra"}
     ),
 
 
