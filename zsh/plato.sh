@@ -59,6 +59,7 @@ alias emacs="emacs --no-window-system"
 # alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 alias gource-all="gource --git-branch master --auto-skip-seconds 5 --bloom-multiplier 0.1 --highlight-dirs --seconds-per-day 0.1 --dir-name-depth 2 --key --highlight-users --viewport 1280x720 --user-friction 0.01 --max-user-speed 100 --elasticity 100"
 alias gource-recent="gource --git-branch master --bloom-multiplier 0.1 --highlight-dirs --time-scale 1 --dir-name-depth 2 --key --start-date 2016-06-01 --highlight-users --viewport 1280x720"
+alias projectm="projectM-pulseaudio"
 
 #git
 alias gs="git status"
