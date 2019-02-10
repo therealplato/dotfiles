@@ -30,10 +30,9 @@ pomo.format = function (t) return "[ <b>" .. t .. "</b> ]" end
 local pomos = pomo.init()
 local pomowidget = pomos.timer_widget
 pomowidget.align="left"
--- when pomoing, hide all but pomo bar
-local wibarStatusVisible = true
-local wibarMoreVisible = false
-local wibarPomoVisible = false
+local wibarPomoVisible = true
+local wibarCurrentVisible = false
+local wibarDetailsVisible = false
 
 
 local space = wibox.widget.textbox(" ")
@@ -303,22 +302,8 @@ awful.screen.connect_for_each_screen(function(s)
       } )
 
 
-    -- Create the main wibar
-    s.mywibox = awful.wibar({
-      position = "top",
-      screen = s,
-      bg=beautiful.shaded,
-    })
-    --
-    -- Create the secondary wibar
-    s.mywibox2 = awful.wibar({
-      position = "top",
-      screen = s,
-      visible=false,
-      bg=beautiful.shaded
-    })
-    -- Create the pomodoro wibar
-    s.mywibox3 = awful.wibar({
+    -- Let's try the pomodoro wibar at the top
+    s.wibarpomo = awful.wibar({
       position = "top",
       screen = s,
       -- visible=false,
@@ -326,8 +311,23 @@ awful.screen.connect_for_each_screen(function(s)
       bg=beautiful.shaded
     })
 
+    -- Create the main wibar
+    s.wibarcurrent = awful.wibar({
+      position = "top",
+      screen = s,
+      bg=beautiful.shaded,
+    })
+    --
+    -- Create the secondary wibar
+    s.wibardetails = awful.wibar({
+      position = "top",
+      screen = s,
+      visible=false,
+      bg=beautiful.shaded
+    })
+
     -- Add widgets to the wibox
-    s.mywibox:setup({
+    s.wibarcurrent:setup({
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
@@ -338,13 +338,13 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
-      pomowidget,
+            pomowidget,
             clockwidget,
             mytextclock,
             power,
         },
     })
-    s.mywibox2:setup({
+    s.wibardetails:setup({
       layout = wibox.layout.align.horizontal,
       s.mytaglist2,
       { layout = wibox.layout.align.horizontal },
@@ -361,7 +361,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- wibox.layout.align.expand = 'outside'
 
-    s.mywibox3:setup({
+    s.wibarpomo:setup({
       layout = wibox.layout.align.horizontal,
       expand = 'outside',
       nil,
@@ -387,19 +387,18 @@ end)
 
 function beginPomo ()
   naughty.suspend()
-  wibarStatusVisible = false;
-  wibarMoreVisible = false;
-  wibarPomoVisible = true;
-  redrawWibars()
+  -- wibarCurrentVisible = false;
+  -- wibarDetailsVisible = false;
+  -- wibarPomoVisible = true;
+  -- redrawWibars()
   pomos:start()
 end
 function endPomo ()
-  pomoing = false
   naughty.resume()
-  wibarStatusVisible = true;
-  wibarMoreVisible = true;
-  wibarPomoVisible = false;
-  redrawWibars()
+  -- wibarCurrentVisible = true;
+  -- wibarDetailsVisible = true;
+  -- wibarPomoVisible = false;
+  -- redrawWibars()
   pomos:pause()
 end
 
@@ -408,52 +407,52 @@ pomos.icon_widget:connect_signal("break_elapsed", beginPomo)
 
 function changeWibarVisibility(more)
   if more then
-    -- increase visibility
-    if not wibarStatusVisible then
-      wibarStatusVisible = true
-      return
-    end
-    if not wibarMoreVisible then
-      wibarMoreVisible  = true
-      return
-    end
+    -- increase visibility (show lowest priority hidden bar)
     if not wibarPomoVisible then
       wibarPomoVisible = true
       return
     end
+    if not wibarCurrentVisible then
+      wibarCurrentVisible = true
+      return
+    end
+    if not wibarDetailsVisible then
+      wibarDetailsVisible  = true
+      return
+    end
   else
-    -- decrease visibility
+    -- decrease visibility (hide lowest priority visible bar)
+    if wibarDetailsVisible then
+      wibarDetailsVisible  = false
+      return
+    end
+    if wibarCurrentVisible then
+      wibarCurrentVisible = false
+      return
+    end
     if wibarPomoVisible then
       wibarPomoVisible = false
-      return
-    end
-    if wibarMoreVisible then
-      wibarMoreVisible  = false
-      return
-    end
-    if wibarStatusVisible then
-      wibarStatusVisible = false
       return
     end
   end
 end
 
 function redrawWibars ()
-  if wibarStatusVisible then
-  awful.screen.focused().mywibox.visible = true
+  if wibarPomoVisible then
+  awful.screen.focused().wibarpomo.visible = true
   else
-  awful.screen.focused().mywibox.visible = false
+  awful.screen.focused().wibarpomo.visible = false
+  end
+  if wibarCurrentVisible then
+  awful.screen.focused().wibarcurrent.visible = true
+  else
+  awful.screen.focused().wibarcurrent.visible = false
   end
 
-  if wibarMoreVisible then
-  awful.screen.focused().mywibox2.visible = true
+  if wibarDetailsVisible then
+  awful.screen.focused().wibardetails.visible = true
   else
-  awful.screen.focused().mywibox2.visible = false
-  end
-  if wibarPomoVisible then
-  awful.screen.focused().mywibox3.visible = true
-  else
-  awful.screen.focused().mywibox3.visible = false
+  awful.screen.focused().wibardetails.visible = false
   end
 end
 
@@ -494,7 +493,7 @@ globalkeys = gears.table.join(
     awful.key({modkey }, "Down", function ()
       changeWibarVisibility(true)
       redrawWibars()
-      -- awful.screen.focused().mywibox2.visible = true
+      -- awful.screen.focused().wibardetails.visible = true
     end, {description = "show more wibars", group = "extra"}
     ),
     --
@@ -502,7 +501,7 @@ globalkeys = gears.table.join(
     awful.key({modkey }, "Up", function ()
       changeWibarVisibility(false)
       redrawWibars()
-      -- awful.screen.focused().mywibox2.visible = false
+      -- awful.screen.focused().wibardetails.visible = false
     end, {description = "show fewer wibars", group = "extra"}
     ),
 
@@ -594,9 +593,9 @@ globalkeys = gears.table.join(
               --
     -- -- Show more info on mod press
     -- awful.key({ }, "Alt", function ()
-    --     awful.screen.focused().mywibox2.visible = true
+    --     awful.screen.focused().wibardetails.visible = true
     --   end, function ()
-    --     awful.screen.focused().mywibox2.visible = false
+    --     awful.screen.focused().wibardetails.visible = false
     --   end, {description = "show second wibar (hold)", group = "extra"}
     -- ),
 
@@ -604,28 +603,28 @@ globalkeys = gears.table.join(
     -- Does not error, does not change bar visibility
     -- awful.key({ modkey }, nil, function ()
     --     error("A")
-    --     awful.screen.focused().mywibox2.visible = true
+    --     awful.screen.focused().wibardetails.visible = true
     --   end, function ()
     --     error("B")
-    --     awful.screen.focused().mywibox2.visible = false
+    --     awful.screen.focused().wibardetails.visible = false
     --   end, {description = "show second wibar (hold)", group = "extra"}
     -- ),
 
     -- -- Show more info on mod press
     -- Does not error, does not change bar visibility
     -- awful.key({ modkey }, "", function ()
-    --     awful.screen.focused().mywibox2.visible = true
+    --     awful.screen.focused().wibardetails.visible = true
     --   end, function ()
-    --     awful.screen.focused().mywibox2.visible = false
+    --     awful.screen.focused().wibardetails.visible = false
     --   end, {description = "show second wibar (hold)", group = "extra"}
     -- ),
 
     -- Show more info on mod press
     -- Does not error, does not change bar visibility
     -- awful.key({ }, "Super_L", function ()
-    --     awful.screen.focused().mywibox2.visible = true
+    --     awful.screen.focused().wibardetails.visible = true
     --   end, function ()
-    --     awful.screen.focused().mywibox2.visible = false
+    --     awful.screen.focused().wibardetails.visible = false
     --   end, {description = "show second wibar (hold)", group = "extra"}
     -- ),
 
@@ -845,6 +844,7 @@ quotepattern = '(['..("%^$().[]*+-?"):gsub("(.)", "%%%1")..'])'
 function set_opacity(client, signal)
   local pf = "Firefox"
   local pc = "chrome"
+  local px = "xviewer"
   local pt = terminal
   -- cool-retro-term contains special characters when pattern matching:
   pt = pt:gsub(quotepattern, "%%%1")
@@ -852,6 +852,7 @@ function set_opacity(client, signal)
   local s = client.instance .. client.class
   if string.match(s, pf)
   or string.match(s, pc)
+  or string.match(s, px)
   or string.match(s, pt)
   then
     client.opacity = 1
@@ -880,3 +881,5 @@ end)
 
 -- Startup programs
 awful.spawn.with_shell("~/.config/awesome/autorun.sh")
+-- Show only pomo bar on startup
+redrawWibars()
