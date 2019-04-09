@@ -67,7 +67,8 @@ nnoremap <Leader><Space> <Plug>(ale_next)
 " nnoremap <Leader>e :ALEFirst<CR>
 let g:ale_enabled = 1
 " Solved by ale_echo_cursor=0: Cursor visibility is delayed ~200ms after any movement to or from a line with an ALE sign
-let g:ale_echo_cursor = 0
+let g:ale_echo_cursor = 1
+let g:ale_echo_delay = 300
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
 let g:ale_lint_delay = 300
