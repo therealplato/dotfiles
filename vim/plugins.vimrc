@@ -36,10 +36,6 @@ nnoremap <Leader>. :TagbarToggle<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
 
-nnoremap <Leader>e <Plug>(ale_first)
-nnoremap <Leader>E <Plug>(ale_detail)
-nnoremap <Leader><Space> <Plug>(ale_next)
-
 let NERDTreeQuitOnOpen = 1
 let g:NERDTreeDirArrowExpandable = '◎'
 let g:NERDTreeDirArrowCollapsible = '◉'
@@ -64,20 +60,24 @@ endif
 
 let g:tagbar_width = 50
 
-nnoremap <Leader>e :ALEFirst<CR>
+
+nnoremap <Leader>e <Plug>(ale_first)
+nnoremap <Leader>E <Plug>(ale_detail)
+nnoremap <Leader><Space> <Plug>(ale_next)
+" nnoremap <Leader>e :ALEFirst<CR>
 let g:ale_enabled = 1
 " Solved by ale_echo_cursor=0: Cursor visibility is delayed ~200ms after any movement to or from a line with an ALE sign
 let g:ale_echo_cursor = 0
-let g:ale_list_window_size=4
-" let g:ale_linters = {'go': ['gometalinter', 'errcheck']}
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
 let g:ale_lint_delay = 300
+let g:ale_lint_on_enter = 0
+let g:ale_set_quickfix = 0
+let g:ale_set_loclist = 0
+let g:ale_open_list = 0
+" let g:ale_list_window_size=4
+" let g:ale_linters = {'go': ['gometalinter', 'errcheck']}
 " let g:ale_lint_on_insert_leave = 1
-" let g:ale_lint_on_enter = 1
 " let g:ale_lint_on_save= 1
 " let g:ale_lint_on_text_changed = 'always'
 " let g:ale_lint_on_text_changed = 0
