@@ -28,7 +28,7 @@ set autoindent
 augroup myfiletypes
   autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
   autocmd FileType go setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
-  autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
+  " autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
 
 set foldmethod=indent

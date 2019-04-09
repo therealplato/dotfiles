@@ -34,8 +34,10 @@ endfunction
 au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = []
+" let g:go_metalinter_autosave = 0
+" let g:go_metalinter_command = "golangci-lint"
+" let g:go_metalinter_autosave_enabled = []
+" let g:go_metalinter_command = "gometalinter --disable-all -E errcheck -E vetshadow -E golint -e 'defer.{1,5}\.Body\.Close'"
 let g:go_list_type = "quickfix"
 let g:go_statusline_duration = 3000
 " let g:go_gocode_propose_source = 1

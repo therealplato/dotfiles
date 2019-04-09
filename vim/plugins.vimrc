@@ -21,7 +21,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'mhinz/vim-startify'
-  Plug 'will133/vim-dirdiff'
+  " Plug 'will133/vim-dirdiff'
   Plug 'airblade/vim-matchquote'
 call plug#end()
 
@@ -64,28 +64,32 @@ endif
 
 let g:tagbar_width = 50
 
+nnoremap <Leader>e :ALEFirst<CR>
 let g:ale_enabled = 1
 " Solved by ale_echo_cursor=0: Cursor visibility is delayed ~200ms after any movement to or from a line with an ALE sign
 let g:ale_echo_cursor = 0
-"
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_save= 1
-" let g:ale_lint_on_text_changed = 'always'
-" let g:ale_lint_on_text_changed = 0
-let g:ale_linters = {'go': ['gometalinter']}
-let g:ale_sign_column_always = 1
+let g:ale_list_window_size=4
+" let g:ale_linters = {'go': ['gometalinter', 'errcheck']}
 let g:ale_sign_error='!'
 let g:ale_sign_warning='?'
-" let g:ale_lint_delay = 300
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+let g:ale_lint_delay = 300
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_lint_on_enter = 1
+" let g:ale_lint_on_save= 1
+" let g:ale_lint_on_text_changed = 'always'
+" let g:ale_lint_on_text_changed = 0
+" let g:ale_sign_column_always = 1
 " hi clear ALEError
-hi! link ALEError ErrorMsg
-hi clear ALEWarning
-hi clear ALEStyleError
-hi clear ALEStyleWarning
-hi clear ALEInfo
-hi! link ALEErrorSign ErrorMsg
-hi! link ALEWarningSign LineNr
+" hi! link ALEError ErrorMsg
+" hi clear ALEWarning
+" hi clear ALEStyleError
+" hi clear ALEStyleWarning
+" hi clear ALEInfo
+" hi! link ALEErrorSign ErrorMsg
+" hi! link ALEWarningSign LineNr
 
 " au VimEnter * RainbowParenthesesToggle
 " au Syntax * RainbowParenthesesLoadRound
