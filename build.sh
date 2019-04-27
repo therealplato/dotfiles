@@ -176,9 +176,9 @@ if [ $FORCE -eq 1 ]; then
   CMD="$CP -vR ./generated/. $HOME"
   bold "$CMD" && $CMD
 
-  # couldn't find how to source this pre-X...
-  if [ "$OS" = "linux" ]; then
-    CMD="xrdb merge $HOME/.Xresources"
-    bold "$CMD" && $CMD
-  fi
+  # # couldn't find how to source this pre-X...
+  # if [ "$OS" = "linux" ]; then
+  #   CMD="xrdb merge $HOME/.Xresources"
+  #   bold "$CMD" && $CMD
+  # fi
 fi

@@ -19,7 +19,7 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
 -- Load Debian menu entries
-local debian = require("debian.menu")
+-- local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 local lain = require("lain")
@@ -38,8 +38,8 @@ local wibarDetailsVisible = false
 local space = wibox.widget.textbox(" ")
 
 
-local power = require("power_widget")
-power:init()
+-- local power = require("power_widget")
+-- power:init()
 
 presentation_mode = false
 
@@ -341,7 +341,7 @@ awful.screen.connect_for_each_screen(function(s)
             pomowidget,
             clockwidget,
             mytextclock,
-            power,
+            -- power,
         },
     })
     s.wibardetails:setup({
