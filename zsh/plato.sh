@@ -94,6 +94,30 @@ alias dm="docker-machine"
 alias GS="git status"
 alias digs="dig +short"
 
+
+OS=$(uname | tr '[:upper:]' '[:lower:]')
+if [ "$OS" = "darwin" ]; then
+  export CLIPBOARD="pbcopy"
+fi
+
+if [ "$OS" = "windows" ]; then
+ export CLIPBOARD="echo"
+fi
+
+if [ "$OS" = "linux" ]; then
+ export CLIPBOARD="xclip -selection clipboard"
+fi
+
+# clipboard a command result:
+p() {
+  eval "$@ | tee /tmp/clipboard"
+  if [ $(cat /tmp/clipboard | wc -l) -eq 1 ]; then
+    echo -n $(cat /tmp/clipboard) | xclip -selection clipboard
+  else
+    xclip -in /tmp/clipboard -selection clipboard
+  fi
+}
+
 function rdns() {
   if (( $# < 1 )); then
     echo "$0 <ip> ..."

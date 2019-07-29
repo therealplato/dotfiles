@@ -1,5 +1,5 @@
-Xft.dpi: 288
-
+!Xft.dpi: 288
+Xft.dpi: 96
 URxvt.font: xft:inconsolata:size=25
 
 URxvt*loginShell: true
