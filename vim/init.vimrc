@@ -6,7 +6,8 @@ set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatib
 set signcolumn=yes
 set backspace=indent,eol,start
 set nomodeline
-set mouse=a     " click to position cursor always
+" set mouse=a     " click to position cursor always
+set mouse=nv     " click to position cursor in normal and visual
 set splitbelow  " open windows to right and down
 set splitright
 set scrolloff=3                 " Minimum lines to keep above and below cursor

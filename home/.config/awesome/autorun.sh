@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-CLEAN=1
-if pgrep firefox ; then
-  CLEAN=0
-fi
+# CLEAN=1
+# BROWSER="brave-browser"
+# if pgrep $BROWSER ; then
+#   CLEAN=0
+# fi
 
 
 # run1 limits to one per process
@@ -17,7 +18,7 @@ run1 light-locker
 run1 compton
 run1 autorandr --change --force
 run1 nm-applet
-run1 firefox
+# run1 $BROWSER
 
 # if [ $CLEAN = 1 ] ; then
   # firefox &

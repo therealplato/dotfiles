@@ -43,6 +43,23 @@ local space = wibox.widget.textbox(" ")
 
 presentation_mode = false
 
+local powerwidget = awful.widget.watch("bash -c 'cat /sys/class/power_supply/BAT0/capacity'", 60,
+  function(widget, stdout, stderr, exitreason, exitcode)
+    if exitcode == 0 then
+      if stdout == "100\n" then
+        widget:set_markup_silently(markup(beautiful.green, stdout))
+        return
+      else
+        widget:set_markup_silently(markup(beautiful.red, stdout))
+      end
+    else
+      widget:set_markup_silently(markup(beautiful.red, "Battery % Unknown"))
+    end
+  end,
+  base
+)
+
+
 local shwidget2 = function(test_env, click_env, text, period_s)
   local cmd1, cmd2
   if not period_s then period_s = 5 end
@@ -332,6 +349,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             s.mytaglist,
+            space,
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
@@ -351,8 +369,10 @@ awful.screen.connect_for_each_screen(function(s)
       {
         layout = wibox.layout.fixed.horizontal,
         wallpapername,
+        space,
         vpnwidget,
         -- podwidget,
+        space,
         podwatchwidget,
         systray,
         myutcclock,
@@ -363,15 +383,20 @@ awful.screen.connect_for_each_screen(function(s)
 
     s.wibarpomo:setup({
       layout = wibox.layout.align.horizontal,
-      expand = 'outside',
-      nil,
+      expand = 'none',
+      -- nil,
       {
-        layout = wibox.layout.fixed.horizontal,
+        layout = wibox.layout.align.horizontal,
         todowidget,
-        space,
+      },
+      {
+        layout = wibox.layout.align.horizontal,
         pomowidget,
       },
-      nil,
+      {
+        layout = wibox.layout.fixed.horizontal,
+        powerwidget,
+      },
     })
 
 end)
@@ -843,27 +868,28 @@ end)
 quotepattern = '(['..("%^$().[]*+-?"):gsub("(.)", "%%%1")..'])'
 function set_opacity(client, signal)
   local pf = "Firefox"
+  local pb = "brave"
   local pc = "chrome"
   local px = "xviewer"
-  local pt = terminal
+  -- local pt = terminal
   -- cool-retro-term contains special characters when pattern matching:
-  pt = pt:gsub(quotepattern, "%%%1")
+  -- pt = pt:gsub(quotepattern, "%%%1")
 
   local s = client.instance .. client.class
   if string.match(s, pf)
+  or string.match(s, pb)
   or string.match(s, pc)
   or string.match(s, px)
-  or string.match(s, pt)
+  -- or string.match(s, pt)
   then
     client.opacity = 1
     return
   end
   if signal == "focus" then
-    client.opacity = 0.93
+    -- client.opacity = 0.93
+    client.opacity = 1
   elseif signal == "unfocus" then
     client.opacity = 0.6
-  elseif signal == "opaque" then
-    client.opacity = 1
   else
     error("set_opacity for `" .. signal "`?")
   end
