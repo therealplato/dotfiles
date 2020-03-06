@@ -11,6 +11,7 @@ export G=$GOPATH/src
 export P=$GOPATH/src/github.com/therealplato
 export R=$GOPATH/src/github.com/movio/red
 export PATH=$PATH:$GOPATH/bin:/usr/local/sbin:$HOME/bin:/c/Python27/:"/c/Program Files (x86)/Sublime Text 3":"/c/Program Files (x86)/nodejs":"/c/Program Files/CMake/bin":$GOROOT/bin
+export LFS=/mnt/lfs
 
 alias resource='source ~/.bash_profile; echo ".bash_profile sourced!"'
 alias ls='ls -aG --color=always'

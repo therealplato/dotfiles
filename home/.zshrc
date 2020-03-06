@@ -2,6 +2,7 @@ source ~/.zsh/gitps.sh
 source ~/.zsh/plato.sh
 source ~/.zsh/nvm.sh
 source ~/.zsh/wsl.sh
+source ~/.zsh/secret.sh
 source $P/dotfiles/vendor/github.com/zsh-users/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $P/dotfiles/vendor/github.com/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $P/dotfiles/vendor/github.com/rupa/z/z.sh

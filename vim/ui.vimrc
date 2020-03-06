@@ -100,17 +100,23 @@ function! Status(winnr)
   let contents .= ' '
   let contents .= '%t'                   " Filename only
   let contents .= ':%l'                  " line no
-  let contents .= ':%c'                  " col no
+"  let contents .= ':%c'                  " col no
   let contents .= '%)'                   " End group
+  let contents .= ' '
+  let contents .= '%{go#statusline#Show()}'
   let contents .= '%='                   " Begin Right justify
   let contents .= ' '
-  let contents .= '%{g:go_status}'
+  let contents .= '%2.3('                " begin group max 50 width
+  let contents .= '⎇ '                   " branch symbol
+  let contents .= '%)'                   " end right justified group
+
   let contents .= '%.50('                " begin group max 50 width
   let contents .= ' '
-  " let contents .= '⎇ '                   " branch symbol
   let contents .= '%{g:git_branch}'      " Git Hotness
   let contents .= ' '
   let contents .= '%p%%'                 " file nav percent
+  let contents .= ' '
+  let contents .= ' '
   let contents .= '%)'                   " end right justified group
 
   return contents

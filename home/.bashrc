@@ -1,6 +1,7 @@
 # Windows git-bash rc
 alias ipfix="ipconfig -release; ipconfig -renew; ipconfig -flushdns"
 alias lsr="ls -latr"
+export LFS=/mnt/lfs
 
 # Tab complete p/t/a<tab> to project/tests/acceptance
 # Thx izabera@freenode#bash
