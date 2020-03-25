@@ -1,10 +1,8 @@
+#!/bin/bash
 # envs
 export GOPATH=$HOME/go
 export G=$GOPATH/src
 export P=$GOPATH/src/github.com/therealplato
-export R=$GOPATH/src/github.com/movio/red
-export B=$GOPATH/src/github.com/movio/blue
-
 export PATH=/usr/local/Cellar/coreutils/8.28_1/libexec/gnubin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
@@ -116,6 +114,10 @@ p() {
   else
     xclip -in /tmp/clipboard -selection clipboard
   fi
+}
+
+function todo() {
+  head -n1 $HOME/todo
 }
 
 function rdns() {
