@@ -15,7 +15,7 @@ autoload -U colors && colors
 unsetopt BG_NICE
 
 #alias xc='xclip -selection primary -o | xclip -selection clipboard -i'     # for linux. for osx use ...| pbcopy
-source ~/.zsh/secret.sh
+source ~/.zsh/secret.env
 
 
 # Lines configured by zsh-newuser-install
