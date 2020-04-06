@@ -9,8 +9,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
   Plug 'rking/ag.vim'
-  " Plug 'jstemmer/gotags'
-  " Plug 'majutsushi/tagbar'
+  Plug 'jstemmer/gotags'
+  Plug 'majutsushi/tagbar'
   " Plug 'w0rp/ale'
   " Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
   " Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -28,7 +28,7 @@ call plug#end()
 nmap <Leader>f :FZF<CR>
 "
 " toggle ctags sidebar
-" nnoremap <Leader>. :TagbarToggle<CR>
+nnoremap <Leader>. :TagbarToggle<CR>
 
 nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <Leader>m :NERDTreeToggle<CR>
