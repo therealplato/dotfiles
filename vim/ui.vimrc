@@ -100,6 +100,7 @@ function! Status(winnr)
   let contents .= ' '
   let contents .= '%t'                   " Filename only
   let contents .= ':%l'                  " line no
+  let contents .= '%<'                    " truncate from here rightwards
 "  let contents .= ':%c'                  " col no
   let contents .= '%)'                   " End group
   let contents .= ' '

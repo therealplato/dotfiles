@@ -5,11 +5,11 @@ export G=$GOPATH/src
 export P=$GOPATH/src/github.com/therealplato
 export PATH=/usr/local/Cellar/coreutils/8.28_1/libexec/gnubin:$PATH
 export PATH=$GOPATH/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/bin:$PATH
-export PATH=/usr/local/bin:$PATH
 
 setxkbmap -option "terminate:ctrl_alt_bksp"
 
