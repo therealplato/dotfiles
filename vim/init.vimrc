@@ -1,3 +1,4 @@
+" ./configure --enable-python3interp=dynamic --enable-rubyinterp=dynamic --enable-gtk2-check --enable-gnome-check --with-features=huge --with-x --prefix=$HOME/.local
 let mapleader=","
 
 set hidden
@@ -20,3 +21,5 @@ if has('clipboard')
     set clipboard=unnamed
   endif
 endif
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile

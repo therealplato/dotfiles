@@ -3,8 +3,10 @@ set background=dark
 
 " non-platform-specific highlights:
 hi! link folded underlined
-hi! link pmenusel underlined
-hi! link pmenu preproc
+" hi! link pmenusel underlined
+" hi! link pmenu preproc
+hi! link pmenu CursorLine
+hi! link pmenusel TabLine
 hi! link MBENormal preproc
 hi! link MBEVisibleNormal preproc
 hi! link MBEChanged LineNr
@@ -105,6 +107,7 @@ function! Status(winnr)
   let contents .= '%)'                   " End group
   let contents .= ' '
   let contents .= '%{go#statusline#Show()}'
+  let contents .= "%{coc#status()}%{get(b:,'coc_current_function','')}"
   let contents .= '%='                   " Begin Right justify
   let contents .= ' '
   let contents .= '%2.3('                " begin group max 50 width

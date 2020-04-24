@@ -17,10 +17,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-unimpaired'
   Plug 'junegunn/fzf'
   Plug 'fholgado/minibufexpl.vim'
-  " Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
   Plug 'mhinz/vim-startify'
   Plug 'airblade/vim-matchquote'
+
+  " React:
+  Plug 'pangloss/vim-javascript'
+  Plug 'leafgarland/typescript-vim'
+  Plug 'peitalin/vim-jsx-typescript'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Plugin specific binds (other than go.vimrc)
@@ -109,6 +114,11 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 " let g:prettier#config#prose_wrap = 'never'
 " let g:prettier#config#parser = 'babylon'
 " augroup END
+
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-prettier', 'coc-eslint', 'coc-yaml' ]
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 augroup fuzzy
 autocmd! FileType fzf

@@ -10,6 +10,7 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/nodejs/node-v12.16.2-linux-x64/bin:$PATH
 
 setxkbmap -option "terminate:ctrl_alt_bksp"
 

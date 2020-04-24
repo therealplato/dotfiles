@@ -41,13 +41,14 @@ split
 screen -t vim 1 zsh
 
 focus
-screen -t chat 9 zsh
+screen -t sensor 9 zsh
 resize 7
 focus
 
-screen -t tests 2 zsh 
-screen -t scratch 3 zsh
+screen -t srv 2 zsh
+screen -t cfg 3 zsh
 screen -t dotfiles 4 zsh
+screen -t kube 5 zsh
 #screen -t kry 6 ssh foo@bar
 #screen -t ec2 7 ssh foo@baz
 focus
