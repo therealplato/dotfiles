@@ -1,3 +1,5 @@
+autoload -Uz promptinit && promptinit
+
 source ~/.zsh/secret.env
 
 source ~/.zsh/gitps.sh
@@ -11,7 +13,6 @@ source $P/dotfiles/vendor/github.com/rupa/z/z.sh
 
 PROMPT='%(?..%{$fg[red]%}!) $(git_super_status)%{$fg[white]%}%2~ %{%(!.$fg[red].$fg[green])%}%(!.⌦ .Ω) %{$reset_color%}'
 #prompt redhat # preview: prompt -p
-autoload -Uz promptinit && promptinit
 autoload -U colors && colors
 
 unsetopt BG_NICE
