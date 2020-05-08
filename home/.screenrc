@@ -22,6 +22,9 @@ caption string "%{03} "
 # Do not intercept selection events
 defmousetrack on
 
+# default 10k lines of scrollback
+defscrollback 10000
+
 # Do not flash
 vbell off
 
