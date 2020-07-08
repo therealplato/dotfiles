@@ -23,3 +23,6 @@ if has('clipboard')
 endif
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+" fix a bug with parcel's file watcher:
+set backupcopy=yes

@@ -14,7 +14,9 @@ call plug#begin('~/.vim/plugged')
   " Plug 'w0rp/ale'
   " Plug 'ternjs/tern_for_vim', {'do': 'npm install'}
   " Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+  Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
+  Plug 'tpope/vim-rhubarb'
   Plug 'junegunn/fzf'
   Plug 'fholgado/minibufexpl.vim'
   Plug 'mxw/vim-jsx'
