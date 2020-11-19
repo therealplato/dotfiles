@@ -19,11 +19,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-rhubarb'
   Plug 'junegunn/fzf'
   Plug 'fholgado/minibufexpl.vim'
-  Plug 'mxw/vim-jsx'
   Plug 'mhinz/vim-startify'
   Plug 'airblade/vim-matchquote'
 
   " React:
+  Plug 'mxw/vim-jsx'
   Plug 'pangloss/vim-javascript'
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'

@@ -40,7 +40,7 @@ bind 0 select 10
 
 # Default windows and commands
 # Anyone know how to automatically cd somewhere when invoking zsh?
-split
+# split
 screen -t vim 1 zsh
 
 focus
@@ -54,8 +54,8 @@ screen -t dotfiles 4 zsh
 screen -t kube 5 zsh
 #screen -t kry 6 ssh foo@bar
 #screen -t ec2 7 ssh foo@baz
-focus
-focus
+# focus
+# focus
 select 1
 
 #bindkey "^[Od" prev  # change window with ctrl-left
