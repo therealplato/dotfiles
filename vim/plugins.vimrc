@@ -32,7 +32,9 @@ call plug#end()
 
 " Plugin specific binds (other than go.vimrc)
 " fzf
-nmap <Leader>f :FZF<CR>
+command! FZFGIT call fzf#run(fzf#wrap({'source': 'git ls-files -co'}))
+nmap <Leader>f :FZFGIT<CR>
+let g:fzf_layout = {'down': '20%'}
 "
 " toggle ctags sidebar
 nnoremap <Leader>. :TagbarToggle<CR>

@@ -38,7 +38,7 @@ au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 let g:go_metalinter_autosave = 1
 let g:go_jump_to_error = 0
 let g:go_fmt_command = "goimports"
-let g:go_auto_type_info = 1
+let g:go_auto_type_info = 0
 let g:go_list_type = "quickfix"
 let g:go_echo_command_info = 0
 let g:go_echo_go_info = 0
