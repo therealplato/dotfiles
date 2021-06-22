@@ -1,0 +1,26 @@
+{
+  "suggest.timeout": 500,
+
+  "tsserver.log": "verbose",
+  "tsserver.formatOnType": true,
+  "tsserver.trace.server": "verbose",
+
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "prettier.statusItemText": "",
+
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "css"
+  ]
+}

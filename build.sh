@@ -175,6 +175,10 @@ bold "$CMD" && $CMD
 CMD="$CP -R zsh/ generated/.zsh"
 bold "$CMD" && $CMD
 
+# coc-prettier config
+CMD="$CP vim/coc-settings.json $VIMFILES"
+bold "$CMD" && $CMD
+
 if [ $FORCE -eq 1 ]; then
   CMD="$CP -vR ./generated/. $HOME"
   bold "$CMD" && $CMD
