@@ -2,7 +2,10 @@ autoload -Uz promptinit && promptinit
 
 source ~/.zsh/secret.env
 
-source ~/.zsh/gitps.sh
+# source ~/.zsh/gitps.sh # Commented because python version is slow but haskell version requires building
+source $HOME/go/src/github.com/zsh-git-prompt/zsh-git-prompt/zshrc.sh
+export GIT_PROMPT_EXECUTABLE="haskell"
+
 source ~/.zsh/plato.sh
 source ~/.zsh/nvm.sh
 source ~/.zsh/wsl.sh

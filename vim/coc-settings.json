@@ -16,6 +16,7 @@
 
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveFiletypes": [
+    "go",
     "javascript",
     "javascriptreact",
     "typescript",

@@ -52,10 +52,10 @@ nnoremap <Leader>j :cnext<CR>
 nnoremap <Leader>k :cprev<CR>
 
 " regenerate tags
-map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>
+" map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>
 " point to tags?
 " set tags=./tags;,tags;
-set tags=./.git/tags;,tags;
+" set tags=./.git/tags;,tags;
 "
 " delete trailing whitespace
 nmap <Leader>$ :keepp %s/\s\+$//gc<CR>

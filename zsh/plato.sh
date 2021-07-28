@@ -1,18 +1,20 @@
 #!/bin/bash
 # envs
 export GOPATH=$HOME/go
+export GO111MODULE=off
 export G=$GOPATH/src
 export P=$GOPATH/src/github.com/therealplato
-export PATH=/usr/local/Cellar/coreutils/8.28_1/libexec/gnubin:$PATH
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH=$GOPATH/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/bin:$PATH
-export PATH=$HOME/.local/nodejs/node-v12.16.2-linux-x64/bin:$PATH
 
-setxkbmap -option "terminate:ctrl_alt_bksp"
+if command -v setxkbmap &> /dev/null; then
+  setxkbmap -option "terminate:ctrl_alt_bksp"
+fi
 
 #initdb: docker-compose run initdb new blah
 
