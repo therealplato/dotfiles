@@ -1,7 +1,31 @@
+" Things I need to bind in coc.nvim:
+" nnoremap <Leader>b BUILD CURRENT FILE
+" nnoremap <Leader>b call CocRequest('tslint', 'textDocument/tslint/allFixes', {'textDocument': {'uri': 'file:///tmp'}})
+"
+" nnoremap <Leader>t TEST CURRENT FILE
+" nnoremap <Leader>T TEST CURSOR FUNCTION
+" nnoremap <Leader>/ SHOW CURSOR IDENTIFIER
+
+" Took many seconds
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+"
+" One command to build tests or implementations
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
 augroup vg
-" au FileType go nmap <Leader>, :GoAlternate!<CR>
-" au FileType go nmap <Leader>t <Plug>(go-test)
-" au FileType go nmap <Leader>T <Plug>(go-test-func)
+au FileType go nmap <Leader>, :GoAlternate!<CR>
+au FileType go nmap <Leader>t <Plug>(go-test)
+au FileType go nmap <Leader>T <Plug>(go-test-func)
+au FileType go nmap <Leader>/ <Plug>(go-info)
+au FileType go nmap <Leader>gc <Plug>(go-channelpeers)
 " au FileType go nmap <Leader>r <Plug>(go-rename)
 " au FileType go nmap <Leader>R <Plug>(go-run)
 " au FileType go nmap <Leader>z <Plug>(go-callers)
@@ -13,7 +37,6 @@ augroup vg
 " au FileType go nmap <Leader>D <Plug>(go-def-pop)
 " au FileType go nmap <Leader>I <Plug>(go-install)
 " au FileType go nmap <Leader>' <Plug>(go-doc-split)
-" au FileType go nmap <Leader>/ <Plug>(go-info)
 " au FileType go nmap <Leader>p :DlvToggleBreakpoint<CR>
 " au FileType go nmap <Leader>dt :DlvTest<CR>
 " au FileType go nmap <Leader>gd :GoDebugStart<CR>
@@ -21,20 +44,8 @@ augroup vg
 " au FileType go nmap <Leader>gp :GoPlay<CR>
 " au FileType go nmap <Leader>gk :GoKeyify<CR>
 " au FileType go nmap <Leader>gf :GoFillStruct<CR>
-" au FileType go nmap <Leader>gc <Plug>(go-channelpeers)
 augroup END
 
-" One command to build tests or implementations
-" function! s:build_go_files()
-"   let l:file = expand('%')
-"   if l:file =~# '^\f\+_test\.go$'
-"     call go#test#Test(0, 1)
-"   elseif l:file =~# '^\f\+\.go$'
-"     call go#cmd#Build(0)
-"   endif
-" endfunction
-"
-" au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 " let g:go_metalinter_autosave = 1
 " let g:go_jump_to_error = 0
@@ -62,34 +73,3 @@ augroup END
 " let g:go_metalinter_autosave_enabled = []
 " let g:go_metalinter_autosave_enabled = ['golint']
 " let g:go_statusline_duration = 3000
-
-
-" begin coc-instead-of-vim-go test block:
-
-" au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-" au FileType go nmap <leader>b :CocDiagnostics<CR>
-" :CocDiagnostics
-" au FileType go nmap <Leader>t <Plug>(go-test)
-" au FileType go nmap <Leader>T <Plug>(go-test-func)
-"
-" au FileType go nmap <Leader>, :GoAlternate!<CR>
-" au FileType go nmap <Leader>r <Plug>(go-rename)
-" au FileType go nmap <Leader>R <Plug>(go-run)
-" au FileType go nmap <Leader>z <Plug>(go-callers)
-" au FileType go nmap <Leader>x <Plug>(go-callees)
-" au FileType go nmap <Leader>c <Plug>(go-referrers)
-" au FileType go nmap <Leader>v <Plug>(go-implements)
-" au FileType go nmap <Leader>d <Plug>(go-def)
-" au FileType go nmap <Leader>dt <Plug>(go-def-type)
-" au FileType go nmap <Leader>D <Plug>(go-def-pop)
-" au FileType go nmap <Leader>I <Plug>(go-install)
-" au FileType go nmap <Leader>' <Plug>(go-doc-split)
-" au FileType go nmap <Leader>/ <Plug>(go-info)
-" au FileType go nmap <Leader>p :DlvToggleBreakpoint<CR>
-" au FileType go nmap <Leader>dt :DlvTest<CR>
-" au FileType go nmap <Leader>gd :GoDebugStart<CR>
-" au FileType go nmap <Leader>gt :GoDebugTest<CR>
-" au FileType go nmap <Leader>gp :GoPlay<CR>
-" au FileType go nmap <Leader>gk :GoKeyify<CR>
-" au FileType go nmap <Leader>gf :GoFillStruct<CR>
-" au FileType go nmap <Leader>gc <Plug>(go-channelpeers)

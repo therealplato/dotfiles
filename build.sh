@@ -155,6 +155,9 @@ cat $V/binds.vimrc >> $VRC
 appendVimComment "go.vimrc"
 cat $V/go.vimrc >> $VRC
 
+appendVimComment "coc.vimrc"
+cat $V/coc.vimrc >> $VRC
+
 echo "" >> $VIMFILES/platform.vimrc
 cat $VIMFILES/platform.vimrc >> $VRC
 
