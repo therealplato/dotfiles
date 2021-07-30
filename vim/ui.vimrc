@@ -1,25 +1,5 @@
-" colorscheme ThemerVim
 set background=dark
 
-" non-platform-specific highlights:
-" hi! link folded underlined
-" hi! link pmenusel underlined
-" hi! link pmenu preproc
-" hi! link pmenu CursorLine
-" hi! link pmenusel TabLine
-" hi! link MBENormal preproc
-" hi! link MBEVisibleNormal preproc
-" hi! link MBEChanged LineNr
-" hi! link MBEVisibleChanged LineNr
-" hi! link MBEVisibleActiveNormal Underlined
-" hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
-
-" hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
-" hi! StatusLineNC term=underline cterm=underline ctermfg=12
-" hi! link StatusLineNC Underlined
-" hi! VertSplit term=NONE cterm=NONE ctermfg=12
-" hi clear SignColumn
-"
 " Whitespace
 set textwidth=140
 set tabstop=2
@@ -33,20 +13,14 @@ augroup myfiletypes
   " autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
 
-set foldmethod=indent
-" set foldmethod=syntax
+set foldmethod=indent " set foldmethod=syntax
 set foldignore=/      "dont fold comments
-" https://superuser.com/a/567391/278908
-" begin folding with everything expanded:
+" begin folding with everything expanded: https://superuser.com/a/567391/278908
 augroup foldgroup
   autocmd!
   autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
 augroup END
 
-" hi! link CursorLine FoldColumn
-" hi! CursorLine term=bold ctermfg=0 ctermbg=2
-" hi! link CursorLine Visual
-" hi! link CursorLineNr Visual
 augroup CursorLine
   au!
   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
@@ -73,9 +47,11 @@ augroup END
 augroup wordhighlight
   autocmd CursorMoved * exe printf('match SpellBad /\V\%%%dl\@!\<%s\>/', line('.'), escape(expand('<cword>'), '/\'))
 augroup END
+
 " via blaenk/dots
 " Highlight active window bar
 function! s:RefreshStatus()
+  " These refreshed too frequently and caused performance issues:
   " let g:git_branch = FugitiveHead(7)
   " let g:go_status = go#statusline#Show()
   for nr in range(1, winnr('$'))
@@ -106,8 +82,8 @@ function! Status(winnr)
 "  let contents .= ':%c'                  " col no
   let contents .= '%)'                   " End group
   let contents .= ' '
-"   let contents .= '%{go#statusline#Show()}'
-"   let contents .= "%{coc#status()}%{get(b:,'coc_current_function','')}"
+  let contents .= '%{go#statusline#Show()}'
+  let contents .= "%{coc#status()}%{get(b:,'coc_current_function','')}"
   let contents .= '%='                   " Begin Right justify
   let contents .= ' '
   let contents .= '%2.3('                " begin group max 50 width
@@ -116,7 +92,6 @@ function! Status(winnr)
 
   let contents .= '%.50('                " begin group max 50 width
   let contents .= ' '
-"   let contents .= '%{g:git_branch}'      " Git Hotness
   let contents .= '%{FugitiveStatusline()}'
   let contents .= ' '
   let contents .= '%p%%'                 " file nav percent
@@ -160,3 +135,28 @@ function! DeleteCurBufferNotCloseWindow() abort
         exec oldwin 'wincmd w'
     endif
 endfunc
+
+" Color Overrides:
+" non-platform-specific highlights:
+" hi! link folded underlined
+" hi! link pmenusel underlined
+" hi! link pmenu preproc
+" hi! link pmenu CursorLine
+" hi! link pmenusel TabLine
+" hi! link MBENormal preproc
+" hi! link MBEVisibleNormal preproc
+" hi! link MBEChanged LineNr
+" hi! link MBEVisibleChanged LineNr
+" hi! link MBEVisibleActiveNormal Underlined
+" hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
+
+" hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
+" hi! StatusLineNC term=underline cterm=underline ctermfg=12
+" hi! link StatusLineNC Underlined
+" hi! VertSplit term=NONE cterm=NONE ctermfg=12
+" hi clear SignColumn
+"
+" hi! link CursorLine FoldColumn
+" hi! CursorLine term=bold ctermfg=0 ctermbg=2
+" hi! link CursorLine Visual
+" hi! link CursorLineNr Visual

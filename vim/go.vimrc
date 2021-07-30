@@ -26,6 +26,7 @@ au FileType go nmap <Leader>t <Plug>(go-test)
 au FileType go nmap <Leader>T <Plug>(go-test-func)
 au FileType go nmap <Leader>/ <Plug>(go-info)
 au FileType go nmap <Leader>gc <Plug>(go-channelpeers)
+au FileType go nmap <Leader>gf :GoFillStruct<CR>
 " au FileType go nmap <Leader>r <Plug>(go-rename)
 " au FileType go nmap <Leader>R <Plug>(go-run)
 " au FileType go nmap <Leader>z <Plug>(go-callers)
@@ -43,7 +44,6 @@ au FileType go nmap <Leader>gc <Plug>(go-channelpeers)
 " au FileType go nmap <Leader>gt :GoDebugTest<CR>
 " au FileType go nmap <Leader>gp :GoPlay<CR>
 " au FileType go nmap <Leader>gk :GoKeyify<CR>
-" au FileType go nmap <Leader>gf :GoFillStruct<CR>
 augroup END
 
 

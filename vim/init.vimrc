@@ -22,7 +22,7 @@
 " --with-x \
 let mapleader=","
 
-set hidden
+set hidden " allow backgrounding unsaved buffers
 set updatetime=250
 set shortmess+=c
 set number      " start with line number displayed
