@@ -4,13 +4,15 @@ export GOPATH=$HOME/go
 export GO111MODULE=off
 export G=$GOPATH/src
 export P=$GOPATH/src/github.com/therealplato
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH=$GOPATH/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/go/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/bin:$PATH
+# Ordering's important here, I want brew's coreutils to be the first item in path
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
 if command -v setxkbmap &> /dev/null; then
   setxkbmap -option "terminate:ctrl_alt_bksp"
