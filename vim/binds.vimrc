@@ -51,8 +51,8 @@ inoremap JK <Esc>
 inoremap KJ <Esc>
 
 " jump to prev/next quickfix results
-nnoremap <Leader>j :cnext<CR>
-nnoremap <Leader>k :cprev<CR>
+" nnoremap <Leader>j :cnext<CR>
+" nnoremap <Leader>k :cprev<CR>
 
 " regenerate tags
 " map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>

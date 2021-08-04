@@ -1,4 +1,8 @@
-nmap <silent> \g <Plug>(coc-diagnostic-info)
+nnoremap <Leader>h :CocDiagnostics<CR>
+" nnoremap <Leader>j <plug>(coc-diagnostic-next)
+" nnoremap <Leader>k <plug>(coc-diagnostic-prev)
+nnoremap <Leader>j :lnext<CR>
+nnoremap <Leader>k :lprev<CR>
 
 " via https://github.com/neoclide/coc.nvim :
 inoremap <silent><expr> <TAB>
@@ -17,8 +21,8 @@ endfunction
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> <Leader>d <Plug>(coc-definition)

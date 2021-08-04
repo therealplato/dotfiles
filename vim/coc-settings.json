@@ -14,7 +14,10 @@
   ],
   "prettier.statusItemText": "",
 
+  "diagnostic.autoRefresh": true,
+  "list.source.diagnostics.pathFormat": "filename",
   "coc.preferences.formatOnType": true,
+  "coc.preferences.willSaveHandlerTimeout": 2000,
   "coc.preferences.formatOnSaveFiletypes": [
     "go",
     "javascript",

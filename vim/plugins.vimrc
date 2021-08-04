@@ -75,7 +75,16 @@ function! s:list_buffers()
   let b_listed = getbufinfo({'buflisted':1})
   let lines = []
   for buf in b_listed
-    let line = {'line': buf.name, 'cmd': 'b'.buf.bufnr}
+    let label = ""
+    if buf.changed
+      let label = label .  '* '
+    endif
+    try
+      let label = label . buf.variables.gitgutter.path
+    catch
+      let label = label . buf.name
+    endtry
+    let line = {'line': label, 'cmd': 'b'.buf.bufnr}
     let lines = lines + [line]
   endfor
   return lines
@@ -110,6 +119,6 @@ let g:startify_change_to_vcs_root = 1
 let g:startify_files_number = 8
 let g:startify_lists = [
       \ { 'header': ['   Buffers'],        'type': function('s:list_buffers') },
-      \ { 'header': ['   MRU'],            'type': 'files' },
+      \ { 'header': ['   Recent'],         'type': 'files' },
       \ { 'header': ['   Git Status'],     'type': function('s:list_git_changes') },
       \ ]
