@@ -96,7 +96,7 @@ function! s:list_git_changes()
     if matches[1] == ""
       let line = {'line': matches[2], 'cmd': 'e '. root[0].'/'.matches[2]}
     else
-      let line = {'line': matches[1] .' -> '. matches[2], 'cmd': 'e '. root[0].'/'.matches[2]}
+      let line = {'line': matches[1] . matches[2], 'cmd': 'e '. root[0].'/'.matches[2]}
     endif
     let lines = lines + [line]
   endfor
