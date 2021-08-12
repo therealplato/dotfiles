@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'vim-scripts/tComment'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-rhubarb'
   Plug 'airblade/vim-gitgutter'
   Plug 'rking/ag.vim'
   Plug 'junegunn/fzf'
@@ -10,7 +11,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdtree'
   " Plug 'tpope/vim-surround'
   " Plug 'tpope/vim-unimpaired'
-  " Plug 'tpope/vim-rhubarb'
   " Plug 'fholgado/minibufexpl.vim'
   " Plug 'airblade/vim-matchquote'
 

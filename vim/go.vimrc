@@ -47,9 +47,12 @@ au FileType go nmap <Leader>gf :GoFillStruct<CR>
 augroup END
 
 
+let g:go_imports_autosave = 1
+let g:go_imports_mode = 'goimports'
+"
+" let g:go_fmt_command = "goimports"
 " let g:go_metalinter_autosave = 1
 " let g:go_jump_to_error = 0
-" let g:go_fmt_command = "goimports"
 " let g:go_auto_type_info = 0
 " let g:go_list_type = "quickfix"
 " let g:go_echo_command_info = 0
