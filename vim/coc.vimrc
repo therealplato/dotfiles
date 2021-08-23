@@ -1,8 +1,18 @@
+" CocInstall coc-sql
+" CocInstall coc-go
+" CocInstall coc-json
+"
+hi link CocErrorHighlight Search
+hi link CocWarningHighlight Search
+
+	let g:coc_enable_locationlist = 0
+	autocmd User CocDiagnosticsChange CocList --normal diagnostics
+
 nnoremap <Leader>h :CocDiagnostics<CR>
-" nnoremap <Leader>j <plug>(coc-diagnostic-next)
-" nnoremap <Leader>k <plug>(coc-diagnostic-prev)
-nnoremap <Leader>j :lnext<CR>
-nnoremap <Leader>k :lprev<CR>
+nmap <Leader>j <plug>(coc-diagnostic-next)
+nmap <Leader>k <plug>(coc-diagnostic-prev)
+" nnoremap <Leader>j :lnext<CR>
+" nnoremap <Leader>k :lprev<CR>
 
 " via https://github.com/neoclide/coc.nvim :
 inoremap <silent><expr> <TAB>

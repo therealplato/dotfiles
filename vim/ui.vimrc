@@ -1,5 +1,9 @@
 set background=dark
 
+" hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
+" hi! StatusLineNC term=underline cterm=underline ctermfg=12
+hi! link StatusLineNC Visual
+
 " Whitespace
 set textwidth=140
 set tabstop=2
@@ -13,14 +17,26 @@ augroup myfiletypes
   " autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
 augroup END
 
-set foldmethod=indent " set foldmethod=syntax
+" set foldmethod=indent
+set foldmethod=syntax
 set foldignore=/      "dont fold comments
+" set foldcolumn=2
+set foldnestmax=1
 " begin folding with everything expanded: https://superuser.com/a/567391/278908
+" augroup foldgroup
+"   autocmd!
+"   autocmd BufAdd,BufReadPre * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
+"   autocmd BufAdd * echom 'BufAdd'
+"   autocmd BufReadPre * echom 'BufReadPre'
+" augroup END
+"
+" try to avoid folds resetting on save:
 augroup foldgroup
   autocmd!
-  autocmd BufWinEnter * let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
+  autocmd BufReadPost * let &foldlevel = 1
 augroup END
 
+set nocursorline
 augroup CursorLine
   au!
   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
@@ -86,7 +102,7 @@ function! Status(winnr)
   let contents .= "%{coc#status()}%{get(b:,'coc_current_function','')}"
   let contents .= '%='                   " Begin Right justify
   let contents .= ' '
-  let contents .= '%2.3('                " begin group max 50 width
+  let contents .= '%2.3('                " begin group max 3 width
   let contents .= '⎇ '                   " branch symbol
   let contents .= '%)'                   " end right justified group
 
@@ -150,9 +166,6 @@ endfunc
 " hi! link MBEVisibleActiveNormal Underlined
 " hi! MBEVisibleActiveChanged term=underline cterm=underline ctermfg=11
 
-" hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
-" hi! StatusLineNC term=underline cterm=underline ctermfg=12
-" hi! link StatusLineNC Underlined
 " hi! VertSplit term=NONE cterm=NONE ctermfg=12
 " hi clear SignColumn
 "

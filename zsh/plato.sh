@@ -13,6 +13,7 @@ export PATH=$HOME/bin:$PATH
 # Ordering's important here, I want brew's coreutils to be the first item in path
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="/usr/local/opt/curl/bin:$PATH"
 
 if command -v setxkbmap &> /dev/null; then
   setxkbmap -option "terminate:ctrl_alt_bksp"

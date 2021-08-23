@@ -8,7 +8,14 @@
 
 " Took many seconds
 " autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-"
+
+let g:go_fmt_autosave = 1
+let g:go_fmt_experimental = 1
+let g:go_fmt_command='goimports'
+" let g:go_imports_autosave = 1
+" let g:go_imports_mode = 'gopls'
+" let g:go_imports_mode = 'goimports'
+
 " One command to build tests or implementations
 function! s:build_go_files()
   let l:file = expand('%')
@@ -47,8 +54,6 @@ au FileType go nmap <Leader>gf :GoFillStruct<CR>
 augroup END
 
 
-let g:go_imports_autosave = 1
-let g:go_imports_mode = 'goimports'
 "
 " let g:go_fmt_command = "goimports"
 " let g:go_metalinter_autosave = 1

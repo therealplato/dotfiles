@@ -28,12 +28,16 @@ nnoremap <Leader>= :vs<CR>
 " Let's delete the bufer instead, that should also close its window
 nnoremap <Leader>- :bd<CR>
 nmap <Leader>w :bd<CR>
+nnoremap <Leader><Backspace> :lcl<CR> :ccl<CR>
 
 " close buffer without closing window https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window#8585343
 " buggy with quickfixes :(
 " nnoremap <Leader><Backspace> :bp<bar>sp<bar>bn<bar>bd<CR>
 " nnoremap <Leader><Backspace> :bdel<CR>
-nnoremap <Leader><Backspace> :call DeleteCurBufferNotCloseWindow()<CR>
+" nnoremap <Leader><Backspace> :call DeleteCurBufferNotCloseWindow()<CR>
+"
+" folding toggle
+nnoremap <Leader>z zi
 
 " swap vert/horz splits
 nnoremap <Leader>[ <C-w>H

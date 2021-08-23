@@ -1,10 +1,8 @@
 {
   "suggest.timeout": 500,
-
   "tsserver.log": "verbose",
   "tsserver.formatOnType": true,
   "tsserver.trace.server": "verbose",
-
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": [
     "javascript",
@@ -13,9 +11,17 @@
     "typescriptreact"
   ],
   "prettier.statusItemText": "",
-
   "diagnostic.autoRefresh": true,
-  "list.source.diagnostics.pathFormat": "filename",
+  "diagnostic.locationlistUpdate": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.format": "%message",
+  "diagnostic.refreshOnInsertMode": true,
+  "list.source.diagnostics.defaultAction": "vsplit",
+  "list.source.diagnostics.pathFormat": "short",
+  "list.source.diagnostics.includeCode": false,
+  "list.source.symbols.defaultAction": "vsplit",
+  "list.alignColumns": true,
+  "coc.preferences.useQuickfixForLocations": true,
   "coc.preferences.formatOnType": true,
   "coc.preferences.willSaveHandlerTimeout": 500,
   "coc.preferences.formatOnSaveFiletypes": [
