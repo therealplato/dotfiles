@@ -40,7 +40,10 @@ set mouse=nv     " click to position cursor in normal and visual
 set splitbelow  " open windows to right and down
 set splitright
 set scrolloff=3                 " Minimum lines to keep above and below cursor
+set sidescrolloff=12
 set hlsearch
+" allow visual block selection cursor beyond newlines:
+set virtualedit=block
 
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste

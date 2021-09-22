@@ -21,7 +21,9 @@
   "list.source.diagnostics.includeCode": false,
   "list.source.symbols.defaultAction": "vsplit",
   "list.alignColumns": true,
+  "outline.sortBy": "position",
   "coc.preferences.useQuickfixForLocations": true,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnType": true,
   "coc.preferences.willSaveHandlerTimeout": 500,
   "coc.preferences.formatOnSaveFiletypes": [

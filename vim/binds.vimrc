@@ -1,4 +1,18 @@
-" Y yanks line without newline
+nnoremap <Leader>sv :source $MYVIMRC<CR>
+" shift line down/up
+nnoremap <space>j ddp
+nnoremap<space>k ddkP
+
+" fast left/right cursor
+nnoremap H 12h
+nnoremap L 12l
+
+" uppercase word
+" Prefer to keep buffer scrolling as <c-u> for now
+" inoremap <c-u> <esc>viWUi
+" nnoremap <c-u> viWU
+
+" yank line minus leading/trailing whitespace
 nnoremap Y _y$
 
 " quick buffers
@@ -27,7 +41,6 @@ nnoremap <Leader>= :vs<CR>
 " nmap <Leader>w <C-w>c
 " Let's delete the bufer instead, that should also close its window
 nnoremap <Leader>- :bd<CR>
-nmap <Leader>w :bd<CR>
 nnoremap <Leader><Backspace> :lcl<CR> :ccl<CR>
 
 " close buffer without closing window https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window#8585343
@@ -44,9 +57,9 @@ nnoremap <Leader>[ <C-w>H
 nnoremap <Leader>] <C-w>K
 
 " adjust split ratio
-nnoremap <silent> <Leader>u <C-w>h <C-w>h :vertical resize -10<CR>
+nnoremap <silent> <Leader>u <C-w>W <C-w>W :vertical resize -10<CR> :resize -10<CR>
 nnoremap <silent> <Leader>i <C-w>=
-nnoremap <silent> <Leader>o <C-w>h <C-w>h :vertical resize +10<CR>
+nnoremap <silent> <Leader>o <C-w>W <C-w>W :vertical resize +10<CR> :resize +10<CR>
 
 " leave insert by hitting j k together
 inoremap jk <Esc>

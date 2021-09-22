@@ -21,7 +21,7 @@ augroup END
 set foldmethod=syntax
 set foldignore=/      "dont fold comments
 " set foldcolumn=2
-set foldnestmax=1
+set foldnestmax=3
 " begin folding with everything expanded: https://superuser.com/a/567391/278908
 " augroup foldgroup
 "   autocmd!
@@ -99,7 +99,7 @@ function! Status(winnr)
   let contents .= '%)'                   " End group
   let contents .= ' '
   let contents .= '%{go#statusline#Show()}'
-  let contents .= "%{coc#status()}%{get(b:,'coc_current_function','')}"
+  let contents .= "%{coc#status()}@%{get(b:,'coc_current_function','')}"
   let contents .= '%='                   " Begin Right justify
   let contents .= ' '
   let contents .= '%2.3('                " begin group max 3 width
