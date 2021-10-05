@@ -121,9 +121,13 @@ set signcolumn=number
 let mapleader=","
 nmap <Leader>j call FlexibleNext()
 
-" main.go:
+" test diagnosticNext with cursor on line one of main.go, it should jump to line four
 " package main
 "
 " func main() {
 " 	return 1
 " }
+
+" test cnext after:
+" :vimgrep /let/ $MYVIMRC
+" :copen
