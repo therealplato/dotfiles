@@ -28,12 +28,31 @@ endfunction
 au FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 augroup vg
-au FileType go nmap <Leader>, :GoAlternate!<CR>
-au FileType go nmap <Leader>t <Plug>(go-test)
-au FileType go nmap <Leader>T <Plug>(go-test-func)
-au FileType go nmap <Leader>/ <Plug>(go-info)
-au FileType go nmap <Leader>gc <Plug>(go-channelpeers)
-au FileType go nmap <Leader>gf :GoFillStruct<CR>
+au FileType go nmap <LocalLeader>, :GoAlternate!<CR>
+au FileType go nmap <LocalLeader>t <Plug>(go-test)
+au FileType go nmap <LocalLeader>T <Plug>(go-test-func)
+au FileType go nmap <LocalLeader>/ <Plug>(go-info)
+au FileType go nmap <LocalLeader>gc <Plug>(go-channelpeers)
+au FileType go nmap <LocalLeader>gf :GoFillStruct<CR>
+
+" Trailing space here is necessary:
+au FileType go :iabbrev <buffer> iferr 
+\<CR>if err != nil {
+\<CR><Tab>return err
+\<CR>}
+
+au FileType go :iabbrev <buffer> functest 
+\<CR>func TestFoo(t *testing.T) {
+\<CR><Tab>assert.True(t, true)
+\<CR>}
+
+au FileType go :iabbrev <buffer> testrun 
+\<CR>t.Run("foo", func(t *testing.T) {
+\<CR><Tab>assert.True(t, true)
+\<CR>})
+
+au FileType go :iabbrev <buffer> t.Run( use testrun abbreviation
+
 " au FileType go nmap <Leader>r <Plug>(go-rename)
 " au FileType go nmap <Leader>R <Plug>(go-run)
 " au FileType go nmap <Leader>z <Plug>(go-callers)

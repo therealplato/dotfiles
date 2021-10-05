@@ -8,15 +8,19 @@
 hi link CocErrorHighlight Search
 hi link CocWarningHighlight Search
 
-	let g:coc_enable_locationlist = 0
-	autocmd User CocDiagnosticsChange CocList --normal diagnostics
-
+let g:coc_enable_locationlist = 0
+augroup coc
+  autocmd User CocDiagnosticsChange CocList --normal diagnostics
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
 nnoremap <Leader>h :CocDiagnostics<CR>
 nnoremap <Leader>. :CocOutline<CR>
 " from coc.nvim docs:
 " Note: Use 'noremap' with <Plug> will make the key-mapping not work at all.
-nmap <Leader>j <plug>(coc-diagnostic-next)
-nmap <Leader>k <plug>(coc-diagnostic-prev)
+" nmap <Leader>j <plug>(coc-diagnostic-next)
+" nmap <Leader>k <plug>(coc-diagnostic-prev)
+"
 " nnoremap <Leader>. call g:Toggle_coc_outline()
 " function! g:Toggle_coc_outline()
 "   try
@@ -55,8 +59,6 @@ nmap <silent> <Leader>y <Plug>(coc-type-definition)
 nmap <silent> <Leader>i <Plug>(coc-implementation)
 nmap <silent> <Leader>c <Plug>(coc-references)
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <Leader>r <Plug>(coc-rename)

@@ -21,6 +21,7 @@
 " --enable-gnome-check \
 " --with-x \
 let mapleader=","
+let maplocalleader=","
 
 set hidden " allow backgrounding unsaved buffers
 set updatetime=250

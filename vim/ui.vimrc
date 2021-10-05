@@ -3,6 +3,7 @@ set background=dark
 " hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
 " hi! StatusLineNC term=underline cterm=underline ctermfg=12
 hi! link StatusLineNC Visual
+hi! SpecialKey ctermfg=9 guifg=#ff0000
 
 " Whitespace
 set textwidth=140
@@ -11,10 +12,14 @@ set softtabstop=2
 set expandtab   " tab inserts two spaces
 set shiftwidth=2
 set autoindent
+
+set list
+set listchars=tab:>\ ,nbsp:!,trail:%,precedes:…,extends:…
+j
 augroup myfiletypes
-  autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal ai sw=2 sts=2 et
+  autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal autoindent shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType go setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
-  " autocmd FileType htm,xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
+  autocmd FileType go setlocal listchars=tab:\ \ ,lead:·,nbsp:!,trail:%,precedes:…,extends:…
 augroup END
 
 " set foldmethod=indent
