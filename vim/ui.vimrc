@@ -15,11 +15,14 @@ set autoindent
 
 set list
 set listchars=tab:>\ ,nbsp:!,trail:%,precedes:…,extends:…
-j
+
 augroup myfiletypes
   autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal autoindent shiftwidth=2 softtabstop=2 expandtab
   autocmd FileType go setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
   autocmd FileType go setlocal listchars=tab:\ \ ,lead:·,nbsp:!,trail:%,precedes:…,extends:…
+  autocmd FileType qf setlocal nolist
+  autocmd BufNewFile,BufRead *.robot setlocal filetype=robot
+  autocmd BufNewFile,BufRead Vagrantfile* setlocal filetype=ruby
 augroup END
 
 " set foldmethod=indent

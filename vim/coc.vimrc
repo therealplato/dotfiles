@@ -4,6 +4,7 @@
 " CocInstall coc-json
 " CocInstall coc-prettier
 " CocInstall coc-tsserver
+" pip install robotframework-lsp
 "
 hi link CocErrorHighlight Search
 hi link CocWarningHighlight Search

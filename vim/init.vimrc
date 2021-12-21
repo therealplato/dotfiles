@@ -58,3 +58,15 @@ endif
 
 " fix a bug with parcel's file watcher:
 set backupcopy=yes
+
+" matchparen can cause large files to lag on mac:
+set noshowmatch
+function! g:DisableMatchParen ()
+  if exists(":NoMatchParen")
+    :NoMatchParen
+  endif
+endfunction
+augroup plugin_initialize
+  autocmd!
+  autocmd VimEnter * call DisableMatchParen()
+augroup END

@@ -4,6 +4,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-scripts/tComment'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
+  Plug 'tpope/vim-projectionist'
+  Plug 'vim-test/vim-test'
   Plug 'airblade/vim-gitgutter'
   Plug 'rking/ag.vim'
   Plug 'junegunn/fzf'

@@ -33,5 +33,17 @@
     "typescriptreact",
     "json",
     "css"
-  ]
+  ],
+  "languageserver": {
+    "robotframework_ls": {
+      "command": "robotframework_ls",
+      "filetypes": ["robot"],
+      "settings": {
+        "robot.language-server.args": [
+          "-vv",
+          "--log-file=~/robotframework_ls.log"
+        ]
+      }
+    }
+  }
 }

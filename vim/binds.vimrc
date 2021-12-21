@@ -1,7 +1,7 @@
 nnoremap <Leader>sv :source $MYVIMRC<CR>
 " shift line down/up
 nnoremap <space>j ddp
-nnoremap<space>k ddkP
+nnoremap <space>k ddkP
 
 " fast left/right cursor
 nnoremap H 12h
@@ -71,34 +71,29 @@ inoremap KJ <Esc>
 " nnoremap <Leader>j :cnext<CR>
 " nnoremap <Leader>k :cprev<CR>
 function FlexibleNext()
-  echom 'case a'
   try
     let i = b:coc_diagnostic_info
     let n = i.error + i.warning + i.information + i.hint
     if n > 0
-      echom 'case b'
-      " execute 'call CocActionAsync(''diagnosticNext'')'
       call CocActionAsync('diagnosticNext')
     endif
   catch
-    echom 'case c'
     execute 'cnext'
   endtry
 endfunction
 function FlexiblePrev()
-  let l:cmd=''
   try
     let i = b:coc_diagnostic_info
     let n = i.error + i.warning + i.information + i.hint
     if n > 0
-      execute 'call CocActionAsync(''diagnosticPrevious'')'
+      call CocActionAsync('diagnosticPrevious')
     endif
   catch
     execute 'cprev'
   endtry
 endfunction
-nmap <Leader>j call FlexibleNext()
-nmap <Leader>k call FlexiblePrev()
+nmap <Leader>j :call FlexibleNext()<CR>
+nmap <Leader>k :call FlexiblePrev()<CR>
 
 " regenerate tags
 " map <Leader>0 :!ctags --tag-relative -R -f ./.git/tags .<CR>

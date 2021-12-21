@@ -119,7 +119,7 @@ endfunction
 
 set signcolumn=number
 let mapleader=","
-nmap <Leader>j call FlexibleNext()
+nmap <Leader>j :call FlexibleNext()<CR>
 
 " test diagnosticNext with cursor on line one of main.go, it should jump to line four
 " package main
