@@ -1,4 +1,14 @@
 set background=dark
+" Completion settings:
+" Do not use words in this buffer:
+set complete-=.
+" Do not use words in other windows:
+set complete-=w
+" Do not use words in loaded buffers:
+set complete-=b
+" Do not use words in unloaded buffers:
+set complete-=u
+
 
 " hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
 " hi! StatusLineNC term=underline cterm=underline ctermfg=12
@@ -15,15 +25,6 @@ set autoindent
 
 set list
 set listchars=tab:>\ ,nbsp:!,trail:%,precedes:…,extends:…
-
-augroup myfiletypes
-  autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal autoindent shiftwidth=2 softtabstop=2 expandtab
-  autocmd FileType go setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
-  autocmd FileType go setlocal listchars=tab:\ \ ,lead:·,nbsp:!,trail:%,precedes:…,extends:…
-  autocmd FileType qf setlocal nolist
-  autocmd BufNewFile,BufRead *.robot setlocal filetype=robot
-  autocmd BufNewFile,BufRead Vagrantfile* setlocal filetype=ruby
-augroup END
 
 " set foldmethod=indent
 set foldmethod=syntax
@@ -42,6 +43,16 @@ set foldnestmax=3
 augroup foldgroup
   autocmd!
   autocmd BufReadPost * let &foldlevel = 1
+augroup END
+
+augroup myfiletypes
+  autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal autoindent shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType yaml setlocal foldmethod=indent
+  autocmd FileType go setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
+  autocmd FileType go setlocal listchars=tab:\ \ ,lead:·,nbsp:!,trail:%,precedes:…,extends:…
+  autocmd FileType qf setlocal nolist
+  autocmd BufNewFile,BufRead *.robot setlocal filetype=robot
+  autocmd BufNewFile,BufRead Vagrantfile* setlocal filetype=ruby
 augroup END
 
 set nocursorline
