@@ -9,11 +9,16 @@ set complete-=b
 " Do not use words in unloaded buffers:
 set complete-=u
 
+set completeopt=menuone,preview,noinsert,noselect
+
 
 " hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
 " hi! StatusLineNC term=underline cterm=underline ctermfg=12
 hi! link StatusLineNC Visual
 hi! SpecialKey ctermfg=9 guifg=#ff0000
+
+hi! link Pmenu StatusLineNC
+hi! link PmenuSel StatusLine
 
 " Whitespace
 set textwidth=140

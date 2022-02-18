@@ -68,6 +68,10 @@ inoremap JK <Esc>
 inoremap KJ <Esc>
 
 " jump to prev/next quickfix results
+" warning - from coc.nvim docs:
+" Note: Use 'noremap' with <Plug> will make the key-mapping not work at all
+" nmap <Leader>j <plug>(coc-diagnostic-next)
+" nmap <Leader>k <plug>(coc-diagnostic-prev)
 " nnoremap <Leader>j :cnext<CR>
 " nnoremap <Leader>k :cprev<CR>
 function FlexibleNext()
@@ -109,4 +113,3 @@ nmap <Leader>$ :keepp %s/\s\+$//gc<CR>
 
 " toggle line numbers
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
-

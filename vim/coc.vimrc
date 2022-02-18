@@ -4,6 +4,7 @@
 " CocInstall coc-json
 " CocInstall coc-prettier
 " CocInstall coc-tsserver
+" CocInstall coc-snippets
 " pip install robotframework-lsp
 "
 hi link CocErrorHighlight Search
@@ -17,29 +18,20 @@ augroup coc
 augroup END
 nnoremap <Leader>h :CocDiagnostics<CR>
 nnoremap <Leader>. :CocOutline<CR>
-" from coc.nvim docs:
-" Note: Use 'noremap' with <Plug> will make the key-mapping not work at all.
-" nmap <Leader>j <plug>(coc-diagnostic-next)
-" nmap <Leader>k <plug>(coc-diagnostic-prev)
-"
-" nnoremap <Leader>. call g:Toggle_coc_outline()
-" function! g:Toggle_coc_outline()
-"   try
-"     call CocActionAsync('hideOutline')
-"   catch
-"     call CocActionAsync('showOutline')
-"   endtry
-" endfunction
 
-" nnoremap <Leader>j :lnext<CR>
-" nnoremap <Leader>k :lprev<CR>
+let g:coc_snippet_next='<S-TAB>'
 
-" via https://github.com/neoclide/coc.nvim :
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+
+inoremap <expr><S-TAB>
+  \ pumvisible()
+  \ ? coc#expandableOrJumpable()
+    \ ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>"
+    \ : "\<C-p>"
+  \ : "\<S-TAB>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
