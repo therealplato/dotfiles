@@ -31,7 +31,8 @@ augroup vg
 au FileType go nmap <LocalLeader>, :GoAlternate!<CR>
 au FileType go nmap <LocalLeader>t <Plug>(go-test)
 au FileType go nmap <LocalLeader>T <Plug>(go-test-func)
-au FileType go nmap <LocalLeader>/ <Plug>(go-info)
+" Now handled by coc hover:
+" au FileType go nmap <LocalLeader>/ <Plug>(go-info)
 au FileType go nmap <LocalLeader>gc <Plug>(go-channelpeers)
 au FileType go nmap <LocalLeader>gf :GoFillStruct<CR>
 

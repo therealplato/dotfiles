@@ -38,22 +38,12 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" Use `[g` and `]g` to navigate diagnostics
-" nmap <silent> [g <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" GoTo code navigation.
 nmap <silent> <Leader>d <Plug>(coc-definition)
 nmap <silent> <Leader>y <Plug>(coc-type-definition)
 nmap <silent> <Leader>i <Plug>(coc-implementation)
 nmap <silent> <Leader>c <Plug>(coc-references)
-
-
-" Symbol renaming.
+nmap <silent> <Leader>/ :call CocActionAsync('doHover', 'float')<CR>
 nmap <Leader>r <Plug>(coc-rename)
 
 " Map function and class text objects
@@ -81,4 +71,3 @@ endif
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-

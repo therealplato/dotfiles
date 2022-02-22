@@ -1,4 +1,10 @@
 {
+  "signature.preferShownAbove": false,
+  "signature.triggerSignatureWait": 1000,
+  "signature.floatConfig": {
+    "maxHeight": 6,
+    "maxWidth": 100
+  },
   "suggest.timeout": 500,
   "suggest.maxCompleteItemCount": 6,
   "suggest.snippetsSupport": true,

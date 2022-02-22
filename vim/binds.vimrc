@@ -41,7 +41,16 @@ nnoremap <Leader>= :vs<CR>
 " nmap <Leader>w <C-w>c
 " Let's delete the bufer instead, that should also close its window
 nnoremap <Leader>- :bd<CR>
-nnoremap <Leader><Backspace> :lcl<CR> :ccl<CR>
+noremap <Leader><Backspace> :call CloseExtraWindows()<CR>
+
+function! CloseExtraWindows()
+  " :lcl<CR> :ccl<CR>
+  lclose
+  cclose
+  pclose
+  NERDTreeClose
+  call coc#float#close_all(1)
+endfunction
 
 " close buffer without closing window https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window#8585343
 " buggy with quickfixes :(

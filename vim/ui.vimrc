@@ -1,4 +1,24 @@
+set nomodeline
+" set mouse=a  " click to position cursor always
+set mouse=nv  " click to position cursor in normal and visual
+set splitbelow  " open windows to right and down
+set splitright
+set scrolloff=7  " Minimum lines to keep above and below cursor. coc signature height is currently 6, and it wants at least one extra
+set sidescrolloff=12
+set hlsearch
+" allow visual block selection cursor beyond newlines:
+set virtualedit=block
+
+if has('clipboard')
+  if has('unnamedplus')  " When possible use + register for copy-paste
+    set clipboard=unnamed,unnamedplus
+  else         " On mac and Windows, use * register for copy-paste
+    set clipboard=unnamed
+  endif
+endif
+
 set background=dark
+
 " Completion settings:
 " Do not use words in this buffer:
 set complete-=.
@@ -9,7 +29,8 @@ set complete-=b
 " Do not use words in unloaded buffers:
 set complete-=u
 
-set completeopt=menuone,preview,noinsert,noselect
+" set completeopt=menuone,preview,noinsert,noselect
+set completeopt=menuone,noinsert
 
 
 " hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12

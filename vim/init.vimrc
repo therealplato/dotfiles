@@ -35,25 +35,6 @@ else
   set signcolumn=yes
 endif
 set backspace=indent,eol,start
-set nomodeline
-" set mouse=a     " click to position cursor always
-set mouse=nv     " click to position cursor in normal and visual
-set splitbelow  " open windows to right and down
-set splitright
-set scrolloff=3                 " Minimum lines to keep above and below cursor
-set sidescrolloff=12
-set hlsearch
-" allow visual block selection cursor beyond newlines:
-set virtualedit=block
-
-if has('clipboard')
-  if has('unnamedplus')  " When possible use + register for copy-paste
-    set clipboard=unnamed,unnamedplus
-  else         " On mac and Windows, use * register for copy-paste
-    set clipboard=unnamed
-  endif
-endif
-
 " command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " fix a bug with parcel's file watcher:
