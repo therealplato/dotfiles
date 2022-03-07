@@ -32,7 +32,6 @@ set complete-=u
 " set completeopt=menuone,preview,noinsert,noselect
 set completeopt=menuone,noinsert
 
-
 " hi! StatusLine term=NONE cterm=NONE ctermbg=242 ctermfg=12
 " hi! StatusLineNC term=underline cterm=underline ctermfg=12
 hi! link StatusLineNC Visual

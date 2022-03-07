@@ -80,6 +80,15 @@
     "json",
     "css"
   ],
+  "go.goplsEnv": {
+    "GOPROXY": "off"
+  },
+  "go.goplsOptions": {
+    "usePlaceholders": true,
+    "hoverKind": "SynopsisDocumentation",
+    "linksInHover": false,
+    "experimentalPackageCacheKey": true
+  },
   "languageserver": {
     "robotframework_ls": {
       "command": "robotframework_ls",
