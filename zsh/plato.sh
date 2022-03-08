@@ -15,7 +15,7 @@ export PATH=$HOME/bin:$PATH
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
-export REVIEW_BASE="master"
+export REVIEW_BASE="origin/master"
 
 if command -v setxkbmap &> /dev/null; then
   setxkbmap -option "terminate:ctrl_alt_bksp"

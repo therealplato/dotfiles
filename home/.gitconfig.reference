@@ -8,5 +8,8 @@
 [alias]
   # via https://blog.jez.io/cli-code-review/
   files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
-  review = !vim -p $(git files) +\"tabdo Gvdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
-  reviewone = !vim -p +\"tabdo Gvdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+  review = !vim -p $(git files) +\"tabdo Gvdiffsplit! $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+  reviewone = !vim -p +\"tabdo Gvdiffsplit! $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+
+[checkout]
+  defaultRemote = origin

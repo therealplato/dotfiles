@@ -36,6 +36,7 @@ nnoremap <C-l> <C-w>l
 " new window
 nnoremap <Leader>= :vs<CR>
 
+
 " close window
 " nnoremap <Leader>- <C-w>c
 " nmap <Leader>w <C-w>c
@@ -52,6 +53,16 @@ function! CloseExtraWindows()
   call coc#float#close_all(1)
   call CocActionAsync('hideOutline')
 endfunction
+
+" tab binds are similar to windows binds but with <Leader>t
+" prev/next tabs:
+nnoremap <Leader>th gT
+nnoremap <Leader>tl gt
+" new tab:
+nnoremap <Leader>t= :tabnew<CR>
+" close tab:
+nnoremap <Leader>t<Backspace> :tabclose<CR>
+nnoremap <Leader>t- :tabclose<CR>
 
 " close buffer without closing window https://stackoverflow.com/questions/1444322/how-can-i-close-a-buffer-without-closing-the-window#8585343
 " buggy with quickfixes :(
