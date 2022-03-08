@@ -40,6 +40,19 @@ hi! SpecialKey ctermfg=9 guifg=#ff0000
 hi! link Pmenu StatusLineNC
 hi! link PmenuSel StatusLine
 
+" ctermbg cheat sheet https://www.ditig.com/256-colors-cheat-sheet
+hi! DiffAdd ctermfg=48 ctermbg=236 gui=bold guifg=SpringGreen1 guibg=Grey19
+hi! DiffDelete ctermfg=196 ctermbg=236 gui=bold guifg=Red1 guibg=Grey19
+hi! DiffChange ctermfg=48 ctermbg=236 gui=bold guifg=SpringGreen1 guibg=Grey19
+hi! DiffText term=bold,reverse cterm=bold ctermfg=48 ctermbg=232 gui=bold guifg=SpringGreen1 guibg=Grey19
+
+hi! link GitGutterAdd DiffAdd
+hi! link GitGutterChange DiffChange
+hi! link GitGutterDelete DiffDelete
+
+set tabpagemax=50
+
+
 " Whitespace
 set textwidth=140
 set tabstop=2
