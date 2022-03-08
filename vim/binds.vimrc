@@ -7,6 +7,8 @@ nnoremap <space>k ddkP
 nnoremap H 12h
 nnoremap L 12l
 
+nmap <Leader>+ :diffthis<CR>
+
 " uppercase word
 " Prefer to keep buffer scrolling as <c-u> for now
 " inoremap <c-u> <esc>viWUi
