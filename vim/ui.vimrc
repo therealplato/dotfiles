@@ -218,15 +218,12 @@ hi! TabLineFill ctermfg=240 ctermbg=236 guifg=Grey35 guibg=Grey19 term=NONE cter
 set tabline=%!MyTabLine()
 
 function MyTabLine()
-  let s = ''
+  let s = '%#TabLine#'
   for i in range(tabpagenr('$'))
     let j = i+1
     let active = 0
     if j == tabpagenr()
       let active = 1
-      let s ..= '%#TabLineSel#'
-    else
-      let s ..= '%#TabLine#'
     endif
     let lastone = 0
     if j == tabpagenr('$')
@@ -237,7 +234,7 @@ function MyTabLine()
     let s ..= '%' .. j .. 'T'
 
     " the label is made by MyTabLabel()
-    let s ..= '%{MyTabLabel(' .. j .. ',' .. active .. ',' .. lastone .. ')}'
+    let s ..= '%{%MyTabLabel(' .. j .. ',' .. active .. ',' .. lastone .. ')%}'
   endfor
 
   " after the last tab fill with TabLineFill and reset tab page nr
@@ -245,45 +242,52 @@ function MyTabLine()
 
   " right-align the label to close the current tab page
   if tabpagenr('$') > 1
-    let s ..= '%=%#TabLine#%999Xtabc'
+    let s ..= '%=%#TabLine#%999Xtabclose'
   endif
 
   return s
 endfunction
 
-function MyTabLabel(tabindex, active, lastone)
+function ActiveTabName(tabindex, active, lastone)
   if a:active == 0
-    if a:lastone == 1
       return printf('%02i', a:tabindex)
-    endif
-    return printf('%02i', a:tabindex) .. '|'
   endif
   let buflist = tabpagebuflist(a:tabindex)
   let winnr = tabpagewinnr(a:tabindex)
-  let n = bufname(buflist[winnr - 1])
+  let s = bufname(buflist[winnr - 1])
 
   " discard folders if present
-  let filename = matchstrpos(n, '[^/]\+/[^/]\+$')
+  let filename = matchstrpos(s, '[^/]\+/[^/]\+$')
   if filename[0] != ''
-    let n = filename[0]
+    let s = filename[0]
   endif
 
   " trim extension:
-  let ext = matchstrpos(n, '\..\+$')
+  let ext = matchstrpos(s, '\..\+$')
   if ext[0] != ''
     let extlen = ext[2]-ext[1]
-    let filenamelen = strlen(n) - extlen
-    let n = strpart(n, 0, filenamelen)
+    let filenamelen = strlen(s) - extlen
+    let s = strpart(s, 0, filenamelen)
+  endif
+  return s
+endfunction
+
+function MyTabLabel(tabindex, active, lastone)
+  let s = ''
+  if a:active == 1
+    let s ..= '%#TabLineSel#'
+    let s ..= ' '
+  endif
+  let s ..= ActiveTabName(a:tabindex, a:active, a:lastone)
+  if a:active == 1
+    let s ..= ' '
+    let s ..= '%#TabLine#'
   endif
 
-  let n = ' ' .. n
   if a:lastone != 1
-    let n = n .. ' |'
-  else
-    let n = n .. ' '
+    let s ..= '|'
   endif
-
-  return n
+  return s
 endfunction
 
 " Color Overrides:
