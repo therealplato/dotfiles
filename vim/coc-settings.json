@@ -1,4 +1,5 @@
 {
+  "snippets.ultisnips.enable": false,
   "signature.preferShownAbove": false,
   "signature.triggerSignatureWait": 1000,
   "signature.floatConfig": {
@@ -87,9 +88,19 @@
     "usePlaceholders": true,
     "hoverKind": "SynopsisDocumentation",
     "linksInHover": false,
-    "experimentalPackageCacheKey": true
+    "experimentalPackageCacheKey": false
   },
   "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        }
+      }
+    },
     "robotframework_ls": {
       "command": "robotframework_ls",
       "filetypes": ["robot"],

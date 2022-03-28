@@ -1,19 +1,29 @@
+" Required a py3-only rebuild after Monterey 12.3 removed builtin mac python
+" ln -s -i /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/bin/python3.8 /usr/local/bin/python3
+" ln -s -i /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/bin/python3.8 /usr/local/bin/python
+" --with-python3-config-dir="/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/config-3.8-darwin" \
+" git clone github.com/vim/vim && cd vim
+"
+" make clean distclean
+"
 " ./configure \
 " --enable-fail-if-missing \
-" --enable-pythoninterp=dynamic \
-" --enable-python3interp=dynamic \
-" --with-python3-config-dir="/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/config-3.8-darwin" \
+" --enable-pythoninterp=no \
+" --enable-python3interp=yes \
 " --enable-perlinterp=dynamic \
 " --enable-luainterp=dynamic \
 " --with-lua-prefix="/usr/local" \
 " --enable-tclinterp=dynamic \
 " --enable-rubyinterp=dynamic \
+" --enable-cscope \
 " --enable-gtk2-check \
 " --enable-gnome-check \
 " --enable-terminal \
 " --enable-multibyte \
 " --with-features=huge \
 " --prefix=$HOME/.local
+"
+" make && make install
 "
 "
 " linux:

@@ -5,8 +5,9 @@
 " CocInstall coc-prettier
 " CocInstall coc-tsserver
 " CocInstall coc-snippets
+" CocInstall coc-clangd
+" CocCommand clangd.install
 " pip install robotframework-lsp
-"
 hi link CocErrorHighlight Search
 hi link CocWarningHighlight Search
 

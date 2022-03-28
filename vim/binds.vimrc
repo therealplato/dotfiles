@@ -80,6 +80,7 @@ nnoremap <Leader>[ <C-w>H
 nnoremap <Leader>] <C-w>K
 
 " adjust split ratio
+" TODO weird with 3 windows consider a function testing winnr
 nnoremap <silent> <Leader>u <C-w>W <C-w>W :vertical resize -10<CR> :resize -10<CR>
 nnoremap <silent> <Leader>i <C-w>=
 nnoremap <silent> <Leader>o <C-w>W <C-w>W :vertical resize +10<CR> :resize +10<CR>

@@ -209,6 +209,83 @@ function! DeleteCurBufferNotCloseWindow() abort
     endif
 endfunc
 
+" via :h setting-tabline
+
+hi! TabLine ctermfg=250 ctermbg=236 guifg=Grey74 guibg=Grey19 term=NONE cterm=NONE gui=NONE
+hi! TabLineSel ctermfg=231 ctermbg=236 guifg=Grey100 guibg=Grey19 term=bold cterm=NONE gui=bold
+hi! TabLineFill ctermfg=240 ctermbg=236 guifg=Grey35 guibg=Grey19 term=NONE cterm=NONE gui=NONE
+
+set tabline=%!MyTabLine()
+
+function MyTabLine()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    let j = i+1
+    let active = 0
+    if j == tabpagenr()
+      let active = 1
+      let s ..= '%#TabLineSel#'
+    else
+      let s ..= '%#TabLine#'
+    endif
+    let lastone = 0
+    if j == tabpagenr('$')
+      let lastone = 1
+    endif
+
+    " begin clickable tab j:
+    let s ..= '%' .. j .. 'T'
+
+    " the label is made by MyTabLabel()
+    let s ..= '%{MyTabLabel(' .. j .. ',' .. active .. ',' .. lastone .. ')}'
+  endfor
+
+  " after the last tab fill with TabLineFill and reset tab page nr
+  let s ..= '%#TabLineFill#%T'
+
+  " right-align the label to close the current tab page
+  if tabpagenr('$') > 1
+    let s ..= '%=%#TabLine#%999Xtabc'
+  endif
+
+  return s
+endfunction
+
+function MyTabLabel(tabindex, active, lastone)
+  if a:active == 0
+    if a:lastone == 1
+      return printf('%02i', a:tabindex)
+    endif
+    return printf('%02i', a:tabindex) .. '|'
+  endif
+  let buflist = tabpagebuflist(a:tabindex)
+  let winnr = tabpagewinnr(a:tabindex)
+  let n = bufname(buflist[winnr - 1])
+
+  " discard folders if present
+  let filename = matchstrpos(n, '[^/]\+/[^/]\+$')
+  if filename[0] != ''
+    let n = filename[0]
+  endif
+
+  " trim extension:
+  let ext = matchstrpos(n, '\..\+$')
+  if ext[0] != ''
+    let extlen = ext[2]-ext[1]
+    let filenamelen = strlen(n) - extlen
+    let n = strpart(n, 0, filenamelen)
+  endif
+
+  let n = ' ' .. n
+  if a:lastone != 1
+    let n = n .. ' |'
+  else
+    let n = n .. ' '
+  endif
+
+  return n
+endfunction
+
 " Color Overrides:
 " non-platform-specific highlights:
 " hi! link folded underlined
