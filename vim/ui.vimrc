@@ -233,16 +233,22 @@ function MyTabLine()
   let tabsinfo = []
   " collect tab and contents information:
   for i in range(tabpagenr('$'))
-    let tabinfo = {}
-
+    echom 'collecting info for tab page ' .. i
+    let info = {}
     let buflist = tabpagebuflist(i)
+    echom 'this tabs buffers are ' .. string(buflist)
     let winnr = tabpagewinnr(i)
+    echom 'this tabs winnr is ' .. winnr
+    echom 'this tabs buf is ' .. buflist[winnr - 1]
 
-    let tabinfo["name"] = bufname(buflist[winnr - 1])
-    let tabinfo["i"] = i+1
-    let tabinfo["sel"] = (tabinfo["i"] == tabpagenr())
-    let tabinfo["last"] = (tabinfo["i"] == tabpagenr('$'))
-    let tabsinfo += [tabinfo]
+    let info["name"] = bufname(buflist[winnr - 1])
+    echom 'this tabs name is ' .. info["name"]
+    let info["i"] = i+1
+    echom 'this tabs i is ' .. i+1
+    let info["sel"] = (info["i"] == tabpagenr())
+    let info["last"] = (info["i"] == tabpagenr('$'))
+    let tabsinfo += [info]
+    echom 'collected info ' .. string(info)
   endfor
   " Squeeze more and more until everything fits
   " First pass:
