@@ -218,6 +218,16 @@ hi! TabLineFill ctermfg=240 ctermbg=236 guifg=Grey35 guibg=Grey19 term=NONE cter
 set tabline=%!MyTabLine()
 const g:plato_closelabel = 'tabclose'
 
+function Pressure(tabsinfo)
+  " negative pressure = columns available
+  " positive pressure = columns overused
+  let pressure = strlen(g:plato_closelabel) - &columns
+  for tabinfo in a:tabsinfo
+    let pressure += strlen(tabinfo["name"])
+  endfor
+  return pressure
+endfunction
+
 function MyTabLine()
   let s = '%#TabLine#'
   let tabsinfo = []
@@ -234,23 +244,28 @@ function MyTabLine()
     let tabinfo["last"] = (tabinfo["i"] == tabpagenr('$'))
     let tabsinfo += [tabinfo]
   endfor
-  echom tabsinfo
+  let pressure = Pressure(tabsinfo)
+  if pressure > 0
+    " could not fit all names in tabs, dropping grandparent folders
+    for tabinfo in tabsinfo
+      if tabinfo["sel"]
+        continue
+      endif
+      let res = matchstrpos(tabinfo["name"], '[^/]\+/[^/]\+$')
+      if res[0] != ''
+        " match of direct parent and file found
+        " replace the full path with this full match (discarding grandparents)
+        let tabinfo["name"] = res[0]
+      endif
+    endfor
+  endif
+
   " render tabline string:
-  for i in range(tabpagenr('$'))
-    let j = i+1
-    let active = 0
-    if j == tabpagenr()
-      let active = 1
-    endif
-    let lastone = 0
-    if j == tabpagenr('$')
-      let lastone = 1
-    endif
-
+  for tabinfo in tabsinfo
     " begin clickable tab j:
-    let s ..= '%' .. j .. 'T'
+    let s ..= '%' .. tabinfo["i"] .. 'T'
 
-    let s ..= '%{%TabLabel(' .. j .. ',' .. active .. ',' .. lastone .. ')%}'
+    let s ..= '%{%TabLabel(' .. tabinfo["i"] .. ',' .. tabinfo["sel"] .. ',' .. tabinfo["last"] .. ')%}'
   endfor
   " after the last tab fill with TabLineFill and reset tab page nr
   let s ..= '%#TabLineFill#%T'
