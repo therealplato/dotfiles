@@ -216,8 +216,10 @@ hi! TabLineSel ctermfg=231 ctermbg=236 guifg=Grey100 guibg=Grey19 term=bold cter
 hi! TabLineFill ctermfg=240 ctermbg=236 guifg=Grey35 guibg=Grey19 term=NONE cterm=NONE gui=NONE
 
 set tabline=%!MyTabLine()
+const g:plato_closelabel = 'tabclose'
 
-function LabelsShortest()
+function MyTabLine()
+
   let s = '%#TabLine#'
   for i in range(tabpagenr('$'))
     let j = i+1
@@ -233,19 +235,10 @@ function LabelsShortest()
     " begin clickable tab j:
     let s ..= '%' .. j .. 'T'
 
-    " the label is made by MyTabLabel()
-    let s ..= '%{%TabLabels(' .. j .. ',' .. active .. ',' .. lastone .. ')%}'
+    let s ..= '%{%TabLabel(' .. j .. ',' .. active .. ',' .. lastone .. ')%}'
   endfor
   " after the last tab fill with TabLineFill and reset tab page nr
   let s ..= '%#TabLineFill#%T'
-  return s
-endfunction
-
-function MyTabLine()
-  let closelabel = 'tabclose'
-  let availablewidth = &columns - strlen(closelabel)
-
-  let s = LabelsShortest()
 
   "
   " right-align the label to close the current tab page
@@ -253,7 +246,7 @@ function MyTabLine()
     let s ..= '%='
     let s ..= '%#TabLine#'
     let s ..= '%999X'
-    let s ..= closelabel
+    let s ..= g:plato_closelabel
   endif
 
   return s
@@ -283,7 +276,7 @@ function TabNameShortest(tabindex, active, lastone)
   return s
 endfunction
 
-function TabLabelsShortest(tabindex, active, lastone)
+function TabLabelShortest(tabindex, active, lastone)
   let s = ''
   let charwidth = 0
   if a:active == 1
@@ -313,8 +306,13 @@ function TabLabelsShortest(tabindex, active, lastone)
   return ret
 endfunction
 
-function TabLabels(tabindex, active, lastone)
-  let ret = TabLabelsShortest(a:tabindex, a:active, a:lastone)
+function TabLabel(tabindex, active, lastone)
+  let availablewidth = &columns - strlen(g:plato_closelabel)
+  let ret = TabLabelShortest(a:tabindex, a:active, a:lastone)
+  " echom availablewidth .. ' available; ' .. ret["width"] .. ' used'
+  " if ret["width"] > availablewidth
+  "   echom 'tabline is too long by ' .. ret["width"] - availablewidth .. ' characters'
+  " endif
   return ret["s"]
 endfunction
 
