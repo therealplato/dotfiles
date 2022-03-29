@@ -219,8 +219,23 @@ set tabline=%!MyTabLine()
 const g:plato_closelabel = 'tabclose'
 
 function MyTabLine()
-
   let s = '%#TabLine#'
+  let tabsinfo = []
+  " collect tab and contents information:
+  for i in range(tabpagenr('$'))
+    let tabinfo = {}
+
+    let buflist = tabpagebuflist(i)
+    let winnr = tabpagewinnr(i)
+
+    let tabinfo["name"] = bufname(buflist[winnr - 1])
+    let tabinfo["i"] = i+1
+    let tabinfo["sel"] = (tabinfo["i"] == tabpagenr())
+    let tabinfo["last"] = (tabinfo["i"] == tabpagenr('$'))
+    let tabsinfo += [tabinfo]
+  endfor
+  echom tabsinfo
+  " render tabline string:
   for i in range(tabpagenr('$'))
     let j = i+1
     let active = 0
