@@ -234,7 +234,7 @@ function LabelsShortest()
     let s ..= '%' .. j .. 'T'
 
     " the label is made by MyTabLabel()
-    let s ..= '%{%TabLabelsShortest(' .. j .. ',' .. active .. ',' .. lastone .. ')%}'
+    let s ..= '%{%TabLabels(' .. j .. ',' .. active .. ',' .. lastone .. ')%}'
   endfor
   " after the last tab fill with TabLineFill and reset tab page nr
   let s ..= '%#TabLineFill#%T'
@@ -285,20 +285,37 @@ endfunction
 
 function TabLabelsShortest(tabindex, active, lastone)
   let s = ''
+  let charwidth = 0
   if a:active == 1
+    "set to active color:
     let s ..= '%#TabLineSel#'
+    " leading space:
     let s ..= ' '
+    let charwidth += 1
   endif
-  let s ..= TabNameShortest(a:tabindex, a:active, a:lastone)
+  let tabname = TabNameShortest(a:tabindex, a:active, a:lastone)
+  let charwidth += strlen(tabname)
+  let s ..= tabname
   if a:active == 1
+    " trailing space:
     let s ..= ' '
+    let charwidth += 1
+    "reset to inactive color:
     let s ..= '%#TabLine#'
   endif
 
   if a:lastone != 1
     let s ..= '|'
+    let charwidth += 1
   endif
-  return s
+
+  let ret = {"s": s, "width": charwidth}
+  return ret
+endfunction
+
+function TabLabels(tabindex, active, lastone)
+  let ret = TabLabelsShortest(a:tabindex, a:active, a:lastone)
+  return ret["s"]
 endfunction
 
 " Color Overrides:
