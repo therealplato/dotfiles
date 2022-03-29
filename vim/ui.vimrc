@@ -217,7 +217,7 @@ hi! TabLineFill ctermfg=240 ctermbg=236 guifg=Grey35 guibg=Grey19 term=NONE cter
 
 set tabline=%!MyTabLine()
 
-function MyTabLine()
+function LabelsShortest()
   let s = '%#TabLine#'
   for i in range(tabpagenr('$'))
     let j = i+1
@@ -234,21 +234,32 @@ function MyTabLine()
     let s ..= '%' .. j .. 'T'
 
     " the label is made by MyTabLabel()
-    let s ..= '%{%MyTabLabel(' .. j .. ',' .. active .. ',' .. lastone .. ')%}'
+    let s ..= '%{%TabLabelsShortest(' .. j .. ',' .. active .. ',' .. lastone .. ')%}'
   endfor
-
   " after the last tab fill with TabLineFill and reset tab page nr
   let s ..= '%#TabLineFill#%T'
+  return s
+endfunction
 
+function MyTabLine()
+  let closelabel = 'tabclose'
+  let availablewidth = &columns - strlen(closelabel)
+
+  let s = LabelsShortest()
+
+  "
   " right-align the label to close the current tab page
   if tabpagenr('$') > 1
-    let s ..= '%=%#TabLine#%999Xtabclose'
+    let s ..= '%='
+    let s ..= '%#TabLine#'
+    let s ..= '%999X'
+    let s ..= closelabel
   endif
 
   return s
 endfunction
 
-function ActiveTabName(tabindex, active, lastone)
+function TabNameShortest(tabindex, active, lastone)
   if a:active == 0
       return printf('%02i', a:tabindex)
   endif
@@ -272,13 +283,13 @@ function ActiveTabName(tabindex, active, lastone)
   return s
 endfunction
 
-function MyTabLabel(tabindex, active, lastone)
+function TabLabelsShortest(tabindex, active, lastone)
   let s = ''
   if a:active == 1
     let s ..= '%#TabLineSel#'
     let s ..= ' '
   endif
-  let s ..= ActiveTabName(a:tabindex, a:active, a:lastone)
+  let s ..= TabNameShortest(a:tabindex, a:active, a:lastone)
   if a:active == 1
     let s ..= ' '
     let s ..= '%#TabLine#'
