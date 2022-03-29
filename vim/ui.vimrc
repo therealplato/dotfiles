@@ -244,9 +244,11 @@ function MyTabLine()
     let tabinfo["last"] = (tabinfo["i"] == tabpagenr('$'))
     let tabsinfo += [tabinfo]
   endfor
+  " Squeeze more and more until everything fits
+  " First pass:
   let pressure = Pressure(tabsinfo)
   if pressure > 0
-    " could not fit all names in tabs, dropping grandparent folders
+    " could not fit all names in tabs; dropping grandparent folders
     for tabinfo in tabsinfo
       if tabinfo["sel"]
         continue
@@ -260,8 +262,56 @@ function MyTabLine()
     endfor
   endif
 
+  " Second pass:
+  let pressure = Pressure(tabsinfo)
+  if pressure > 0
+    " could not fit all names in tabs; dropping parent folders
+    for tabinfo in tabsinfo
+      if tabinfo["sel"]
+        continue
+      endif
+      let res = matchstrpos(tabinfo["name"], '[^/]\+$')
+      if res[0] != ''
+        " match of filename found
+        " replace the parent/filename path with this full match (discarding parent)
+        let tabinfo["name"] = res[0]
+      endif
+    endfor
+  endif
+
+  " Third pass:
+  let pressure = Pressure(tabsinfo)
+  if pressure > 0
+    " could not fit all names in tabs; dropping extensions
+    for tabinfo in tabsinfo
+      if tabinfo["sel"]
+        continue
+      endif
+
+      let ext = matchstrpos(tabinfo["name"], '\.[^.]\+$')
+      if ext[0] != ''
+        let extlen = ext[2]-ext[1]
+        let filenamelen = strlen(tabinfo["name"]) - extlen
+        let tabinfo["name"] = strpart(tabinfo["name"], 0, filenamelen)
+      endif
+    endfor
+  endif
+  "
+  " Fourth pass:
+  let pressure = Pressure(tabsinfo)
+  if pressure > 0
+    " could not fit all names in tabs; using two-digit numbers
+    for tabinfo in tabsinfo
+      if tabinfo["sel"]
+        continue
+      endif
+      let tabinfo["name"] = printf('%02i', tabinfo["i"])
+    endfor
+  endif
+
   " render tabline string:
   for tabinfo in tabsinfo
+    echom 'rendering ' .. string(tabinfo)
     " begin clickable tab j:
     let s ..= '%' .. tabinfo["i"] .. 'T'
 
@@ -306,7 +356,8 @@ function TabNameShortest(tabindex, active, lastone)
   return s
 endfunction
 
-function TabLabelShortest(tabindex, active, lastone)
+function TabLabelShortest(tabindex, tabname, active, lastone)
+  echom 'labeling ' .. a:tabindex .. ' as ' .. a:tabname
   let s = ''
   let charwidth = 0
   if a:active == 1
@@ -316,9 +367,9 @@ function TabLabelShortest(tabindex, active, lastone)
     let s ..= ' '
     let charwidth += 1
   endif
-  let tabname = TabNameShortest(a:tabindex, a:active, a:lastone)
-  let charwidth += strlen(tabname)
-  let s ..= tabname
+  " let tabname = TabNameShortest(a:tabindex, a:active, a:lastone)
+  let charwidth += strlen(a:tabname)
+  let s ..= a:tabname
   if a:active == 1
     " trailing space:
     let s ..= ' '
@@ -337,7 +388,8 @@ function TabLabelShortest(tabindex, active, lastone)
 endfunction
 
 function TabLabel(tabinfo)
-  let ret = TabLabelShortest(a:tabinfo["i"], a:tabinfo["sel"], a:tabinfo["last"])
+  " let ret = TabLabelExplicit(
+  let ret = TabLabelShortest(a:tabinfo["i"], a:tabinfo["name"], a:tabinfo["sel"], a:tabinfo["last"])
   return ret["s"]
 endfunction
 
