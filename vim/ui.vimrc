@@ -265,7 +265,7 @@ function MyTabLine()
     " begin clickable tab j:
     let s ..= '%' .. tabinfo["i"] .. 'T'
 
-    let s ..= '%{%TabLabel(' .. tabinfo["i"] .. ',' .. tabinfo["sel"] .. ',' .. tabinfo["last"] .. ')%}'
+    let s ..= '%{%TabLabel(' .. string(tabinfo) .. ')%}'
   endfor
   " after the last tab fill with TabLineFill and reset tab page nr
   let s ..= '%#TabLineFill#%T'
@@ -336,13 +336,8 @@ function TabLabelShortest(tabindex, active, lastone)
   return ret
 endfunction
 
-function TabLabel(tabindex, active, lastone)
-  let availablewidth = &columns - strlen(g:plato_closelabel)
-  let ret = TabLabelShortest(a:tabindex, a:active, a:lastone)
-  " echom availablewidth .. ' available; ' .. ret["width"] .. ' used'
-  " if ret["width"] > availablewidth
-  "   echom 'tabline is too long by ' .. ret["width"] - availablewidth .. ' characters'
-  " endif
+function TabLabel(tabinfo)
+  let ret = TabLabelShortest(a:tabinfo["i"], a:tabinfo["sel"], a:tabinfo["last"])
   return ret["s"]
 endfunction
 
