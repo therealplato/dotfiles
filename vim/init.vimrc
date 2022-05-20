@@ -1,11 +1,19 @@
+" apt install lib-perl libpython3-dev tcl-dev ruby3.0-dev
+
+" via https://gist.github.com/tehmachine/962639982bed614f1965d0fe405ae5f5 :
+" apt install lua5.1 liblua5.1-dev
+" sudo mkdir /usr/include/lua5.1/include/
+" sudo cp -r /usr/include/lua5.1/* /usr/include/lua5.1/include/
+" sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.1.so /usr/local/lib/liblua.so
+
 " ./configure \
 " --enable-fail-if-missing \
-" --enable-pythoninterp=dynamic \
+" --enable-pythoninterp=no \
 " --enable-python3interp=dynamic \
 " --with-python3-config-dir="/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/config-3.8-darwin" \
 " --enable-perlinterp=dynamic \
 " --enable-luainterp=dynamic \
-" --with-lua-prefix="/usr/local" \
+" --with-lua-prefix="/usr/include/lua5.1" \
 " --enable-tclinterp=dynamic \
 " --enable-rubyinterp=dynamic \
 " --enable-gtk2-check \
