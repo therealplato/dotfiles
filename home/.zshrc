@@ -10,7 +10,6 @@ source ~/.zsh/secret.env
 
 # via https://stackoverflow.com/questions/49744179/zsh-vcs-info-how-to-indicate-if-there-are-untracked-files-in-git
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-
 +vi-git-untracked() {
   if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
      git status --porcelain | grep -m 1 '^??' &>/dev/null
@@ -29,7 +28,7 @@ zstyle ':vcs_info:*' actionformats \
 # zstyle ':vcs_info:*' formats \
 #     '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
 zstyle ':vcs_info:*' formats \
-    '%F{6}%r⎇  %b%F{14}%c%u%m '
+    '%F{6}%r⎇  %b%F{9}%c%F{14}%u%F{10}%m '
 
 precmd() {
     vcs_info
