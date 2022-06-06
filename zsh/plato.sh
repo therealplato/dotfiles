@@ -1,8 +1,8 @@
 #!/bin/bash
 # envs
 export GOPATH=$HOME/go
-export GO111MODULE=on
-export GOPROXY=off
+export GO111MODULE=auto
+export GOPROXY=direct
 export G=$GOPATH/src
 export P=$GOPATH/src/github.com/therealplato
 export PATH=$GOPATH/bin:$PATH

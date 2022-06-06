@@ -2,9 +2,9 @@
 export TERM=cygwin
 
 # env
-export VIM=$HOME/vimfiles
-export VIMRUNTIME=/c/vim/vim80
-alias vim="$VIMRUNTIME/vim"
+# export VIM=$HOME/vimfiles
+# export VIMRUNTIME=/c/vim/vim80
+# alias vim="$VIMRUNTIME/vim"
 export EDITOR=vim
 export GOPATH=$HOME/go
 export G=$GOPATH/src

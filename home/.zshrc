@@ -77,6 +77,7 @@ setopt extendedhistory
 setopt auto_cd
 
 autoload -Uz compinit && compinit
+_comp_options+=(globdots)
 unsetopt completealiases # now aliases are expanded before zsh looks for tab completion
 setopt completeinword
 setopt menu_complete
