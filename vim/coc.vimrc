@@ -1,6 +1,7 @@
 " TODO: consider g:coc_global_extensions
 " CocInstall coc-sql
 " CocInstall coc-go
+" CocInstall coc-pyright
 " CocInstall coc-json
 " CocInstall coc-prettier
 " CocInstall coc-tsserver

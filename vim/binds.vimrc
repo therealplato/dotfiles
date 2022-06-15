@@ -54,6 +54,8 @@ function! CloseExtraWindows()
   NERDTreeClose
   call coc#float#close_all(1)
   call CocActionAsync('hideOutline')
+  " clear search highlight:
+  let @/ = ""
 endfunction
 
 " tab binds are similar to windows binds but with <Leader>t

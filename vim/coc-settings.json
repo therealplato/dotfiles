@@ -103,12 +103,10 @@
     },
     "robotframework_ls": {
       "command": "robotframework_ls",
+      "args": ["-vv", "--log-file=~/logs/robotframework_ls.log"],
       "filetypes": ["robot"],
       "settings": {
-        "robot.language-server.args": [
-          "-vv",
-          "--log-file=~/robotframework_ls.log"
-        ]
+        "robot.pythonpath": ["${env:ROBOTLIBS}"]
       }
     }
   }

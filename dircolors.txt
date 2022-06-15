@@ -1,0 +1,261 @@
+# run this with dircolors dircolors.txt and copy the output into zsh/plato.sh
+# modified defaults
+
+TERM Eterm
+TERM ansi
+TERM *color*
+TERM con[0-9]*x[0-9]*
+TERM cons25
+TERM console
+TERM cygwin
+TERM dtterm
+TERM gnome
+TERM hurd
+TERM jfbterm
+TERM konsole
+TERM kterm
+TERM linux
+TERM linux-c
+TERM mlterm
+TERM putty
+TERM rxvt*
+TERM screen*
+TERM st
+TERM terminator
+TERM tmux*
+TERM vt100
+TERM xterm*
+
+# Attribute codes:
+# 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+# Text color codes:
+# 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+# Background color codes:
+# 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+
+NORMAL 00 # no color code at all
+FILE 01 # regular file: use no color at all
+RESET 0 # reset to "normal" color
+DIR 04 # directory
+LINK 04;36 # symbolic link. (If you set this to 'target' instead of a
+ # numerical value, the color is as for the file pointed to.)
+MULTIHARDLINK 00 # regular file with more than one link
+FIFO 40;33 # pipe
+SOCK 01;35 # socket
+DOOR 01;35 # door
+BLK 40;33;01 # block device driver
+CHR 40;33;01 # character device driver
+ORPHAN 40;31;01 # symlink to nonexistent file, or non-stat'able file ...
+MISSING 00 # ... and the files they point to
+SETUID 37;41 # file that is setuid (u+s)
+SETGID 30;43 # file that is setgid (g+s)
+CAPABILITY 30;41 # file with capability
+STICKY_OTHER_WRITABLE 30;42 # dir that is sticky and other-writable (+t,o+w)
+OTHER_WRITABLE 34;42 # dir that is other-writable (o+w) and not sticky
+STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
+# This is for files with execute permission:
+EXEC 01;31
+
+
+# Scripts (red)
+.sh 00;31
+.csh 01;31
+
+# archives or compressed (green)
+.tar 00;32
+.tgz 00;32
+.arc 00;32
+.arj 00;32
+.taz 00;32
+.lha 00;32
+.lz4 00;32
+.lzh 00;32
+.lzma 00;32
+.tlz 00;32
+.txz 00;32
+.tzo 00;32
+.t7z 00;32
+.zip 00;32
+.z 00;32
+.dz 00;32
+.gz 00;32
+.lrz 00;32
+.lz 00;32
+.lzo 00;32
+.xz 00;32
+.zst 00;32
+.tzst 00;32
+.bz2 00;32
+.bz 00;32
+.tbz 00;32
+.tbz2 00;32
+.tz 00;32
+.deb 00;32
+.rpm 00;32
+.jar 00;32
+.war 00;32
+.ear 00;32
+.sar 00;32
+.rar 00;32
+.alz 00;32
+.ace 00;32
+.zoo 00;32
+.cpio 00;32
+.7z 00;32
+.rz 00;32
+.cab 00;32
+.wim 00;32
+.swm 00;32
+.dwm 00;32
+.esd 00;32
+.deb 00;32
+.rpm 00;32
+
+# media (blue)
+.jpg 00;34
+.jpeg 00;34
+.mjpg 00;34
+.mjpeg 00;34
+.gif 00;34
+.bmp 00;34
+.pbm 00;34
+.pgm 00;34
+.ppm 00;34
+.tga 00;34
+.xbm 00;34
+.xpm 00;34
+.tif 00;34
+.tiff 00;34
+.png 00;34
+.svg 00;34
+.svgz 00;34
+.mng 00;34
+.pcx 00;34
+.mov 00;34
+.mpg 00;34
+.mpeg 00;34
+.m2v 00;34
+.mkv 00;34
+.webm 00;34
+.webp 00;34
+.ogm 00;34
+.mp4 00;34
+.m4v 00;34
+.mp4v 00;34
+.vob 00;34
+.qt 00;34
+.nuv 00;34
+.wmv 00;34
+.asf 00;34
+.rm 00;34
+.rmvb 00;34
+.flc 00;34
+.avi 00;34
+.fli 00;34
+.flv 00;34
+.gl 00;34
+.dl 00;34
+.xcf 00;34
+.xwd 00;34
+.yuv 00;34
+.cgm 00;34
+.emf 00;34
+.ico 00;34
+.swf 00;34
+
+# Docs
+#LICENSE
+#CONTRIBUTING
+.md 01;36
+.MD 01;36
+.rtf 01;36
+.txt 01;36
+.pdf 01;36
+
+# Source Code
+.py 00;36
+.go 00;36
+.robot 00;36
+.c 00;36
+.cc 00;36
+.coffee 00;36
+.cpp 00;36
+.css 00;36
+.sass 00;36
+.scss 00;36
+.go 00;36
+.h 00;36
+.hpp 00;36
+.html 00;36
+.java 00;36
+.js 00;36
+.jsx 00;36
+.php 00;36
+.pl 00;36
+.rb 00;36
+.robot 00;36
+.tcl 00;36
+.ts 00;36
+.tsx 00;36
+.test 00;36
+.wasm 00;36
+#
+# Structured Data (Cyan)
+.dat 01;36
+.json 01;36
+.proto 01;36
+.sqlite 01;36
+.swag 01;36
+.template 01;36
+.tmpl 01;36
+.tpl 01;36
+.toml 01;36
+.xml 01;36
+.yml 01;36
+.yaml 01;36
+
+# Build Artifacts
+.a 04;30;41
+.o 04;30;41
+.out 04;30;41
+.so 04;30;41
+
+# Infrastructure-as-code
+.cf 00;31;47
+.tf 00;31;47
+.kubeconfig 00;31;47
+
+# Config
+.cfg 00;33
+.cnf 00;33
+.conf 00;33
+.config 00;33
+.env 00;33
+.ini 00;33
+.settings 00;33
+.rc 00;33
+
+# Cryptography
+.crt 01;31;40
+.pem 01;31;40
+.sha256sum 01;31;40
+.sum 01;31;40
+
+# Development Tooling
+.diff 04;32
+.patch 04;32
+.ac 04;32
+.DS_Store 04;32
+.git 04;32
+.gitattributes 04;32
+.gitignore 04;32
+.idea 04;32
+.lock 04;32
+.sln 04;32
+.spelling 04;32
+.swp 04;32
+.tags 04;32
+.un~ 04;32
+
+# Logs
+.log 00;30;46

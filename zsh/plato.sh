@@ -5,17 +5,19 @@ export GO111MODULE=auto
 export GOPROXY=direct
 export G=$GOPATH/src
 export P=$GOPATH/src/github.com/therealplato
-export PATH=$GOPATH/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=/usr/local/go/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/bin:$PATH
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/3.10/bin
 # Ordering's important here, I want brew's coreutils to be the first item in path
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
 export REVIEW_BASE="origin/master"
+export LS_COLORS='no=00:fi=01:rs=0:di=04:ln=04;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;31:*.sh=00;31:*.csh=01;31:*.tar=00;32:*.tgz=00;32:*.arc=00;32:*.arj=00;32:*.taz=00;32:*.lha=00;32:*.lz4=00;32:*.lzh=00;32:*.lzma=00;32:*.tlz=00;32:*.txz=00;32:*.tzo=00;32:*.t7z=00;32:*.zip=00;32:*.z=00;32:*.dz=00;32:*.gz=00;32:*.lrz=00;32:*.lz=00;32:*.lzo=00;32:*.xz=00;32:*.zst=00;32:*.tzst=00;32:*.bz2=00;32:*.bz=00;32:*.tbz=00;32:*.tbz2=00;32:*.tz=00;32:*.deb=00;32:*.rpm=00;32:*.jar=00;32:*.war=00;32:*.ear=00;32:*.sar=00;32:*.rar=00;32:*.alz=00;32:*.ace=00;32:*.zoo=00;32:*.cpio=00;32:*.7z=00;32:*.rz=00;32:*.cab=00;32:*.wim=00;32:*.swm=00;32:*.dwm=00;32:*.esd=00;32:*.deb=00;32:*.rpm=00;32:*.jpg=00;34:*.jpeg=00;34:*.mjpg=00;34:*.mjpeg=00;34:*.gif=00;34:*.bmp=00;34:*.pbm=00;34:*.pgm=00;34:*.ppm=00;34:*.tga=00;34:*.xbm=00;34:*.xpm=00;34:*.tif=00;34:*.tiff=00;34:*.png=00;34:*.svg=00;34:*.svgz=00;34:*.mng=00;34:*.pcx=00;34:*.mov=00;34:*.mpg=00;34:*.mpeg=00;34:*.m2v=00;34:*.mkv=00;34:*.webm=00;34:*.webp=00;34:*.ogm=00;34:*.mp4=00;34:*.m4v=00;34:*.mp4v=00;34:*.vob=00;34:*.qt=00;34:*.nuv=00;34:*.wmv=00;34:*.asf=00;34:*.rm=00;34:*.rmvb=00;34:*.flc=00;34:*.avi=00;34:*.fli=00;34:*.flv=00;34:*.gl=00;34:*.dl=00;34:*.xcf=00;34:*.xwd=00;34:*.yuv=00;34:*.cgm=00;34:*.emf=00;34:*.ico=00;34:*.swf=00;34:*.md=01;36:*.MD=01;36:*.rtf=01;36:*.txt=01;36:*.pdf=01;36:*.py=00;36:*.go=00;36:*.robot=00;36:*.c=00;36:*.cc=00;36:*.coffee=00;36:*.cpp=00;36:*.css=00;36:*.sass=00;36:*.scss=00;36:*.go=00;36:*.h=00;36:*.hpp=00;36:*.html=00;36:*.java=00;36:*.js=00;36:*.jsx=00;36:*.php=00;36:*.pl=00;36:*.rb=00;36:*.robot=00;36:*.tcl=00;36:*.ts=00;36:*.tsx=00;36:*.test=00;36:*.wasm=00;36:*.dat=01;36:*.json=01;36:*.proto=01;36:*.sqlite=01;36:*.swag=01;36:*.template=01;36:*.tmpl=01;36:*.tpl=01;36:*.toml=01;36:*.xml=01;36:*.yml=01;36:*.yaml=01;36:*.a=04;30;41:*.o=04;30;41:*.out=04;30;41:*.so=04;30;41:*.cf=00;31;47:*.tf=00;31;47:*.kubeconfig=00;31;47:*.cfg=00;33:*.cnf=00;33:*.conf=00;33:*.config=00;33:*.env=00;33:*.ini=00;33:*.settings=00;33:*.rc=00;33:*.crt=01;31;40:*.pem=01;31;40:*.sha256sum=01;31;40:*.sum=01;31;40:*.diff=04;32:*.patch=04;32:*.ac=04;32:*.DS_Store=04;32:*.git=04;32:*.gitattributes=04;32:*.gitignore=04;32:*.idea=04;32:*.lock=04;32:*.sln=04;32:*.spelling=04;32:*.swp=04;32:*.tags=04;32:*.un~=04;32:*.log=00;30;46:';
 
 if command -v setxkbmap &> /dev/null; then
   setxkbmap -option "terminate:ctrl_alt_bksp"
@@ -46,7 +48,7 @@ fi
 
 function makeme() { make $@ 2>&1 | tee build.log }
 alias resource='source ~/.zshrc; echo ".zshrc sourced!"'
-alias ls='ls -aG --color=auto'
+alias ls='ls -AG --group-directories-first --color=auto'
 alias ls2='ls -ltrhGo' #long, recent at bottom, human readable
 alias cd='cd -P' # dereference symlinks
 alias cp='cp -vi' #verbose interactive
