@@ -54,7 +54,7 @@ set tabpagemax=50
 
 
 " Whitespace
-set textwidth=140
+set textwidth=0
 set tabstop=2
 set softtabstop=2
 set expandtab   " tab inserts two spaces
