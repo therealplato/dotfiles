@@ -90,6 +90,7 @@ augroup myfiletypes
   autocmd FileType go setlocal listchars=tab:\ \ ,lead:·,nbsp:!,trail:%,precedes:…,extends:…
   autocmd FileType qf setlocal nolist
   autocmd BufNewFile,BufRead *.robot setlocal filetype=robot
+  autocmd FileType robot setlocal foldmethod=indent
   autocmd BufNewFile,BufRead Vagrantfile* setlocal filetype=ruby
 augroup END
 

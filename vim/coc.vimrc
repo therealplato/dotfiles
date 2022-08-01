@@ -7,8 +7,11 @@
 " CocInstall coc-tsserver
 " CocInstall coc-snippets
 " CocInstall coc-clangd
-" CocCommand clangd.install
+" CocInstall coc-solargraph
 " pip install robotframework-lsp
+" gem install solargraph && solargraph download-core
+"
+" CocCommand clangd.install
 hi link CocErrorHighlight Search
 hi link CocWarningHighlight Search
 
