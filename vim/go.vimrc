@@ -12,6 +12,7 @@
 let g:go_fmt_autosave = 1
 let g:go_fmt_experimental = 1
 let g:go_fmt_command='goimports'
+let g:go_build_tags='testing'
 " let g:go_imports_autosave = 1
 " let g:go_imports_mode = 'gopls'
 " let g:go_imports_mode = 'goimports'

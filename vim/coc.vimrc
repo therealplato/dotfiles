@@ -1,3 +1,14 @@
+"
+" :CocList extensions 2022
+" * coc-snippets  	3.1.2  	~/.config/coc/extensions/node_modules/coc-snippets
+" * coc-prettier  	9.3.1  	~/.config/coc/extensions/node_modules/coc-prettier
+" + coc-tsserver  	1.9.13 	~/.config/coc/extensions/node_modules/coc-tsserver
+" + coc-sql       	0.10.4 	~/.config/coc/extensions/node_modules/coc-sql
+" + coc-solargraph	1.2.4  	~/.config/coc/extensions/node_modules/coc-solargraph
+" + coc-pyright   	1.1.271	~/.config/coc/extensions/node_modules/coc-pyright
+" + coc-json      	1.6.1  	~/.config/coc/extensions/node_modules/coc-json
+" + coc-go        	1.3.0  	~/.config/coc/extensions/node_modules/coc-go
+"
 " TODO: consider g:coc_global_extensions
 " CocInstall coc-sql
 " CocInstall coc-go

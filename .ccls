@@ -1,0 +1,4 @@
+clangd
+%c -std=c11
+%h --include=Global.h
+-Iinclude
