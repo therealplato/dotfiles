@@ -146,9 +146,6 @@ cat $V/init.vimrc >> $VRC
 appendVimComment "plugins.vimrc"
 cat $V/plugins.vimrc >> $VRC
 
-appendVimComment "ui.vimrc"
-cat $V/ui.vimrc >> $VRC
-
 appendVimComment "binds.vimrc"
 cat $V/binds.vimrc >> $VRC
 
@@ -157,6 +154,12 @@ cat $V/go.vimrc >> $VRC
 
 appendVimComment "coc.vimrc"
 cat $V/coc.vimrc >> $VRC
+
+appendVimComment "ui.vimrc"
+cat $V/ui.vimrc >> $VRC
+
+appendVimComment "tabs.vimrc"
+cat $V/tabs.vimrc >> $VRC
 
 echo "" >> $VIMFILES/platform.vimrc
 cat $VIMFILES/platform.vimrc >> $VRC

@@ -50,7 +50,6 @@ hi! link GitGutterAdd DiffAdd
 hi! link GitGutterChange DiffChange
 hi! link GitGutterDelete DiffDelete
 
-set tabpagemax=50
 
 
 " Whitespace
@@ -85,7 +84,7 @@ augroup END
 
 augroup myfiletypes
   autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal autoindent shiftwidth=2 softtabstop=2 expandtab
-  autocmd FileType yaml setlocal foldmethod=indent
+  autocmd FileType yaml,vim setlocal foldmethod=indent
   autocmd FileType go setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
   autocmd FileType go setlocal listchars=tab:\ \ ,lead:·,nbsp:!,trail:%,precedes:…,extends:…
   autocmd FileType qf setlocal nolist
@@ -210,196 +209,6 @@ function! DeleteCurBufferNotCloseWindow() abort
         exec oldwin 'wincmd w'
     endif
 endfunc
-
-" via :h setting-tabline
-
-hi! TabLine ctermfg=250 ctermbg=236 guifg=Grey74 guibg=Grey19 term=NONE cterm=NONE gui=NONE
-hi! TabLineSel ctermfg=231 ctermbg=236 guifg=Grey100 guibg=Grey19 term=bold cterm=NONE gui=bold
-hi! TabLineFill ctermfg=240 ctermbg=236 guifg=Grey35 guibg=Grey19 term=NONE cterm=NONE gui=NONE
-
-set tabline=%!MyTabLine()
-const g:plato_closelabel = 'tabclose'
-
-function Pressure(tabsinfo)
-  " negative pressure = columns available
-  " positive pressure = columns overused
-  let pressure = strlen(g:plato_closelabel) - &columns
-  for tabinfo in a:tabsinfo
-    let pressure += strlen(tabinfo["name"])
-  endfor
-  return pressure
-endfunction
-
-function MyTabLine()
-  let s = '%#TabLine#'
-  let tabsinfo = []
-  " collect tab and contents information:
-  for i in range(tabpagenr('$'))
-    echom 'collecting info for tab page ' .. i
-    let info = {}
-    let buflist = tabpagebuflist(i)
-    echom 'this tabs buffers are ' .. string(buflist)
-    let winnr = tabpagewinnr(i)
-    echom 'this tabs winnr is ' .. winnr
-    echom 'this tabs buf is ' .. buflist[winnr - 1]
-
-    let info["name"] = bufname(buflist[winnr - 1])
-    echom 'this tabs name is ' .. info["name"]
-    let info["i"] = i+1
-    echom 'this tabs i is ' .. i+1
-    let info["sel"] = (info["i"] == tabpagenr())
-    let info["last"] = (info["i"] == tabpagenr('$'))
-    let tabsinfo += [info]
-    echom 'collected info ' .. string(info)
-  endfor
-  " Squeeze more and more until everything fits
-  " First pass:
-  let pressure = Pressure(tabsinfo)
-  if pressure > 0
-    " could not fit all names in tabs; dropping grandparent folders
-    for tabinfo in tabsinfo
-      if tabinfo["sel"]
-        continue
-      endif
-      let res = matchstrpos(tabinfo["name"], '[^/]\+/[^/]\+$')
-      if res[0] != ''
-        " match of direct parent and file found
-        " replace the full path with this full match (discarding grandparents)
-        let tabinfo["name"] = res[0]
-      endif
-    endfor
-  endif
-
-  " Second pass:
-  let pressure = Pressure(tabsinfo)
-  if pressure > 0
-    " could not fit all names in tabs; dropping parent folders
-    for tabinfo in tabsinfo
-      if tabinfo["sel"]
-        continue
-      endif
-      let res = matchstrpos(tabinfo["name"], '[^/]\+$')
-      if res[0] != ''
-        " match of filename found
-        " replace the parent/filename path with this full match (discarding parent)
-        let tabinfo["name"] = res[0]
-      endif
-    endfor
-  endif
-
-  " Third pass:
-  let pressure = Pressure(tabsinfo)
-  if pressure > 0
-    " could not fit all names in tabs; dropping extensions
-    for tabinfo in tabsinfo
-      if tabinfo["sel"]
-        continue
-      endif
-
-      let ext = matchstrpos(tabinfo["name"], '\.[^.]\+$')
-      if ext[0] != ''
-        let extlen = ext[2]-ext[1]
-        let filenamelen = strlen(tabinfo["name"]) - extlen
-        let tabinfo["name"] = strpart(tabinfo["name"], 0, filenamelen)
-      endif
-    endfor
-  endif
-  "
-  " Fourth pass:
-  let pressure = Pressure(tabsinfo)
-  if pressure > 0
-    " could not fit all names in tabs; using two-digit numbers
-    for tabinfo in tabsinfo
-      if tabinfo["sel"]
-        continue
-      endif
-      let tabinfo["name"] = printf('%02i', tabinfo["i"])
-    endfor
-  endif
-
-  " render tabline string:
-  for tabinfo in tabsinfo
-    echom 'rendering ' .. string(tabinfo)
-    " begin clickable tab j:
-    let s ..= '%' .. tabinfo["i"] .. 'T'
-
-    let s ..= '%{%TabLabel(' .. string(tabinfo) .. ')%}'
-  endfor
-  " after the last tab fill with TabLineFill and reset tab page nr
-  let s ..= '%#TabLineFill#%T'
-
-  "
-  " right-align the label to close the current tab page
-  if tabpagenr('$') > 1
-    let s ..= '%='
-    let s ..= '%#TabLine#'
-    let s ..= '%999X'
-    let s ..= g:plato_closelabel
-  endif
-
-  return s
-endfunction
-
-function TabNameShortest(tabindex, active, lastone)
-  if a:active == 0
-      return printf('%02i', a:tabindex)
-  endif
-  let buflist = tabpagebuflist(a:tabindex)
-  let winnr = tabpagewinnr(a:tabindex)
-  let s = bufname(buflist[winnr - 1])
-
-  " discard folders if present
-  let filename = matchstrpos(s, '[^/]\+/[^/]\+$')
-  if filename[0] != ''
-    let s = filename[0]
-  endif
-
-  " trim extension:
-  let ext = matchstrpos(s, '\..\+$')
-  if ext[0] != ''
-    let extlen = ext[2]-ext[1]
-    let filenamelen = strlen(s) - extlen
-    let s = strpart(s, 0, filenamelen)
-  endif
-  return s
-endfunction
-
-function TabLabelShortest(tabindex, tabname, active, lastone)
-  echom 'labeling ' .. a:tabindex .. ' as ' .. a:tabname
-  let s = ''
-  let charwidth = 0
-  if a:active == 1
-    "set to active color:
-    let s ..= '%#TabLineSel#'
-    " leading space:
-    let s ..= ' '
-    let charwidth += 1
-  endif
-  " let tabname = TabNameShortest(a:tabindex, a:active, a:lastone)
-  let charwidth += strlen(a:tabname)
-  let s ..= a:tabname
-  if a:active == 1
-    " trailing space:
-    let s ..= ' '
-    let charwidth += 1
-    "reset to inactive color:
-    let s ..= '%#TabLine#'
-  endif
-
-  if a:lastone != 1
-    let s ..= '|'
-    let charwidth += 1
-  endif
-
-  let ret = {"s": s, "width": charwidth}
-  return ret
-endfunction
-
-function TabLabel(tabinfo)
-  " let ret = TabLabelExplicit(
-  let ret = TabLabelShortest(a:tabinfo["i"], a:tabinfo["name"], a:tabinfo["sel"], a:tabinfo["last"])
-  return ret["s"]
-endfunction
 
 " Color Overrides:
 " non-platform-specific highlights:
