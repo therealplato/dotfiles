@@ -11,6 +11,7 @@
   changes = !git diff $(git merge-base HEAD \"$REVIEW_BASE\")
   review = !vim -p $(git files) +\"tabdo Gvdiffsplit! $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
   reviewone = !vim -p +\"tabdo Gvdiffsplit! $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+  lost = !git log --all --
 
 [checkout]
   defaultRemote = origin
