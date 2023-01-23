@@ -7,8 +7,8 @@ fi
 echo -e "Fetching merged branches...\n"
 
 git remote update --prune
-remote_branches=$(git branch -r --merged | grep -v '/master$' | grep -v "/$current_branch$")
-local_branches=$(git branch --merged | grep -v 'master$' | grep -v "$current_branch$")
+remote_branches=$(git branch -r --merged | grep -v '/master$' | grep -v 'release' | grep -v "/$current_branch$")
+local_branches=$(git branch --merged | grep -v 'master$' | grep -v 'release' | grep -v "$current_branch$")
 if [ -z "$remote_branches" ] && [ -z "$local_branches" ]; then
   echo "No existing branches have been merged into $current_branch."
 else

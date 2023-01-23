@@ -49,12 +49,30 @@ nnoremap gdl :diffget //3<CR> :echo 'accepted merge'<CR>
 " nnoremap <Leader>. :TagbarToggle<CR>
 
 nnoremap <F3> :NERDTreeToggle<CR>
-nnoremap <Leader>m :NERDTreeToggle<CR>
+" nnoremap <Leader>m :NERDTreeToggle<CR>
+nnoremap <Leader>m :call Toggle_nerd_at_current()<CR>
 
 let NERDTreeQuitOnOpen = 1
 let g:NERDTreeDirArrowExpandable = '◎'
 let g:NERDTreeDirArrowCollapsible = '◉'
 
+" when navigating to nerdtree, always focus current file:
+" augroup nerd
+" autocmd BufEnter * if (exists("b:NERDTree")) | :NERDTreeFind<CR> | endif
+" autocmd BufEnter * if &ft =~ '^nerdtree$' | :NERDTreeFind<CR> | endif
+" if &ft !~ '^nerdtree$' | silent! lcd %:p:h | endif
+" augroup END
+
+function! Toggle_nerd_at_current()
+  if exists('t:plato_current')
+    unlet t:plato_current
+    :NERDTreeClose<CR>
+  else
+  " expand path of current
+    let t:plato_current=expand('%:p')
+    execute ':NERDTreeFind ' . t:plato_current
+  endif
+endfunction
 
 " augroup js
 " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue PrettierAsync

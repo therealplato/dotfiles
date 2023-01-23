@@ -84,7 +84,7 @@ augroup END
 
 augroup myfiletypes
   autocmd FileType ruby,eruby,yaml,yml,php,xml setlocal autoindent shiftwidth=2 softtabstop=2 expandtab
-  autocmd FileType yaml,vim setlocal foldmethod=indent
+  autocmd FileType yaml,vim,python setlocal foldmethod=indent
   autocmd FileType go setlocal tabstop=2 shiftwidth=0 softtabstop=0 noexpandtab
   autocmd FileType go setlocal listchars=tab:\ \ ,lead:·,nbsp:!,trail:%,precedes:…,extends:…
   autocmd FileType qf setlocal nolist
